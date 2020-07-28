@@ -160,10 +160,12 @@ class SourceSheet implements \Iterator
         $this->fileType = $fileType;
     }
 
-    //TODO filename?
     public function getTableName() {
         if (isset($this->tableName)) {
             return $this->tableName;
+        }
+        else if ($this->workbook->getSheetCount() == 1 && !$this->titleIsTable()) {
+            $this->tableName = pathinfo($this->fileName)["filename"];
         }
         else {
             $worksheetName = $this->worksheet->getTitle();
@@ -172,7 +174,7 @@ class SourceSheet implements \Iterator
             else
                 $this->tableName = $worksheetName;
         }
-
+        
         return $this->tableName;
     }
 

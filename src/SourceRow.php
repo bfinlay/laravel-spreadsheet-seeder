@@ -117,7 +117,7 @@ class SourceRow
     }
 
     private function hash($columnName, $value) {
-        return isset($this->settings->hashable[$columnName]) ? Hash::make($value) : $value;
+        return in_array($columnName, $this->settings->hashable) ? Hash::make($value) : $value;
     }
 
     /**

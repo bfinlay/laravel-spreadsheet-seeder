@@ -72,19 +72,43 @@ class SourceFile implements \Iterator
     }
 
     public function getSheetNames() {
-        if (!isset($this->workbook)) {
+        if (!isset($this->sheetNames)) {
             $filename = $this->file->getPathname();
             $this->fileType = IOFactory::identify($filename);
             $this->reader = IOFactory::createReader($this->fileType);
             if ($this->fileType == "Csv" && !empty($this->settings->delimiter)) {
                 $this->reader->setDelimiter($this->settings->delimiter);
             }
-//            $this->reader->setReadFilter(new SourceFileReadFilter());
-//            $this->workbook = $this->reader->load($filename);
+
+            // fastest
+            if (method_exists($this->reader, "listWorksheetNames")) {
+                $this->sheetNames = $this->reader->listWorksheetNames($filename);
+            }
+            // slower
+            else if (method_exists($this->reader, "listWorksheetInfo")) {
+                /**
+                 * worksheet info array:
+                 * fake_names_100k.xlsx
+                 * - worksheetName = "fake_names_100k"
+                 * - lastColumnLetter = "AS"
+                 * - lastCoumnIndex = 44
+                 * - totalRows = "100001"
+                 * - totalColumns = 45
+                 */
+                $this->sheetNames = [];
+                $worksheetInfo = $this->reader->listWorksheetInfo($filename);
+                foreach ($worksheetInfo as $info) {
+                    $this->sheetNames[] = $info['worksheetName'];
+                }
+            }
+            // slowest
+            else {
+                $this->reader->setReadFilter(new SourceFileReadFilter());
+                $workbook = $this->reader->load($filename);
+                $this->sheetNames = $workbook->getSheetNames();
+            }
         }
-        /** @var Xlsx $reader */
-        $reader = $this->reader;
-        $this->sheetNames = $reader->listWorksheetNames($this->file->getPathname());
+        return $this->sheetNames;
     }
 
     /**

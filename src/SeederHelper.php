@@ -6,6 +6,8 @@ namespace bfinlay\SpreadsheetSeeder;
 
 class SeederHelper
 {
+    public static $memoryLogEnabled = false;
+
     public static function getHumanReadableSize(int $sizeInBytes): string
     {
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
@@ -38,6 +40,8 @@ class SeederHelper
     }
 
     public static function memoryLog($message = '') {
+        if (!self::$memoryLogEnabled) return;
+
         static $timer = null;
 
         $elapsed_time = isset($timer) ? microtime(true) - $timer : 0;

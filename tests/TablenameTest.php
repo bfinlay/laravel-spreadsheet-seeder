@@ -121,6 +121,7 @@ class TablenameTest extends TestCase
 
         $user = \DB::table('users')->where('name', 'John')->first();
         $this->assertEquals('John@Doe.com', $user->email);
+        $this->assertEquals(2, \DB::table('users')->count());
     }
 
     /**
@@ -132,6 +133,7 @@ class TablenameTest extends TestCase
 
         $offices = \DB::table('offices')->where('id', 4)->first();
         $this->assertEquals('Paris', $offices->city);
+        $this->assertEquals(7, \DB::table('offices')->count());
     }
 
     /**
@@ -143,6 +145,7 @@ class TablenameTest extends TestCase
 
         $offices = \DB::table('offices')->where('id', 4)->first();
         $this->assertEquals('Paris', $offices->city);
+        $this->assertEquals(7, \DB::table('offices')->count());
     }
 
     /**
@@ -154,5 +157,6 @@ class TablenameTest extends TestCase
 
         $offices = \DB::table('offices')->where('id', 4)->first();
         $this->assertEquals('Paris', $offices->city);
+        $this->assertEquals(7, \DB::table('offices')->count());
     }
 }

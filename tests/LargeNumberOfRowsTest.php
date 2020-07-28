@@ -99,11 +99,11 @@ class LargeNumberOfRowsTest extends TestCase
      *
      * Seed excel file with 100k rows and verify that last entry is accurate
      *
-     * current status Jul 26, 2020:
-     * Fails.  See issue #1 https://github.com/bfinlay/laravel-excel-seeder/issues/1
-     * `PHP Fatal error:  Allowed memory size of 3221225472 bytes exhausted (tried to allocate 268435464 bytes) in /Users/brion/Sync/laravel-excel-seeder/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Collection/Cells.php on line 142`
+     * current status Jul 28, 2020:
+     * test passes
+     * disabled by default because it takes 30 min to run.  remove "disabled_" to run.
      */
-    public function test_100k_xlsx_rows()
+    public function disabled_test_100k_xlsx_rows()
     {
         $this->seed(FakeNames100kXlsxSeeder::class);
 
