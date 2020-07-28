@@ -96,9 +96,12 @@ class SourceSheet implements \Iterator
 
         $this->createReadFilter();
         $this->createReader();
+        SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . 'construct sheet');
         $this->loadHeader();
+        SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . 'load header');
 
         $this->header = $this->constructHeaderRow();
+        SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . 'construct header');
     }
 
     private function createReadFilter() {
@@ -131,12 +134,16 @@ class SourceSheet implements \Iterator
         if ($this->loadedChunk == $startRow) return;
 
         if (isset($this->worksheet)) $this->worksheet->disconnectCells();
-//        unset($this->workbook);
         unset($this->worksheet);
         $this->readFilter->setRows($startRow, $chunkSize);
+
+        // reduces time from 10s to 4s on TablenameTest.test_table_name_is_worksheet_name (ClassicModelSeeder)
+        $this->reader->setLoadSheetsOnly($this->worksheetName);
+
         $this->workbook = $this->reader->load($this->fileName);
         $this->worksheet = $this->workbook->setActiveSheetIndexByName($this->worksheetName);
         $this->loadedChunk = $startRow;
+        SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . 'load chunk');
     }
 
     private function constructHeaderRow() {

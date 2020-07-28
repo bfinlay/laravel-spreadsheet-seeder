@@ -73,21 +73,6 @@ class SpreadsheetSeederMediator
         $this->settings = resolve(SpreadsheetSeederSettings::class);
     }
 
-    public static function getHumanReadableSize(int $sizeInBytes): string
-    {
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-
-        if ($sizeInBytes == 0) {
-            return '0 '.$units[1];
-        }
-
-        for ($i = 0; $sizeInBytes > 1024; $i++) {
-            $sizeInBytes /= 1024;
-        }
-
-        return round($sizeInBytes, 2).' '.$units[$i];
-    }
-
     /**
      * Run the class
      *
@@ -95,7 +80,7 @@ class SpreadsheetSeederMediator
      */
     public function run()
     {
-        error_log(__CLASS__ . '::' . __METHOD__ . '::' . __LINE__ .' ' . self::getHumanReadableSize(memory_get_usage()));
+        SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . 'start');
         $fileIterator = new FileIterator();
         if (!$fileIterator->count()) {
             $this->seeder->console('No spreadsheet file given', 'error');
@@ -103,6 +88,7 @@ class SpreadsheetSeederMediator
         }
 
         foreach ($fileIterator as $this->sourceFile) {
+            SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . 'file');
             $this->seed();
         }
 
@@ -111,20 +97,18 @@ class SpreadsheetSeederMediator
 
     public function seed()
     {
-        error_log(__CLASS__ . '::' . __METHOD__ . '::' . __LINE__ .' ' . self::getHumanReadableSize(memory_get_usage()));
+        SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . 'seed');
         foreach ($this->sourceFile as $this->sourceSheet) {
-            error_log("sheet:" . $this->sourceSheet->getTitle());
-            error_log(__CLASS__ . '::' . __METHOD__ . '::' . __LINE__ .' ' . self::getHumanReadableSize(memory_get_usage()));
+            SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . "sheet:" . $this->sourceSheet->getTitle());
             $this->checkTable();
             $this->createTextOutputTable();
             foreach ($this->sourceSheet as $this->sourceChunk) {
-                error_log("sheet:" . $this->sourceSheet->getTitle());
-                error_log("chunk: " . $this->sourceSheet->key());
-                error_log(__CLASS__ . '::' . __METHOD__ . '::' . __LINE__ .' ' . self::getHumanReadableSize(memory_get_usage()));
+                SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . "sheet:" . $this->sourceSheet->getTitle() . " chunk: " . $this->sourceSheet->key());
                 $this->processRows();
                 $this->insertRows();
                 $this->writeTextOutputTableRows();
 //                unset($this->sourceChunk);
+                SeederHelper::memoryLog(__METHOD__ . '::' . __LINE__ . ' ' . 'processed');
             }
             $this->writeTextOutputFooter();
             $this->outputResults();

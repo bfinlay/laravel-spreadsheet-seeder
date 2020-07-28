@@ -340,10 +340,10 @@ class SpreadsheetSeederSettings
     | Number of rows to insert per batch
     |
     |
-    | Default: 1000;
+    | Default: 5000;
     |
     */
-    public $batchInsertSize = 1000;
+    public $batchInsertSize = 5000;
 
     /*
     |--------------------------------------------------------------------------
@@ -353,10 +353,10 @@ class SpreadsheetSeederSettings
     | Number of rows to read per chunk
     |
     |
-    | Default: 1000;
+    | Default: 5000;
     |
     */
-    public $readChunkSize = 1000;
+    public $readChunkSize = 5000;
 
     private static $instance = null;
 
