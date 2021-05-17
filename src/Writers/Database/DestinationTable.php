@@ -120,6 +120,10 @@ class DestinationTable
     }
 
     private function transformDateCellValue($columnName, $value) {
+        if (is_null($value)) {
+            return null;
+        }
+
         if ($this->isDateColumn($columnName)) {
 
             if (is_numeric($value)) {
