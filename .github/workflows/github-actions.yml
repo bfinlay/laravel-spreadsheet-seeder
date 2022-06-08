@@ -45,8 +45,12 @@ jobs:
         exclude:
           - php: 7.2
             laravel: ^8.0
+          - php: ^7.2
+            laravel: ^9.0
           - php: 8.0
             laravel: ^5.8
+          - php: 8.1
+            laravel: ^5.8, ^6.0, ^7.0
           - laravel: ^5.8
             dbal: ^3.0
           - laravel: ^6.0
