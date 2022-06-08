@@ -32,6 +32,7 @@ This package is tested against the following Laravel versions
 * Laravel 6.x
 * Laravel 7.x
 * Laravel 8.x
+* Laravel 9.x
 
 ## Contents
 - [Installation](#installation)
@@ -56,7 +57,7 @@ This package is tested against the following Laravel versions
 In the simplest form, you can use the `bfinlay\SpreadsheetSeeder\SpreadsheetSeeder`
 as is and it will process all XLSX files in `/database/seeds/*.xlsx` and `/database/seeders/*.xlsx` (relative to Laravel project base path).
 
-Just add the SpreadsheetSeeder to be called in your `/database/seeds/DatabaseSeeder.php` (Laravel 5.8, 6.x, 7.x) or `/database/seeder/DatabaseSeeder.php` (Laravel 8) class.
+Just add the SpreadsheetSeeder to be called in your `/database/seeds/DatabaseSeeder.php` (Laravel 5.8, 6.x, 7.x) or `/database/seeder/DatabaseSeeder.php` (Laravel 8.x, 9.x) class.
 
 ```php
 use Illuminate\Database\Seeder;
@@ -78,7 +79,7 @@ class DatabaseSeeder extends Seeder
 }
 ```
 
-Place your spreadsheets into the path `/database/seeds/` (Laravel 5.8, 6.x, 7.x) or `/database/seeders/` (Laravel 8.x) of your Laravel project.
+Place your spreadsheets into the path `/database/seeds/` (Laravel 5.8, 6.x, 7.x) or `/database/seeders/` (Laravel 8.x, 9.x) of your Laravel project.
 
 With the default settings, the seeder makes certain assumptions about the XLSX files:
 * worksheet (tab) names match --> table names in database
