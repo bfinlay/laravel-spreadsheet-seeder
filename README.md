@@ -47,12 +47,40 @@ This package is tested against the following Laravel versions
 - [Changes](#changes)
 
 ## Installation
+### Laravel 8.x, 9.x
 - Require this package directly by `composer require --dev bfinlay/laravel-excel-seeder`
 - Or add this package in your composer.json and run `composer update`
 
+  ```
+  "require-dev": {
+    ...
+    "bfinlay/laravel-excel-seeder": "^3.0",
+    ...
+  }
     ```
-    "bfinlay/laravel-excel-seeder": "^2.0"
-    ```
+### Laravel 5.8, 6.x, 7.x
+Laravel 5.8, 6.x, and 7.x require DBAL 2.x.  Because DBAL is a `require-dev` dependency of laravel, its version
+constraint will not be resolved by composer when installing a child package.  However, this is easy to solve by specifying DBAL 2.x as
+an additional dependency.
+
+Note that Laravel 5.8 and 7.x are EOL, and Laravel 6 will become EOL on Sep 6, 2022.  See https://laravelversions.com/en.
+These versions will continue to be supported by this package for now.
+
+To install for Laravel 5.8, 6.x, and 7.x:
+- Require this package directly by `composer require --dev bfinlay/laravel-excel-seeder`
+- Require the dbal package directly by `composer require --dev doctrine/dbal:^2.6`
+- Or add these packages in your composer.json and run `composer update`
+
+  ```
+  "require-dev": {
+    ...
+    "bfinlay/laravel-excel-seeder": "^3.0",
+    "doctrine/dbal": "^2.6"
+    ...
+  }
+  ```
+
+
 ## Simplest Usage
 In the simplest form, you can use the `bfinlay\SpreadsheetSeeder\SpreadsheetSeeder`
 as is and it will process all XLSX files in `/database/seeds/*.xlsx` and `/database/seeders/*.xlsx` (relative to Laravel project base path).
@@ -943,8 +971,10 @@ This can be used after seeding to further process tables - for example to reset 
 Laravel Excel Seeder is open-sourced software licensed under the MIT license.
 
 ## Changes
-#### 2.3.2
-- update composer.json to add support for `doctrine\dbal` 3.x
+#### 3.0.0
+- update composer.json to add support for Laravel 9.x and `doctrine\dbal` 3.x
+- See [Installation](#installation) for new instructions to require DBAL 2.x package for Laravel 5.8, 6.x, 7.x legacy versions.
+- Updated to 3.0.0 because DBAL update breaks backward compatibility.
 #### 2.3.1
 - fix bug #10 (contributed by @tezu35)
 - add date time test cases pertaining to #10
