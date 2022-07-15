@@ -101,8 +101,12 @@ class TextOutputFileRepositoryTest extends TestCase
             $this->assertFileExists($this->path . "/" . $deletedSheetName);
 
             $markdownRepository = new TextOutputFileRepository($this->path, $extension);
+            
+            if (version_compare(Version::id(), '9.0.0', '<'))
+                $this->assertFileNotExists($this->path . "/" . $deletedSheetName);
+            else
+                $this->assertFileDoesNotExist($this->path . "/" . $deletedSheetName);
 
-            $this->assertFileDoesNotExist($this->path . "/" . $deletedSheetName);
         }
     }
 
