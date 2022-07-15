@@ -2,47 +2,13 @@
 
 namespace bfinlay\SpreadsheetSeeder\Tests;
 
-use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\ClassicModelsSeeder;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\DateTimeTest\DateTimeSeeder;
-use Orchestra\Testbench\TestCase;
 use Illuminate\Support\Carbon;
 
 class DateTimeTest extends TestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
-
-        // and other test setup steps you need to perform
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [SpreadsheetSeederServiceProvider::class];
-    }
+    protected $dateTimeSeeder = DateTimeSeeder::class;
 
     /** @test */
     public function it_runs_the_migrations()
@@ -85,7 +51,7 @@ class DateTimeTest extends TestCase
     public function test_date_formats()
     {
         $startSeedDate = date('Y-m-d H:i:s.u');
-        $this->seed(DateTimeSeeder::class);
+        $this->seed($this->dateTimeSeeder);
 
         $rows = \DB::table('date_time_test')->get();
         $fetchRowsDate = date('Y-m-d H:i:s.u');

@@ -3,48 +3,11 @@
 namespace bfinlay\SpreadsheetSeeder\Tests;
 
 use bfinlay\SpreadsheetSeeder\Writers\Database\DestinationTable;
-use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\ForeignKeyTruncateTest\ForeignKeyTruncateSeeder;
-use Orchestra\Testbench\TestCase;
 
 class ForeignKeyTruncateTest extends TestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
-
-        // and other test setup steps you need to perform
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-            'foreign_key_constraints' => true,
-        ]);
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [SpreadsheetSeederServiceProvider::class];
-    }
-
     /** @test */
     public function it_runs_the_migrations()
     {

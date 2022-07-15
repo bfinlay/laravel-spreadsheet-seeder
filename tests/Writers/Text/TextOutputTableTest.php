@@ -1,8 +1,9 @@
 <?php
 
-namespace bfinlay\SpreadsheetSeeder\Tests;
+namespace bfinlay\SpreadsheetSeeder\Tests\Writers\Text;
 
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
+use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use bfinlay\SpreadsheetSeeder\Tests\LargeNumberOfRowsTest;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\ClassicModelsSeeder;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\LimitTest\LimitSeeder;
@@ -26,7 +27,7 @@ class TextOutputTableTest extends TestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../migrations');
 
         // and other test setup steps you need to perform
     }
@@ -74,7 +75,7 @@ class TextOutputTableTest extends TestCase
      */
     public function test_seeder_text_output_tables()
     {
-        $path = __DIR__ . '/../examples/classicmodels';
+        $path = __DIR__ . '/../../../examples/classicmodels';
 
         $deletedSheetName = "deleted_sheet_test.md";
 
@@ -84,6 +85,12 @@ class TextOutputTableTest extends TestCase
         $deletedSheet = null; // close file handle
 
         $this->assertFileExists($path . "/" . $deletedSheetName);
+
+        /**
+         * @var SpreadsheetSeederSettings $settings
+         */
+        $settings = resolve(SpreadsheetSeederSettings::class);
+        $settings->textOutput = ['yaml', 'markdown'];
 
         $this->seed(ClassicModelsSeeder::class);
         
@@ -96,6 +103,14 @@ class TextOutputTableTest extends TestCase
             'payments.md' => false,
             'product_lines.md' => false,
             'products.md' => false,
+            'customers.yaml' => false,
+            'employees.yaml' => false,
+            'offices.yaml' => false,
+            'order_details.yaml' => false,
+            'orders.yaml' => false,
+            'payments.yaml' => false,
+            'product_lines.yaml' => false,
+            'products.yaml' => false,
         ];
 
         $finder = new Finder();

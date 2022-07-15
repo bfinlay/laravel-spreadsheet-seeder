@@ -4,17 +4,17 @@
 namespace bfinlay\SpreadsheetSeeder\Tests\Seeds\LargeNumberOfRowsTest;
 
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeeder;
+use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 
 class FakeNamesXlsxSeeder extends SpreadsheetSeeder
 {
-    public function run()
+    public function settings(SpreadsheetSeederSettings $set)
     {
         // path is relative to base_path which is laravel-excel-seeder/vendor/orchestra/testbench-core/laravel
-        $this->file = '/../../../bfinlay/laravel-excel-seeder-test-data/LargeNumberOfRowsTest/fake_names_15k.xlsx';
+        $set->file = '/../../../bfinlay/laravel-excel-seeder-test-data/LargeNumberOfRowsTest/fake_names_15k.xlsx';
 
-        $this->tablename = 'fake_names';
-        $this->aliases = ['Number' => 'id'];
-        $this->textOutput = false;
-        parent::run();
+        $set->tablename = 'fake_names';
+        $set->aliases = ['Number' => 'id'];
+        $set->textOutput = false;
     }
 }

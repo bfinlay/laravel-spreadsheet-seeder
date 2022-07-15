@@ -15,21 +15,29 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
     protected $defer = false;
 
     /**
+     * All of the container bindings that should be registered.
+     *
+     * @var array
+     */
+    public $bindings = [
+    ];
+
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array
+     */
+    public $singletons = [
+        SpreadsheetSeederSettings::class => SpreadsheetSeederSettings::class,
+    ];
+
+    /**
      * Register services.
      *
      * @return void
      */
     public function register()
     {
-        //
-        $this->app->singleton(SpreadsheetSeederSettings::class, function ($app) {
-            return new SpreadsheetSeederSettings();
-        });
-
-//        $this->app->singleton('command.seed', function ($app) {
-//            return new SeedCommand($app['db']);
-//        });
-
         $this->app->singleton(SeedCommand::class, function ($app) {
             return new SeedCommand($app['db']);
         });
@@ -43,7 +51,6 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->commands([
-//            'command.seed',
             SeedCommand::class,
         ]);
     }

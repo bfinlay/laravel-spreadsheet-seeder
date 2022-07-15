@@ -64,7 +64,7 @@ constraint will not be resolved by composer when installing a child package.  Ho
 an additional dependency.
 
 Note that Laravel 5.8 and 7.x are EOL, and Laravel 6 will become EOL on Sep 6, 2022.  See https://laravelversions.com/en.
-These versions will continue to be supported by this package for now.
+These versions will continue to be supported by this package for as long as reasonably possible, thanks to github actions performing the testing.
 
 To install for Laravel 5.8, 6.x, and 7.x:
 - Require this package directly by `composer require --dev bfinlay/laravel-excel-seeder`
@@ -143,17 +143,18 @@ class UsersTableSeeder extends SpreadsheetSeeder
      *
      * @return void
      */
-    public function run()
+    public function settings(SpreadsheetSeederSettings $set)
     {
         // By default, the seeder will process all XLSX files in /database/seeds/*.xlsx (relative to Laravel project base path)
         
         // Example setting
-        $this->worksheetTableMapping = ['Sheet1' => 'first_table', 'Sheet2' => 'second_table'];
-        
-        parent::run();
+        $set->worksheetTableMapping = ['Sheet1' => 'first_table', 'Sheet2' => 'second_table'];
     }
 }
 ```
+
+note: the older process of overloading `run()` still works for backwards compatibility.
+
 ## Seeding Individual Sheets
 By default, executing the `db:seed` Artisan command will seed all worksheets within a workbook.
 
@@ -188,20 +189,20 @@ php artisan xl:seed # users posts
 Important note: as with seeding traditional seeder classes individually, when seeding individual sheets if the truncate option is true,
 relations with cascade delete will also be deleted.
 
-## Excel Text Markdown Output for Branch Diffs
+## Excel Text Output for Branch Diffs
 After running the database seeder, a subdirectory will be created using
 the same name as the input file.  A text output file will be created
-for each worksheet using the worksheet name with an "md"
-extension.  This text file contains a markdown text representation of each
+for each worksheet using the worksheet name.  This text file contains a text-based representation of each
 worksheet (tab) in the workbook and can be used to determine
 changes in the XLSX when merging branches from other contributors.
+
+Two formats are currently supported.   The older format is 'markdown' and is the defualt for backward compatibility.
+The newer format is 'yaml' which is meant to work better with typical line-oriented diff software.
 
 Check this file into the repository so that it can serve as a basis for
 comparison.
 
 You will have to merge the XLSX spreadsheet manually.
-
-The file extension can be changed by setting the `textOutputFileExtension` setting.
 
 TextOutput can be disabled by setting `textOutput` to `FALSE`
 
@@ -224,7 +225,6 @@ TextOutput can be disabled by setting `textOutput` to `FALSE`
 * [Skipper](#skipper) - (global) prefix string to indicate a column or worksheet should be skipped (default: "%")
 * [Tablename](#destination-table-name) - (legacy) table name to insert into database for single-sheet file
 * [Text Output](#text-output) - enable text markdown output (default: true)
-* [Text Output File Extension](#text-output-file-extension) - extension for text output table
 * [Timestamps](#timestamps) - when true, set the Laravel timestamp columns 'created_at' and 'updated_at' with current date/time (default: true)
 * [Truncate](#truncate-destination-table) - truncate the table before seeding (default: true)
 * [Truncate Ignore Foreign Key Constraints](#truncate-ignore-foreign) - truncate the table before seeding (default: true)
@@ -596,18 +596,16 @@ class UsersTableSeeder extends SpreadsheetSeeder
 ```
 
 ### Text Output
-`$textOutput` *(boolean)*
+`$textOutput` *(boolean)* or *(string*) or *(array []*)
 
-Set to false to disable output of textual markdown tables.
+
+* Set to false to disable output of textual markdown tables.
+* `true` defaults to `'markdown'` output for backward compatibility.
+* `'markdown'` for markdown output
+* `'yaml'` for yaml output
+* `['markdown', 'yaml']` for both markdown and yaml output
 
 Default: `TRUE`
-
-### Text Output File Extension
-`$textOutputFileExtension` *(string)*
-
-Extension for textual markdown tables.
-
-Default: `md`
 
 ### Timestamps
 `$timestamps` *(string/boolean TRUE)*
@@ -946,35 +944,19 @@ class UsersTableSeeder extends SpreadsheetSeeder
 }
 ```
 
-#### Retrieving the list of tables seeded
-##### Deprecated
-Postgres Sequence counters are now automatically updated when using Postgres.  `tablesSeeded` is still available.
+#### Postgres Sequence Counters
+When using Postgres, Excel Seeder for Laravel will automatically update Postgres sequence counters for auto-incrementing id columns.
 
-##### Previous Documentation
-
-The list of tables that were seeded can be retrieved by reading $this->tablesSeeded, 
-which is an array of strings containing the names of the tables that were seeded.
-
-This can be used after seeding to further process tables - for example to reset id sequence numbers in postgres
-```php
-    public function updatePostgresSeqCounters() {
-        $tables = $this->tablesSeeded;
-        foreach($tables as $table) {
-            if (DB::connection()->getSchemaBuilder()->hasColumn($table, 'id')) {
-                $return = DB::select("select setval('{$table}_id_seq', max(id)) from {$table}");
-            }
-        }
-    }
-```
+MySQL automatically handles the sequence counter for its auto-incrementing columns.
 
 ## License
-Laravel Excel Seeder is open-sourced software licensed under the MIT license.
+Excel Seeder for Laravel is open-sourced software licensed under the MIT license.
 
 ## Changes
 #### 3.0.0
 - update composer.json to add support for Laravel 9.x and `doctrine\dbal` 3.x
 - See [Installation](#installation) for new instructions to require DBAL 2.x package for Laravel 5.8, 6.x, 7.x legacy versions.
-- Updated to 3.0.0 because DBAL update breaks backward compatibility.
+- Updated to 3.0.0 because DBAL update breaks backward compatibility of [Installation](#installation) process by requiring DBAL 2.x package for Laravel 5.8, 6.x, 7.x legacy versions.
 #### 2.3.1
 - fix bug #10 (contributed by @tezu35)
 - add date time test cases pertaining to #10

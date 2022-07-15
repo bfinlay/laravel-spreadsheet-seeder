@@ -4,18 +4,17 @@
 namespace bfinlay\SpreadsheetSeeder\Tests\Seeds\DateTimeTest;
 
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeeder;
+use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 
 class DateTimeSeeder extends SpreadsheetSeeder
 {
-    public function run()
+    public function settings(SpreadsheetSeederSettings $set)
     {
         // path is relative to base_path which is laravel-excel-seeder/vendor/orchestra/testbench-core/laravel
-        $this->file = '/../../../bfinlay/laravel-excel-seeder-test-data/DateTimeTest/DateTimeTest.xlsx';
-        $this->textOutput = false;
+        $set->file = '/../../../bfinlay/laravel-excel-seeder-test-data/DateTimeTest/DateTimeTest.xlsx';
+        $set->textOutput = false;
 
-        $this->unixTimestamps = ['unix_format'];
-        $this->dateFormats = ['string_format_1' => 'Y-m-d H:i:s.u+'];
-
-        parent::run();
+        $set->unixTimestamps = ['unix_format'];
+        $set->dateFormats = ['string_format_1' => 'Y-m-d H:i:s.u+'];
     }
 }

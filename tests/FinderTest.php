@@ -4,48 +4,12 @@
 namespace bfinlay\SpreadsheetSeeder\Tests;
 
 
-use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\FinderTest\FinderSeeder;
-use Orchestra\Testbench\TestCase;
 use Symfony\Component\Finder\Finder;
 
 class FinderTest extends TestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
-
-        // and other test setup steps you need to perform
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [SpreadsheetSeederServiceProvider::class];
-    }
-
     /** @test */
     public function it_runs_the_migrations()
     {

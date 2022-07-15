@@ -56,7 +56,7 @@ class SpreadsheetReader
      *
      * @return void
      */
-    public function run()
+    public function boot()
     {
         Event::listen(FileSeed::class, [$this, 'handleFileSeed']);
     }

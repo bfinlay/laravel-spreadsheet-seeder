@@ -31,7 +31,7 @@ class DatabaseWriter
      */
     public $tablesSeeded = [];
 
-    public function run()
+    public function boot()
     {
         // Prevent Laravel Framework memory leaks per https://github.com/laravel/framework/issues/30012
         DB::connection()->disableQueryLog();

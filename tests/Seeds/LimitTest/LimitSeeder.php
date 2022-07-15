@@ -4,14 +4,14 @@
 namespace bfinlay\SpreadsheetSeeder\Tests\Seeds\LimitTest;
 
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeeder;
+use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\LargeNumberOfRowsTest\FakeNamesXlsxSeeder;
 
 class LimitSeeder extends FakeNamesXlsxSeeder
 {
-    public function run()
+    public function settings(SpreadsheetSeederSettings $set)
     {
-        $this->limit = 5000;
-
-        parent::run();
+        parent::settings($set);
+        $set->limit = 5000;
     }
 }

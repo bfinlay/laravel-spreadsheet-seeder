@@ -63,11 +63,17 @@ class ConsoleWriter
      */
     public function __construct(Command $command)
     {
+        $this->setCommand($command);
+    }
+
+    public function setCommand(Command $command)
+    {
         $this->command = $command;
     }
 
-    public function run()
+    public function boot(Command $command = null)
     {
+        if (isset($command)) $this->setCommand($command);
         Event::listen(Console::class, [$this, 'handleConsole']);
         Event::listen(FileStart::class, [$this, 'handleFileStart']);
         Event::listen(SheetStart::class, [$this, 'handleSheetStart']);

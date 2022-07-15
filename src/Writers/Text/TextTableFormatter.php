@@ -1,52 +1,52 @@
 <?php
 
 
-namespace bfinlay\SpreadsheetSeeder\Writers\Markdown;
+namespace bfinlay\SpreadsheetSeeder\Writers\Text;
 
 
 use Exception;
 
-class TextOutputTable
+class TextTableFormatter implements TextTableFormatterInterface
 {
     /**
-     * @var \SplFileObject
+     * @var TextOutputFileRepository
      */
-    private $file;
+    protected $repository;
 
     /**
      * @var string
      */
-    private $tableName;
+    protected $tableName;
 
     /**
      * @var string[]
      */
-    private $header;
+    protected $header;
 
     /**
      * @var array
      */
-    private $rows;
+    protected $rows;
 
     /**
      * @var int
      */
-    private $rowCount = 0;
+    protected $rowCount = 0;
 
     /**
      * @var boolean
      */
-    private $isHeaderWritten = false;
+    protected $isHeaderWritten = false;
 
     /**
      * @var int[]
      */
-    private $columnWidths;
+    protected $columnWidths;
 
     /**
      * @var int
      */
-    private $columnPadding = 2;
+    protected $columnPadding = 2;
 
     /*
      * borders - terminology
@@ -70,9 +70,9 @@ class TextOutputTable
      * alternates - outside left and right are '', column = '|':
      *    Column 1 | Column 2 | Column 3
      */
-    private $headerOutsideLeftColumnSeparator = '|';
-    private $headerColumnSeparator = '|';
-    private $headerOutsideRightColumnSeparator = '|';
+    protected $headerOutsideLeftColumnSeparator = '';
+    protected $headerColumnSeparator = '|';
+    protected $headerOutsideRightColumnSeparator = '';
 
     /*
      * examples:
@@ -89,10 +89,10 @@ class TextOutputTable
      * alternate - underline = '=', column = '|', outside left and right = ''
      *   ===========|==========|==========
      */
-    private $headerUnderlineCharacter = '-';
-    private $headerUnderlineOutsideLeftColumnSeparator = '|';
-    private $headerUnderlineColumnSeparator = '|';
-    private $headerUnderlineOutsideRightColumnSeparator = '|';
+    protected $headerUnderlineCharacter = '-';
+    protected $headerUnderlineOutsideLeftColumnSeparator = '';
+    protected $headerUnderlineColumnSeparator = '+';
+    protected $headerUnderlineOutsideRightColumnSeparator = '';
 
     /*
      * examples:
@@ -103,82 +103,86 @@ class TextOutputTable
      * alternates - outside left and right are '', column = '|':
      *     Cell 1  |  Cell 2  |  Cell 3
      */
-    private $rowOutsideLeftColumnSeparator = '|';
-    private $rowColumnSeparator = '|';
-    private $rowOutsideRightColumnSeparator = '|';
+    protected $rowOutsideLeftColumnSeparator = '';
+    protected $rowColumnSeparator = '|';
+    protected $rowOutsideRightColumnSeparator = '';
 
-    /**
-     * TextOutputTable constructor.
-     * @param \SplFileObject $file
-     * @param string $tableName
-     * @param string[] $header
-     * @param array $rows
-     */
-    public function __construct(\SplFileObject $file, $tableName, $header)
+    public function header($header) : string
     {
-        $this->file = $file;
-        $this->tableName = $tableName;
         $this->header = $header;
+        $this->isHeaderWritten = false;
+        return "";
     }
-    
-    public function writeHeader() {
-        if ($this->isHeaderWritten) return;
-        if (! $this->file->isWritable()) throw new Exception('File ' . $this->file->getFilename() . ' is not open for writing.');
-        
+    public function tableHeader() : string
+    {
+        if ($this->isHeaderWritten) return "";
         $this->columnWidths();
-        $this->writeTableName();
-        $this->writeTableHeader();
         $this->isHeaderWritten = true;
+        return $this->headerColumns();
     }
 
-    public function writeRows($rows) {
+    public function rows($rows) :string
+    {
+        $out = "";
         $this->rows = $rows;
         $this->rowCount += count($rows);
-        $this->writeHeader();
+        $out .= $this->tableHeader();
         $this->columnWidthsFromRows();
-        $this->writeTableRows();
+        $out .= $this->formatRowsAsTable();
         unset($this->rows);
+        return $out;
     }
 
-    public function writeFooter() {
-        $this->file->fwrite('(' . $this->rowCount . " rows)\n\n");
-        $this->file->fflush();
+    public function footer() : string
+    {
+        return'(' . $this->rowCount . " rows)\n\n";
     }
 
-    private function writeTableName() {
-        $this->file->fwrite($this->tableName . "\n");
+    public function tableName($tableName) : string
+    {
+        $out = "";
+        $this->tableName = $tableName;
+        $out .= $this->tableName . "\n";
         $border = str_repeat('=', strlen($this->tableName));
-        $this->file->fwrite($border . "\n\n");
+        $out .= $border . "\n\n";
+        return $out;
     }
 
-    private function writeTableHeader() {
+    protected function headerColumns() : string
+    {
+        $out = "";
+
         foreach ($this->header as $index => $columnName) {
             $columnHeader = str_pad($columnName, $this->columnWidths[$index] + $this->columnPadding, " ", STR_PAD_BOTH);
             $columnSeparator = ($index > 0) ? $columnSeparator = $this->headerColumnSeparator : $this->headerOutsideLeftColumnSeparator;
-            $this->file->fwrite($columnSeparator . $columnHeader);
+            $out .= $columnSeparator . $columnHeader;
         }
-        $this->file->fwrite($this->headerOutsideRightColumnSeparator . "\n");
+        $out .= $this->headerOutsideRightColumnSeparator . "\n";
 
         foreach ($this->header as $index => $columnName) {
             $columnHeader = str_repeat($this->headerUnderlineCharacter, $this->columnWidths[$index] + $this->columnPadding);
             $columnSeparator = ($index > 0) ? $columnSeparator = $this->headerUnderlineColumnSeparator : $columnSeparator = $this->headerUnderlineOutsideLeftColumnSeparator;
-            $this->file->fwrite($columnSeparator . $columnHeader);
+            $out .= $columnSeparator . $columnHeader;
         }
-        $this->file->fwrite($this->headerUnderlineOutsideRightColumnSeparator . "\n");
+        $out .= $this->headerUnderlineOutsideRightColumnSeparator . "\n";
+        return $out;
     }
 
-    private function writeTableRows() {
+    protected function formatRowsAsTable() {
+        $out = "";
         foreach ($this->rows as $row) {
             foreach ($row as $index => $value) {
                 $valueCell = str_pad($value, $this->columnWidths[$index]);
                 $columnSeparator = ($index > 0) ? $columnSeparator = $this->rowColumnSeparator : $columnSeparator = $this->rowOutsideLeftColumnSeparator;
-                $this->file->fwrite($columnSeparator . ' ' . $valueCell . ' ');
+                $out .= $columnSeparator . ' ' . $valueCell . ' ';
             }
-            $this->file->fwrite($this->rowOutsideRightColumnSeparator . "\n");
+            $out .= $this->rowOutsideRightColumnSeparator . "\n";
         }
+
+        return $out;
     }
 
-    private function columnWidths() {
+    protected function columnWidths() {
         foreach ($this->header as $index => $columnName) {
             $this->columnWidths[$index] = max(strlen($columnName),1);
         }
@@ -186,7 +190,7 @@ class TextOutputTable
         $this->columnWidthsFromRows();
     }
 
-    private function columnWidthsFromRows() {
+    protected function columnWidthsFromRows() {
         if(is_null($this->rows)) return;
         foreach ($this->rows as $row) {
             foreach ($row as $index => $value) {

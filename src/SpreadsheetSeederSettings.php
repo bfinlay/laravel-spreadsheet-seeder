@@ -3,6 +3,8 @@
 
 namespace bfinlay\SpreadsheetSeeder;
 
+use Illuminate\Support\Collection;
+
 class SpreadsheetSeederSettings
 {
     /*
@@ -312,12 +314,34 @@ class SpreadsheetSeederSettings
      *  Text Output
      * --------------------------------------------------------------------------
      *
-     *  Toggle the extension for text output table.
+     *  Configure the format for text output.
+     *
+     *  "false": text output is disabled.
+     *  "true": text output is in markdown format for backward compatibility.
+     *  "markdown": test output is in markdown format.
+     *  "yaml": text output is in yaml format.
+     *  ["markdown", "yaml"]: text output is produced in both markdown and yaml format.
+     *
+     *
      *
      *  Default: "true";
      *
      */
     public $textOutput = true;
+
+    /**
+     * returns canonicalized collection of textOutput settings.
+     * if $textOutput is an array that contains true or false, that overrides other settings.
+     *
+     * @return Collection|\Illuminate\Support\Traits\EnumeratesValues
+     */
+    public function textOutput()
+    {
+        $formats = Collection::wrap($this->textOutput);
+        if ($formats->contains('false')) return Collection::make(['false']);
+        if ($formats->contains('true')) return Collection::make(['markdown']);
+        return $formats;
+    }
 
     /*
      * --------------------------------------------------------------------------
@@ -461,16 +485,4 @@ class SpreadsheetSeederSettings
      *
      */
     public $worksheets = [];
-
-
-    private static $instance = null;
-
-    public static function getInstance()
-    {
-        if (self::$instance == null) {
-            self::$instance = new static();
-        }
-
-        return self::$instance;
-    }
 }
