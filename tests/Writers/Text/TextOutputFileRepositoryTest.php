@@ -8,6 +8,7 @@ use bfinlay\SpreadsheetSeeder\Tests\Seeds\ClassicModelsSeeder;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\LimitTest\LimitSeeder;
 use bfinlay\SpreadsheetSeeder\Writers\Text\TextOutputFileRepository;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Runner\Version;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -59,7 +60,10 @@ class TextOutputFileRepositoryTest extends TestCase
             rmdir($this->path);
         }
 
-        $this->assertDirectoryDoesNotExist($this->path);
+        if (version_compare(Version::id(), '9.0.0', '<'))
+            $this->assertDirectoryNotExists($this->path);
+        else
+            $this->assertDirectoryDoesNotExist($this->path);
     }
 
 
@@ -186,9 +190,12 @@ class TextOutputFileRepositoryTest extends TestCase
         $deletedSheetName = $this->createDeletedSheet();
         $this->assertFileExists($this->path . "/" . $deletedSheetName);
         $this->assertTestFilesCreated($this->testFiles, 'md');
-        $this->assertFileDoesNotExist($this->path . "/" . $deletedSheetName);
         $this->assertTestFilesExist($this->testFiles, 'yml');
 
+        if (version_compare(Version::id(), '9.0.0', '<'))
+            $this->assertFileNotExists($this->path . "/" . $deletedSheetName);
+        else
+            $this->assertFileDoesNotExist($this->path . "/" . $deletedSheetName);
     }
 
 
