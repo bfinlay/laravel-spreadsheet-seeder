@@ -77,7 +77,7 @@ class YamlFormatter implements TextTableFormatterInterface
         if (is_null($string)) return "";
         $special = [':', '{', '}', '[', ']', ',', '&', '*', '#', '?', '|', '-', '<', ">", '=', '!', '%', '@', "\\"];
         if (Str::contains($string, $special)) {
-            return "'" . Str::replace("'", "''", $string) . "'";
+            return "'" . str_replace("'", "''", $string) . "'";
         }
         if ($string == 'Yes') return "'Yes'";
         if ($string == 'No') return "'No'";
