@@ -37,6 +37,8 @@ abstract class TestCase extends OrchestraTestCase
             'port' =>  env('DB_PORT', ''),
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', 'password'),
+            'odbc_driver' => '{ODBC Driver 18 for SQL Server}',
+            'trust_server_certificate' => true
         ]);
     }
 

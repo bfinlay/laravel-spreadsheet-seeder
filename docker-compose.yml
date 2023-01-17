@@ -77,10 +77,12 @@ services:
 #      POSTGRES_PASSWORD: 'password'
 ##      POSTGRES_HOST_AUTH_METHOD: 'trust'
   sqlserver:
-    platform: linux/amd64
+    platform: linux/arm64/v8
     image: mcr.microsoft.com/azure-sql-edge
     ports:
       - "14330:1433"
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: 'password'
+      MSSQL_SA_PASSWORD: 'MyPass@word'
+      MSSQL_PID: 'Developer'
+      MSSQL_USER: 'SA'

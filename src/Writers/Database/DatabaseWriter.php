@@ -13,8 +13,10 @@ use bfinlay\SpreadsheetSeeder\Readers\Rows;
 use bfinlay\SpreadsheetSeeder\SeederMemoryHelper;
 use Exception;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Str;
 
 class DatabaseWriter
 {
@@ -105,13 +107,30 @@ class DatabaseWriter
         }
     }
 
+    /**
+     * @param $table
+     * @return void
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function updatePostgresSeqCounters($table) {
         if (!DB::connection()->getQueryGrammar() instanceof PostgresGrammar) {
             return;
         }
 
-        if (DB::connection()->getSchemaBuilder()->hasColumn($table, 'id')) {
-            $return = DB::select("select setval('{$table}_id_seq', max(id)) from {$table}");
+        /**
+         * @var \Doctrine\DBAL\Schema\Sequence[] $tableSequences
+         */
+        $tableSequences = Arr::where(
+            DB::getSchemaBuilder()->getConnection()->getDoctrineSchemaManager()->listSequences(),
+            function (\Doctrine\DBAL\Schema\Sequence $value, $key) use ($table) {
+                return Str::startsWith($value->getName(), $table);
+            }
+        );
+
+        foreach($tableSequences as $sequence) {
+            $sequenceName = Str::of($sequence->getName());
+            $column = $sequenceName->remove([$table . "_", "_seq"]);
+            $return = DB::select("select setval('{$sequenceName}', max({$column})) from {$table}");
         }
     }
 }

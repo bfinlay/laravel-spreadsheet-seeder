@@ -20,12 +20,17 @@
 		{
 			"type": "path",
 			"url": "../laravel-excel-seeder-test-data"
+		},
+		{
+			"type": "path",
+			"url": "~/development/laravel-expression-grammar"
 		}
 	],
 	"require-dev": {
 		"orchestra/testbench": "*",
 		"bfinlay/laravel-excel-seeder-test-data": "=2.3.1",
-		"symplify/easy-ci": "11.1.5"
+		"symplify/easy-ci": "11.1.5",
+		"angel-source-labs/laravel-expression-grammar": "dev-main"
 	},
 	"autoload": {
 		"psr-4": {
