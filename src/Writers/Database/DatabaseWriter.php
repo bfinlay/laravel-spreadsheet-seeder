@@ -11,12 +11,15 @@ use bfinlay\SpreadsheetSeeder\Readers\Events\SheetFinish;
 use bfinlay\SpreadsheetSeeder\Readers\Events\SheetStart;
 use bfinlay\SpreadsheetSeeder\Readers\Rows;
 use bfinlay\SpreadsheetSeeder\SeederMemoryHelper;
+use Doctrine\DBAL\Schema\Sequence;
 use Exception;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
+use function PHPUnit\Framework\isEmpty;
 
 class DatabaseWriter
 {
@@ -112,25 +115,46 @@ class DatabaseWriter
      * @return void
      * @throws \Doctrine\DBAL\Exception
      */
-    public function updatePostgresSeqCounters($table) {
+    public function updatePostgresSeqCounters($table)
+    {
         if (!DB::connection()->getQueryGrammar() instanceof PostgresGrammar) {
             return;
         }
 
-        /**
-         * @var \Doctrine\DBAL\Schema\Sequence[] $tableSequences
-         */
-        $tableSequences = Arr::where(
-            DB::getSchemaBuilder()->getConnection()->getDoctrineSchemaManager()->listSequences(),
-            function (\Doctrine\DBAL\Schema\Sequence $value, $key) use ($table) {
-                return Str::startsWith($value->getName(), $table);
-            }
-        );
-
-        foreach($tableSequences as $sequence) {
-            $sequenceName = Str::of($sequence->getName());
-            $column = $sequenceName->remove([$table . "_", "_seq"]);
-            $return = DB::select("select setval('{$sequenceName}', max({$column})) from {$table}");
+        foreach($this->getSequencesForTable($table) as $column => $sequence) {
+            $result = DB::select("select setval('{$sequence}', max({$column})) from {$table}");
         }
+    }
+
+    /**
+     * @param string $table
+     * @param string | string[] $columns
+     * @return \Doctrine\DBAL\Schema\Sequence[]
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public static function getSequencesForTable(string $table, $columns = "")
+    {
+        // get list of columns to check for sequences
+        $columns = isEmpty($columns) ?
+            DB::getSchemaBuilder()->getColumnListing( $table ) :
+            Arr::wrap($columns);
+
+        // map column name to possible sequence names
+        $possibleSequenceNames = collect($columns)->mapWithKeys(function($value, $key) use ($table) {
+            return [$value => $table . "_" . $value . "_seq"];
+        });
+
+        // get list of sequence names from database
+        $sequences = collect(DB::getSchemaBuilder()->getConnection()->getDoctrineSchemaManager()->listSequences())
+            ->map(function (Sequence $value, $key) {
+                return $value->getName();
+            });
+
+        // filter list of possible sequence names for table against list of actual sequence names from database
+        $results = $possibleSequenceNames->filter(function($value, $key) use ($sequences) {
+            return $sequences->contains($value);
+        });
+
+        return $results;
     }
 }

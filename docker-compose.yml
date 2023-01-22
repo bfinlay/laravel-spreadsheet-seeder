@@ -10,7 +10,7 @@ services:
 #        MYSQL_ROOT_PASSWORD: ''
 #        MYSQL_ALLOW_EMPTY_PASSWORD: 1
   mysql80:
-    platform: linux/amd64
+#    platform: linux/amd64
     image: mysql:8.0
     ports:
       - "33068:3306"
@@ -77,7 +77,7 @@ services:
 #      POSTGRES_PASSWORD: 'password'
 ##      POSTGRES_HOST_AUTH_METHOD: 'trust'
   sqlserver:
-    platform: linux/arm64/v8
+#    platform: linux/arm64/v8
     image: mcr.microsoft.com/azure-sql-edge
     ports:
       - "14330:1433"
