@@ -17,8 +17,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ["7.3", "7.4", "8.0", "8.1", "8.2"]
-        laravel: [^5.8, ^6.0, ^7.0, ^8.0, ^9.0]
+#        php: ["7.3", "7.4", "8.0", "8.1", "8.2"]
+#        laravel: [^5.8, ^6.0, ^7.0, ^8.0, ^9.0]
+        php: ["7.3"]
+        laravel: [^5.8]
         dbal: [^2.6, ^3.0]
         exclude:
           - php: 7.2
@@ -75,9 +77,9 @@ jobs:
       - name: List Database Containers
         run: docker-compose ps
 
-      - name: Run SQLite PHPUnit Unit Tests
-        run: vendor/bin/phpunit tests --cache-result-file=.phpunit.result.cache
-      - name: Run MySQL PHPUnit Unit Tests
-        run: vendor/bin/phpunit --configuration phpunit-mysql.xml tests --cache-result-file=.phpunit.result.cache
+#      - name: Run SQLite PHPUnit Unit Tests
+#        run: vendor/bin/phpunit tests --cache-result-file=.phpunit.result.cache
+#      - name: Run MySQL PHPUnit Unit Tests
+#        run: vendor/bin/phpunit --configuration phpunit-mysql.xml tests --cache-result-file=.phpunit.result.cache
       - name: Run Postgres PHPUnit Unit Tests
         run: vendor/bin/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache

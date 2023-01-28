@@ -3,9 +3,11 @@
 namespace bfinlay\SpreadsheetSeeder;
 
 use bfinlay\SpreadsheetSeeder\Console\SeedCommand;
+use bfinlay\SpreadsheetSeeder\Support\StrMacros;
 use Illuminate\Database\Connection;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class SpreadsheetSeederServiceProvider extends ServiceProvider
 {
@@ -43,6 +45,9 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
         $this->app->singleton(SeedCommand::class, function ($app) {
             return new SeedCommand($app['db']);
         });
+
+        if (!method_exists(Str::class, "beforeLast")) StrMacros::registerBeforeLastMacro();
+        if (!method_exists(Str::class, "between")) StrMacros::registerBetweenMacro();
     }
 
     /**
