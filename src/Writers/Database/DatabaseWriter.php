@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Str;
 
 class DatabaseWriter
 {
@@ -105,13 +106,38 @@ class DatabaseWriter
         }
     }
 
-    public function updatePostgresSeqCounters($table) {
+    /**
+     * @param $table
+     * @return void
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function updatePostgresSeqCounters($table)
+    {
         if (!DB::connection()->getQueryGrammar() instanceof PostgresGrammar) {
             return;
         }
 
-        if (DB::connection()->getSchemaBuilder()->hasColumn($table, 'id')) {
-            $return = DB::select("select setval('{$table}_id_seq', max(id)) from {$table}");
+        foreach($this->getSequencesForTable($table) as $column => $sequence) {
+            $result = DB::select("select setval('{$sequence}', max(\"{$column}\")) from {$table}");
         }
+    }
+
+    /**
+     * @param string $table
+     * @param string | string[] $columns
+     * @return \Doctrine\DBAL\Schema\Sequence[]
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public static function getSequencesForTable(string $table)
+    {
+        $sequences = DB::table('information_schema.columns')
+            ->select("table_name", "column_name", "column_default")
+            ->whereRaw("table_name=? and column_default like ?", [$table, "nextval%"])
+            ->get()
+            ->mapWithKeys(function ($value, $key) {
+                return [$value->column_name => Str::between($value->column_default, "'", "'")];
+            });
+
+        return $sequences;
     }
 }

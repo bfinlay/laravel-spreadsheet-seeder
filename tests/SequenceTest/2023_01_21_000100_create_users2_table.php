@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDateTimeTestTable extends Migration
+class CreateUsers2Table extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +14,13 @@ class CreateDateTimeTestTable extends Migration
     public function up()
     {
         //
-        Schema::create('date_time_test', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('users2', function (Blueprint $table) {
+            $table->bigIncrements('account_id');
             // name,email,email_verified_at,password
-            $table->dateTime('excel_format');
-            $table->dateTime('unix_format');
-            $table->dateTime('string_format_1',3);
-            $table->dateTime('string_format_2');
-            $table->text('test');
-
+            $table->string('name');
+            $table->string('email');
+            $table->dateTime('email_verified_at');
+            $table->string('password');
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ class CreateDateTimeTestTable extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('date_time_test');
+        Schema::dropIfExists('users2');
     }
 }

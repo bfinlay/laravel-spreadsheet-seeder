@@ -68,6 +68,7 @@ class RowImporter
     }
 
     private function transformValue($columnName, $value) {
+        $value = $this->runParsers($columnName, $value);
         $value = $this->defaultValue($columnName, $value);
         $value = $this->transformEmptyValue($value);
         $value = $this->encode($value);
@@ -97,6 +98,12 @@ class RowImporter
 
     private function hash($columnName, $value) {
         return in_array($columnName, $this->settings->hashable) ? Hash::make($value) : $value;
+    }
+
+    private function runParsers($columnName, $value) {
+        return array_key_exists($columnName, $this->settings->parsers) && is_callable($this->settings->parsers[$columnName]) ?
+            $this->settings->parsers[$columnName]($value) :
+            $value;
     }
 
     /**

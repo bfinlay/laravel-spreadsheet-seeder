@@ -261,6 +261,28 @@ class SpreadsheetSeederSettings
 
     /*
      * --------------------------------------------------------------------------
+     *  Parsers
+     * --------------------------------------------------------------------------
+     *
+     *  This is an associative array of column names in the data source that should be parsed
+     *  with the specified parser.
+     *
+     *  Note: this setting is currently global and applies to all files or
+     *  worksheets that are processed.  All columns with the specified name in all files
+     *  or worksheets will have hashing applied.  To apply differently to
+     *  different files, process files with separate Seeder instances.
+     *
+     *  Example: ['email' => function ($value) {
+     *      return strtolower($value);
+     *  }];
+     *
+     *  Default: []
+     *
+     */
+    public $parsers = [];
+
+    /*
+     * --------------------------------------------------------------------------
      *  Read Chunk Size
      * --------------------------------------------------------------------------
      *

@@ -12,34 +12,12 @@ on:
       - test
 
 jobs:
-  provide_php_versions_json:
-    runs-on: ubuntu-latest
-
-    steps:
-      # git clone + use PHP + composer install
-      - uses: actions/checkout@v2
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.1
-
-      - uses: "ramsey/composer-install@v1"
-      # to see the output
-      - run: vendor/bin/easy-ci php-versions-json
-
-      # here we create the json, we need the "id:" so we can use it in "outputs" below
-      - id: output_data
-        run: echo "::set-output name=matrix::$(vendor/bin/easy-ci php-versions-json)"
-
-      # here, we save the result of this 1st phase to the "outputs"
-    outputs:
-      matrix: ${{ steps.output_data.outputs.matrix }}
-
   build-and-test:
-    needs: provide_php_versions_json
+    name: Test (php, laravel ,dbal)
     strategy:
       fail-fast: false
       matrix:
-        php: ${{ fromJson(needs.provide_php_versions_json.outputs.matrix) }}
+        php: ["7.3", "7.4", "8.0", "8.1", "8.2"]
         laravel: [^5.8, ^6.0, ^7.0, ^8.0, ^9.0]
         dbal: [^2.6, ^3.0]
         exclude:
@@ -59,6 +37,12 @@ jobs:
             laravel: ^6.0
           - php: 8.1
             laravel: ^7.0
+          - php: 8.2
+            laravel: ^5.8
+          - php: 8.2
+            laravel: ^6.0
+          - php: 8.2
+            laravel: ^7.0
           - laravel: ^5.8
             dbal: ^3.0
           - laravel: ^6.0
@@ -69,14 +53,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
 
-      - uses: "ramsey/composer-install@v1"
+      - uses: "ramsey/composer-install@v2"
         with:
           dependency-versions: "highest"
           composer-options: "--with laravel/framework:${{ matrix.laravel }} --with doctrine/dbal:${{ matrix.dbal }}"
 
-      - run: vendor/bin/phpunit tests --cache-result-file=.phpunit.result.cache
+      - name: Create Database Containers
+        run: pwd;docker-compose up -d
+      - name: List Database Containers
+        run: docker-compose ps
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --port=33067 --silent; do
+            sleep 1
+          done
+      - name: List Database Containers
+        run: docker-compose ps
+
+      - name: Run SQLite PHPUnit Unit Tests
+        run: vendor/bin/phpunit tests --cache-result-file=.phpunit.result.cache
+      - name: Run MySQL PHPUnit Unit Tests
+        run: vendor/bin/phpunit --configuration phpunit-mysql.xml tests --cache-result-file=.phpunit.result.cache
+      - name: Run Postgres PHPUnit Unit Tests
+        run: vendor/bin/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache

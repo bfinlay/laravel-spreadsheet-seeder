@@ -27,14 +27,22 @@ class LargeNumberOfRowsTest extends TestCase
         ], \Schema::getColumnListing('fake_names'));
     }
 
+    public function should_run_large_rows_tests()
+    {
+        if (env('LARGE_ROWS_TESTS', false) == false)
+            $this->markTestSkipped('Skipping ' . $this->getName() . ' because LARGE_ROWS_TESTS is false.  Enable LARGE_ROWS_TESTS in phpunit.xml to run test');
+    }
+
     /**
      * @depends it_runs_the_migrations
      *
      * Seed csv file with 15k rows and verify that last entry is accurate
      *
      */
-    public function disabled_test_15k_rows()
+    public function test_15k_rows()
     {
+        $this->should_run_large_rows_tests();
+
         $this->seed(FakeNamesCsvSeeder::class);
 
         $fake = \DB::table('fake_names')->where('id', '=', 15000)->first();
@@ -48,8 +56,10 @@ class LargeNumberOfRowsTest extends TestCase
      * Seed excel file with 15k rows and verify that last entry is accurate
      *
      */
-    public function disabled_test_15k_xlsx_rows()
+    public function test_15k_xlsx_rows()
     {
+        $this->should_run_large_rows_tests();
+
         $this->seed(FakeNamesXlsxSeeder::class);
 
         $fake = \DB::table('fake_names')->where('id', '=', 15000)->first();
@@ -67,8 +77,10 @@ class LargeNumberOfRowsTest extends TestCase
      * test passes
      * disabled by default because it takes 30 min to run.  remove "disabled_" to run.
      */
-    public function disabled_test_100k_xlsx_rows()
+    public function test_100k_xlsx_rows()
     {
+        $this->should_run_large_rows_tests();
+
         $this->seed(FakeNames100kXlsxSeeder::class);
 
         $count = \DB::table('fake_names')->count();

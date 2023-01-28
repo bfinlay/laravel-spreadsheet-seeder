@@ -3,6 +3,8 @@
 namespace bfinlay\SpreadsheetSeeder;
 
 use bfinlay\SpreadsheetSeeder\Console\SeedCommand;
+use Illuminate\Database\Connection;
+use Illuminate\Database\MySqlConnection;
 use Illuminate\Support\ServiceProvider;
 
 class SpreadsheetSeederServiceProvider extends ServiceProvider
@@ -50,6 +52,7 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->bindGrammarClasses();
         $this->commands([
             SeedCommand::class,
         ]);
@@ -63,5 +66,24 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
     public function provides()
     {
         return array();
+    }
+
+    protected function bindGrammarClasses()
+    {
+        $connections = [
+            'mysql' => [
+                'connection' => MySqlConnection::class,
+                'schemaGrammar' => MySqlGrammar::class,
+            ],
+        ];
+
+        foreach($connections as $driver => $class) {
+            Connection::resolverFor($driver, function($pdo, $database = '', $tablePrefix = '', array $config = []) use ($driver, $class) {
+                $connection = new $class['connection']($pdo, $database, $tablePrefix, $config);
+                $connection->setSchemaGrammar(new $class['schemaGrammar']);
+
+                return $connection;
+            });
+        }
     }
 }

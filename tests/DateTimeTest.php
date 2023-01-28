@@ -4,7 +4,9 @@ namespace bfinlay\SpreadsheetSeeder\Tests;
 
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\ClassicModelsSeeder;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\DateTimeTest\DateTimeSeeder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Schema;
 
 class DateTimeTest extends TestCase
 {
@@ -13,6 +15,35 @@ class DateTimeTest extends TestCase
     /** @test */
     public function it_runs_the_migrations()
     {
+//        $array0 = [
+//            'id',
+//            'order_date',
+//            'required_date',
+//            'shipped_date',
+//            'status',
+//            'comments',
+//            'customer_id',
+//            'created_at',
+//            'updated_at'
+//        ];
+//        $array1 = array_values(Arr::sort($array0));
+//        $array2 = Arr::sort(Schema::getColumnListing('orders'));
+//        $array3 = Schema::getColumnListing('orders');
+
+//        $this->assertEquals($array1, $array2);
+
+//        $this->assertEquals(array_values(Arr::sort([
+//            'id',
+//            'order_date',
+//            'required_date',
+//            'shipped_date',
+//            'status',
+//            'comments',
+//            'customer_id',
+//            'created_at',
+//            'updated_at'
+//        ])), Arr::sort(Schema::getColumnListing('orders')));
+
         $this->assertEquals([
             'id',
             'order_date',
@@ -23,7 +54,8 @@ class DateTimeTest extends TestCase
             'customer_id',
             'created_at',
             'updated_at'
-        ], \Schema::getColumnListing('orders'));
+        ],
+            Schema::getColumnListing('orders'));
     }
 
     /**

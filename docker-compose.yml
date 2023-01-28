@@ -1,0 +1,88 @@
+version: '3.3'
+services:
+#  mysql57:
+#      platform: linux/amd64
+#      image: mysql:5.7
+#      ports:
+#        - "33067:3306"
+#      environment:
+#        MYSQL_DATABASE: 'seeder-test'
+#        MYSQL_ROOT_PASSWORD: ''
+#        MYSQL_ALLOW_EMPTY_PASSWORD: 1
+  mysql80:
+#    platform: linux/amd64
+    image: mysql:8.0
+    ports:
+      - "33068:3306"
+    environment:
+      MYSQL_DATABASE: 'seeder-test'
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - "./docker/custom.cnf:/etc/mysql/conf.d/custom.cnf"
+#  percona57:
+#    platform: linux/amd64
+#    image: percona:5.7
+#    ports:
+#      - "33167:3306"
+#    environment:
+#      MYSQL_DATABASE: 'seeder-test'
+#      MYSQL_ROOT_PASSWORD: ''
+#      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+#  percona80:
+#    platform: linux/amd64
+#    image: percona:8.0
+#    ports:
+#      - "33168:3306"
+#    environment:
+#      MYSQL_DATABASE: 'seeder-test'
+#      MYSQL_ROOT_PASSWORD: ''
+#      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+#    volumes:
+#      - "./docker/percona80.cnf:/etc/my.cnf.d/custom.cnf"
+#  mariadb102:
+#    platform: linux/amd64
+#    image: mariadb:10.2
+#    ports:
+#      - "33102:3306"
+#    environment:
+#      MYSQL_DATABASE: 'seeder-test'
+#      MYSQL_ROOT_PASSWORD: ''
+#      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+#  mariadb107:
+#    platform: linux/amd64
+#    image: mariadb:10.7
+#    ports:
+#      - "33107:3306"
+#    environment:
+#      MYSQL_DATABASE: 'seeder-test'
+#      MYSQL_ROOT_PASSWORD: ''
+#      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+  postgis:
+    platform: linux/amd64
+    image: postgis/postgis:14-master
+    ports:
+      - "54314:5432"
+    environment:
+      POSTGRES_DB: 'seeder-test'
+      POSTGRES_PASSWORD: 'password'
+#      POSTGRES_HOST_AUTH_METHOD: 'trust'
+#  postgis10:
+#    platform: linux/amd64
+#    image: postgis/postgis:10-2.5
+#    ports:
+#      - "54310:5432"
+#    environment:
+#      POSTGRES_DB: 'seeder-test'
+#      POSTGRES_PASSWORD: 'password'
+##      POSTGRES_HOST_AUTH_METHOD: 'trust'
+  sqlserver:
+#    platform: linux/arm64/v8
+    image: mcr.microsoft.com/azure-sql-edge
+    ports:
+      - "14330:1433"
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: 'MyPass@word'
+      MSSQL_PID: 'Developer'
+      MSSQL_USER: 'SA'
