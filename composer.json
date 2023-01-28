@@ -30,7 +30,7 @@
 		"orchestra/testbench": "*",
 		"bfinlay/laravel-excel-seeder-test-data": "=2.3.1",
 		"symplify/easy-ci": "11.1.5",
-		"angel-source-labs/laravel-expression-grammar": "dev-main"
+		"angel-source-labs/laravel-expression-grammar": "*"
 	},
 	"autoload": {
 		"psr-4": {
