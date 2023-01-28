@@ -9,6 +9,7 @@ use bfinlay\SpreadsheetSeeder\Tests\Seeds\SequenceTest\Users2Seeder;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\SequenceTest\Users3Seeder;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\SequenceTest\UsersSeq1Seeder;
 use bfinlay\SpreadsheetSeeder\Writers\Database\DatabaseWriter;
+use Illuminate\Database\Query\Grammars\PostgresGrammar;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +21,11 @@ class SequenceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        if (!DB::connection()->getQueryGrammar() instanceof PostgresGrammar) {
+            $this->markTestSkipped("Test skipped for " . get_class(DB::connection()->getQueryGrammar()) . ".  Test is or Postgres only.");
+//            return;
+        }
 
         $this->loadMigrationsFrom(__DIR__ . '/SequenceTest');
 
@@ -125,12 +131,4 @@ class SequenceTest extends TestCase
         $this->seed(Users3Seeder::class);
         $this->assert_users_table_seeded_correctly('users3');
     }
-
-
-    // table name matches part of an existing sequence name.
-    //  For example: table = "users" sequence = "users_seq1_users_seq1_id_seq"
-    //  considers column as "seq1_users_seq1_id"
-    // migrate and seed both tables.
-    //   get list of sequences to verify both exist
-    // verify that both have been properly updated.
-}
+ }
