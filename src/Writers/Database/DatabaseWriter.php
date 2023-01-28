@@ -122,7 +122,7 @@ class DatabaseWriter
         }
 
         foreach($this->getSequencesForTable($table) as $column => $sequence) {
-            $result = DB::select("select setval('{$sequence}', max({$column})) from {$table}");
+            $result = DB::select("select setval('{$sequence}', max(\"{$column}\")) from {$table}");
         }
     }
 
@@ -132,7 +132,36 @@ class DatabaseWriter
      * @return \Doctrine\DBAL\Schema\Sequence[]
      * @throws \Doctrine\DBAL\Exception
      */
-    public static function getSequencesForTable(string $table, $columns = "")
+    public static function getSequencesForTable(string $table)
+    {
+        $sequences = DB::table('information_schema.columns')
+            ->select("table_name", "column_name", "column_default")
+            ->whereRaw("table_name=? and column_default like ?", [$table, "nextval%"])
+            ->get()
+            ->mapWithKeys(function ($value, $key) {
+                return [$value->column_name => Str::between($value->column_default, "'", "'")];
+            });
+
+        return $sequences;
+    }
+
+        // not currently using $columns.   Do I want to filter with it?
+
+        // parse out sequence name from "nextval('users_id_seq'::regclass)"
+        // or retrieve the sequence name using "select pg_get_serial_sequence('users','id');"
+        // option a is a simple parse of value between quote marks
+        // option b lets postgres tell us the value directly but requires more i/o
+
+        // this is very postgres specific, but the "DBAL" method is also postgres specific in how it constructs seq names.
+
+
+    /**
+     * @param string $table
+     * @param string | string[] $columns
+     * @return \Doctrine\DBAL\Schema\Sequence[]
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public static function getSequencesForTableDBAL(string $table, $columns = "")
     {
         // get list of columns to check for sequences
         $columns = isEmpty($columns) ?

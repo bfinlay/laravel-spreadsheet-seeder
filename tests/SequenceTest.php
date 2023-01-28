@@ -4,6 +4,9 @@ namespace bfinlay\SpreadsheetSeeder\Tests;
 
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\ParsersTest\UsersCsvParsersSeeder;
 
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\SequenceTest\Users2AccountSeeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\SequenceTest\Users2Seeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\SequenceTest\Users3Seeder;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\SequenceTest\UsersSeq1Seeder;
 use bfinlay\SpreadsheetSeeder\Writers\Database\DatabaseWriter;
 use Illuminate\Support\Arr;
@@ -18,31 +21,54 @@ class SequenceTest extends TestCase
     {
         parent::setUp();
 
-//        $this->loadMigrationsFrom(__DIR__ . '/SequenceTest');
+        $this->loadMigrationsFrom(__DIR__ . '/SequenceTest');
 
         // and other test setup steps you need to perform
+    }
+
+    public function assert_users_table_seeded_correctly($table = 'users', $primaryKey = 'id')
+    {
+        $user = DB::table($table)->where('name', 'John')->first();
+        // verify parser has converted email from John@Doe.com to john@doe.com
+        $this->assertEquals('john@doe.com', $user->email);
+        $this->assertEquals(2, DB::table($table)->count());
+
+        // Foo,Foo@Bar.com,2019-01-23 21:38:54,password
+        DB::table($table)->insert([
+                'name' => 'Francis',
+                'email' => 'FrancisNMartin@einrot.com',
+                'email_verified_at' => '2023-01-21 11:18:00',
+                'password' => 'password'
+            ]
+        );
+        $user = DB::table($table)->where('name', 'Francis')->first();
+        $this->assertEquals(6, $user->$primaryKey);
     }
 
     /** @test */
     public function it_runs_the_migrations()
     {
-        $this->assertEquals([
-            'id',
-            'customer_name',
-            'contact_last_name',
-            'contact_first_name',
-            'phone',
-            'address_line_1',
-            'address_line_2',
-            'city',
-            'state',
-            'postal_code',
-            'country',
-            'sales_rep_id',
-            'credit_limit',
-            'created_at',
-            'updated_at',
-        ], Schema::getColumnListing('customers'));
+        $tables = ['users', 'users_seq1', 'users2', 'users2_account', 'users3'];
+        $primary = ['id', 'users_seq1_id', 'account_id', 'id', 'id'];
+        $order = ['users3'];
+        foreach($tables as $key => $table) {
+            $columns = [
+                $primary[$key],
+                'name',
+                'email',
+                'email_verified_at',
+                'password',
+                'created_at',
+                'updated_at',
+            ];
+            if (in_array($table, $order)) {
+                $columns[] = 'order';
+            }
+            $this->assertEquals(
+                $columns,
+                Schema::getColumnListing($table)
+            );
+        }
     }
 
     /**
@@ -54,46 +80,15 @@ class SequenceTest extends TestCase
     public function test_sequence_counter_is_updated()
     {
         $this->seed(UsersCsvParsersSeeder::class);
-
-        $user = DB::table('users')->where('name', 'John')->first();
-        // verify parser has converted email from John@Doe.com to john@doe.com
-        $this->assertEquals('john@doe.com', $user->email);
-        $this->assertEquals(2, DB::table('users')->count());
-
-        // Foo,Foo@Bar.com,2019-01-23 21:38:54,password
-        $id = DB::table('users')->insertGetId([
-            'name' => 'Francis',
-            'email' => 'FrancisNMartin@einrot.com',
-            'email_verified_at' => '2023-01-21 11:18:00',
-            'password' => 'password'
-            ]
-        );
-        $this->assertEquals(6, $id);
+        $this->assert_users_table_seeded_correctly();
     }
 
     public function test_table_name_in_seq_column_name()
     {
         $tableSequences = DatabaseWriter::getSequencesForTable('users_seq1');
         $this->seed(UsersSeq1Seeder::class);
-
-        $user = DB::table('users_seq1')->where('name', 'John')->first();
-        // verify parser has converted email from John@Doe.com to john@doe.com
-        $this->assertEquals('john@doe.com', $user->email);
-        $this->assertEquals(2, DB::table('users_seq1')->count());
-
-        // Foo,Foo@Bar.com,2019-01-23 21:38:54,password
-        DB::table('users_seq1')->insert([
-                'name' => 'Francis',
-                'email' => 'FrancisNMartin@einrot.com',
-                'email_verified_at' => '2023-01-21 11:18:00',
-                'password' => 'password'
-            ]
-        );
-        $user = DB::table('users_seq1')->where('name', 'Francis')->first();
-        $this->assertEquals(6, $user->users_seq1_id);
+        $this->assert_users_table_seeded_correctly('users_seq1', 'users_seq1_id');
     }
-
-    // test two sequences
 
     // test fail when sequence doesn't update
     public function test_insert_fails_if_sequence_counter_is_not_updated()
@@ -101,22 +96,36 @@ class SequenceTest extends TestCase
         app()->bind(DatabaseWriter::class, \bfinlay\SpreadsheetSeeder\Tests\SequenceTest\DatabaseWriter::class);
         $this->seed(UsersCsvParsersSeeder::class);
 
-        $user = DB::table('users')->where('name', 'John')->first();
-        // verify parser has converted email from John@Doe.com to john@doe.com
-        $this->assertEquals('john@doe.com', $user->email);
-        $this->assertEquals(2, DB::table('users')->count());
-
         $this->expectExceptionMessage("Unique violation: 7 ERROR:  duplicate key value violates unique constraint");
-        // Foo,Foo@Bar.com,2019-01-23 21:38:54,password
-        $id = DB::table('users')->insertGetId([
-                'name' => 'Francis',
-                'email' => 'FrancisNMartin@einrot.com',
-                'email_verified_at' => '2023-01-21 11:18:00',
-                'password' => 'password'
-            ]
-        );
-        $this->assertNotEquals(3, $id);
+        $this->assert_users_table_seeded_correctly();
     }
+
+    /**
+     *
+     * scenario where table and column names overlap
+     * users2, account_id --> users2_account_id_seq
+     * users2_account, id --> users2_account_id_seq
+     *
+     * @return void
+     */
+    public function test_table_and_column_name_conflict()
+    {
+        $this->seed(Users2Seeder::class);
+        $this->seed(Users2AccountSeeder::class);
+        $sequence['users2'] = DatabaseWriter::getSequencesForTable('users2');
+        $sequence['users2_account'] = DatabaseWriter::getSequencesForTable('users2_account');
+        $this->assert_users_table_seeded_correctly('users2', 'account_id');
+        $this->assert_users_table_seeded_correctly('users2_account', 'id');
+    }
+
+    // test two sequences
+    public function test_table_with_two_sequences()
+    {
+        $sequences = DatabaseWriter::getSequencesForTable('users3');
+        $this->seed(Users3Seeder::class);
+        $this->assert_users_table_seeded_correctly('users3');
+    }
+
 
     // table name matches part of an existing sequence name.
     //  For example: table = "users" sequence = "users_seq1_users_seq1_id_seq"
@@ -124,11 +133,4 @@ class SequenceTest extends TestCase
     // migrate and seed both tables.
     //   get list of sequences to verify both exist
     // verify that both have been properly updated.
-
-    // situation where table and column names overlap?
-    // table1, seq_id --> table1_seq_id_seq
-    // table1_seq, id --> table1_seq_id_seq
-
-    // two tables with same sequence names, or same column names - how is sequence collisison handled?
-    // can there be sequence collision across two tables?  sequence name starts with table name.
 }

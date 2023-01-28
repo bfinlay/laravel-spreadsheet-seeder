@@ -31,7 +31,7 @@ class ForeignKeyTruncateTest extends TestCase
      */
     public function test_integrity_constraints_prevent_truncation()
     {
-        if (DB::connection()->getDriverName() == "pgsql") $this->markTestSkipped('Laravel always runs "truncate [table] restart identity cascade" for Postgres');
+        if (DB::connection()->getDriverName() == "pgsql") $this->markTestSkipped('Test skipped for Postgres because Laravel always runs "truncate [table] restart identity cascade" for Postgres');
         $this->seed(ForeignKeyTruncateSeeder::class);
 
         /** @var $settings SpreadsheetSeederSettings */
@@ -61,7 +61,7 @@ class ForeignKeyTruncateTest extends TestCase
      */
     public function test_destination_table_truncation_observes_integrity_constraints()
     {
-        if (DB::connection()->getDriverName() == "pgsql") $this->markTestSkipped('Laravel always runs "truncate [table] restart identity cascade" for Postgres');
+        if (DB::connection()->getDriverName() == "pgsql") $this->markTestSkipped('Test skipped for Postgres because Laravel always runs "truncate [table] restart identity cascade" for Postgres');
         $this->seed(ForeignKeyTruncateSeeder::class);
 
         $settings = resolve(SpreadsheetSeederSettings::class);

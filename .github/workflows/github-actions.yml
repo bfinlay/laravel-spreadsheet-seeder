@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ["7.3", "7.4", "8.0", "8.1"]
+        php: ["7.3", "7.4", "8.0", "8.1", "8.2"]
         laravel: [^5.8, ^6.0, ^7.0, ^8.0, ^9.0]
         dbal: [^2.6, ^3.0]
         exclude:
@@ -36,6 +36,12 @@ jobs:
           - php: 8.1
             laravel: ^6.0
           - php: 8.1
+            laravel: ^7.0
+          - php: 8.2
+            laravel: ^5.8
+          - php: 8.2
+            laravel: ^6.0
+          - php: 8.2
             laravel: ^7.0
           - laravel: ^5.8
             dbal: ^3.0
@@ -57,4 +63,21 @@ jobs:
           dependency-versions: "highest"
           composer-options: "--with laravel/framework:${{ matrix.laravel }} --with doctrine/dbal:${{ matrix.dbal }}"
 
-      - run: vendor/bin/phpunit tests --cache-result-file=.phpunit.result.cache
+      - name: Create Database Containers
+        run: pwd;docker-compose up -d
+      - name: List Database Containers
+        run: docker-compose ps
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --port=33067 --silent; do
+            sleep 1
+          done
+      - name: List Database Containers
+        run: docker-compose ps
+
+      - name: Run SQLite PHPUnit Unit Tests
+        run: vendor/bin/phpunit tests --cache-result-file=.phpunit.result.cache
+      - name: Run MySQL PHPUnit Unit Tests
+        run: vendor/bin/phpunit --configuration phpunit-mysql.xml tests --cache-result-file=.phpunit.result.cache
+      - name: Run Postgres PHPUnit Unit Tests
+        run: vendor/bin/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache
