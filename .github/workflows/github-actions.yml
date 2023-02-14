@@ -58,6 +58,9 @@ jobs:
             dbal: ^3.0
           - laravel: ^7.0
             dbal: ^3.0
+          - laravel: ^10.0
+            dbal: ^2.6
+
 
     runs-on: ubuntu-latest
 
