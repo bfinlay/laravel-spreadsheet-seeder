@@ -8,11 +8,6 @@ use bfinlay\SpreadsheetSeeder\Tests\Seeds\LargeNumberOfRowsTest\FakeNamesXlsxSee
 
 class LargeNumberOfRowsTest extends TestCase
 {
-    public function __construct()
-    {
-        parent::__construct("LargeNumberOfRowsTest");
-    }
-
     /** @test */
     public function it_runs_the_migrations()
     {
@@ -34,8 +29,10 @@ class LargeNumberOfRowsTest extends TestCase
 
     public function should_run_large_rows_tests()
     {
+        $testName = (method_exists($this, "getName")) ? $this->getName() : $this->name();
+
         if (env('LARGE_ROWS_TESTS', false) == false)
-            $this->markTestSkipped('Skipping ' . $this->getName() . ' because LARGE_ROWS_TESTS is false.  Enable LARGE_ROWS_TESTS in phpunit.xml to run test');
+            $this->markTestSkipped('Skipping ' . $testName . ' because LARGE_ROWS_TESTS is false.  Enable LARGE_ROWS_TESTS in phpunit.xml to run test');
     }
 
     /**

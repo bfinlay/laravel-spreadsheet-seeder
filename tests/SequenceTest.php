@@ -23,7 +23,7 @@ class SequenceTest extends TestCase
         parent::setUp();
 
         if (!DB::connection()->getQueryGrammar() instanceof PostgresGrammar) {
-            $this->markTestSkipped("Test skipped for " . get_class(DB::connection()->getQueryGrammar()) . ".  Test is or Postgres only.");
+            $this->markTestSkipped("Test skipped for " . get_class(DB::connection()->getQueryGrammar()) . ".  Test is for Postgres only.");
 //            return;
         }
 
