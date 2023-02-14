@@ -48,7 +48,7 @@ class TextOutputFileRepositoryTest extends TestCase
 
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct("TextOutputFileRepositoryTest");
 
         $this->path = __DIR__ . '/TextOutputFileRepositoryTest';
     }

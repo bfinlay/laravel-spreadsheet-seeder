@@ -72,7 +72,12 @@ jobs:
           composer-options: "--with laravel/framework:${{ matrix.laravel }} --with doctrine/dbal:${{ matrix.dbal }}"
 
       - name: Create Database Containers
-        run: pwd;docker-compose up -d
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 3
+          retry_on: error
+          timeout_seconds: 5
+          command: pwd;docker-compose up -d
       - name: List Database Containers
         run: docker-compose ps
       - name: Wait for MySQL

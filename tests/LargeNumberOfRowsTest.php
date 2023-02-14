@@ -8,6 +8,11 @@ use bfinlay\SpreadsheetSeeder\Tests\Seeds\LargeNumberOfRowsTest\FakeNamesXlsxSee
 
 class LargeNumberOfRowsTest extends TestCase
 {
+    public function __construct()
+    {
+        parent::__construct("LargeNumberOfRowsTest");
+    }
+
     /** @test */
     public function it_runs_the_migrations()
     {
