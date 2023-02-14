@@ -76,7 +76,7 @@ jobs:
         with:
           max_attempts: 3
           retry_on: error
-          timeout_seconds: 5
+          timeout_seconds: 60
           command: pwd;docker-compose up -d
       - name: List Database Containers
         run: docker-compose ps
