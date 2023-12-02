@@ -108,7 +108,7 @@ jobs:
 #      - name: Run Postgres PHPUnit Unit Tests
 #        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache
 
-      - run: cd ..;pwd; ls
+      - run: pwd; ls; cd ..;pwd; ls
       - name: Create App Package-Inclusion Test
         run: |
           cd ..
