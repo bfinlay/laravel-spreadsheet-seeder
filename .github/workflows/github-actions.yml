@@ -114,7 +114,7 @@ jobs:
           cd ..
           composer create-project laravel/laravel:${{ matrix.laravel }} issue-22
           cd issue-22
-          composer require bfinlay/laravel-excel-seeder
+          composer require bfinlay/laravel-excel-seeder:^3.0
       - name: debug pwd
         working-directory: ../issue-22
         run: |
