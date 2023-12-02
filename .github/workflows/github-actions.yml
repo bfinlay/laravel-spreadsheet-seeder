@@ -124,6 +124,7 @@ jobs:
       - name: Copy App Package-Inclusion Migrations
         working-directory: ../issue-22
         run: |
+          rm database/migrations/*
           cp ../laravel-excel-seeder/tests/migrations/* database/migrations
           cp ../laravel-excel-seeder/examples/classicmodels.xlsx database/seeders
           cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/DatabaseSeeder.php database/seeders
