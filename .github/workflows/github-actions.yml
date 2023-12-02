@@ -108,8 +108,10 @@ jobs:
 #      - name: Run Postgres PHPUnit Unit Tests
 #        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache
 
+      - run: pwd; ls
       - name: Run App Package-Inclusion Test
         run: |
           composer create-project laravel/laravel:${{ matrix.laravel }} issue-22
           cd issue-22
           composer require bfinlay/laravel-excel-seeder
+      - run: pwd; ls
