@@ -136,6 +136,7 @@ jobs:
           ls
           cat .env
           ls -R database
+          cat database/seeders/DatabaseSeeder.php
       - name: App Package-Inclusion Migrate and Seed
         working-directory: ../issue-22
         run: |
