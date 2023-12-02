@@ -120,6 +120,7 @@ jobs:
         run: |
           pwd
           ls
+          ls -R ../laravel-excel-seeder/database
       - name: Copy App Package-Inclusion Migrations
         working-directory: ../issue-22
         run: |
