@@ -128,6 +128,13 @@ jobs:
           cp -R ../laravel-excel-seeder/examples/classicmodels.xlsx database/seeders
           cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/DatabaseSeeder.php database/seeders
           cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/.env .
+      - name: debug pwd
+        working-directory: ../issue-22
+        run: |
+          pwd
+          ls
+          cat .env
+          ls -R database
       - name: App Package-Inclusion Migrate and Seed
         working-directory: ../issue-22
         run: |
