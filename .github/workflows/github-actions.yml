@@ -125,8 +125,7 @@ jobs:
         working-directory: ../issue-22
         run: |
           cp -R ../laravel-excel-seeder/tests/migrations database/migrations
-          mkdir 
-          cp ../laravel-excel-seeder/examples/classicmodels.xlsx database/seeders
+          cp -R ../laravel-excel-seeder/examples/classicmodels.xlsx database/seeders
           cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/DatabaseSeeder.php database/seeders
       - name: App Package-Inclusion Migrate and Seed
         working-directory: ../issue-22
