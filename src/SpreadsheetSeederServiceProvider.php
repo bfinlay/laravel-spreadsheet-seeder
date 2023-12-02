@@ -4,6 +4,8 @@ namespace bfinlay\SpreadsheetSeeder;
 
 use bfinlay\SpreadsheetSeeder\Console\SeedCommand;
 use bfinlay\SpreadsheetSeeder\Support\StrMacros;
+use bfinlay\SpreadsheetSeeder\Tests\Workaround\RefreshDatabase\RefreshDatabaseMySqlConnection;
+use Composer\Semver\Semver;
 use Illuminate\Database\Connection;
 use Illuminate\Database\MySqlConnection;
 use Illuminate\Support\ServiceProvider;
@@ -73,11 +75,23 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
         return array();
     }
 
+    protected function getMySqlConnectionClass()
+    {
+        $phpversion = explode("-", phpversion());
+        if (
+            Semver::satisfies(app()->version(), "^6.0|^7.0|^8.0") &&
+            Semver::satisfies($phpversion[0], "^8.0")
+        )
+            return RefreshDatabaseMySqlConnection::class;
+
+        return MySqlConnection::class;
+    }
+
     protected function bindGrammarClasses()
     {
         $connections = [
             'mysql' => [
-                'connection' => MySqlConnection::class,
+                'connection' => $this->getMySqlConnectionClass(),
                 'schemaGrammar' => MySqlGrammar::class,
             ],
         ];

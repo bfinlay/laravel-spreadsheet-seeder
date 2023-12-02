@@ -6,6 +6,7 @@ namespace bfinlay\SpreadsheetSeeder\Writers\Database;
 
 use bfinlay\SpreadsheetSeeder\Events\Console;
 use bfinlay\SpreadsheetSeeder\Readers\Events\ChunkFinish;
+use bfinlay\SpreadsheetSeeder\Readers\Events\FileFinish;
 use bfinlay\SpreadsheetSeeder\Readers\Events\FileStart;
 use bfinlay\SpreadsheetSeeder\Readers\Events\SheetFinish;
 use bfinlay\SpreadsheetSeeder\Readers\Events\SheetStart;
@@ -27,6 +28,8 @@ class DatabaseWriter
     protected $fileName;
     protected $sheetName;
 
+    protected $queryLogMemoryLeakWorkaroundProvider;
+
     /**
      * @var string[]
      */
@@ -34,9 +37,8 @@ class DatabaseWriter
 
     public function boot()
     {
-        // Prevent Laravel Framework memory leaks per https://github.com/laravel/framework/issues/30012
-        DB::connection()->disableQueryLog();
-        DB::connection()->unsetEventDispatcher();
+        $this->queryLogMemoryLeakWorkaroundProvider = (new QueryLogMemoryLeakWorkaroundProvider());
+        $this->queryLogMemoryLeakWorkaroundProvider->boot();
 
         Event::listen(FileStart::class, [$this, 'handleFileStart']);
         Event::listen(SheetStart::class, [$this, 'handleSheetStart']);

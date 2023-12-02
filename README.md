@@ -952,6 +952,14 @@ MySQL automatically handles the sequence counter for its auto-incrementing colum
 Excel Seeder for Laravel is open-sourced software licensed under the MIT license.
 
 ## Changes
+#### 3.3.3
+- Fix for RefreshDatabase, issue #19
+#### 3.3.2
+- Update tests for Laravel 10.x
+#### 3.3.1
+- Finish the tests for truncate tables on SQLite, MySQL, and Postgres.
+#### 3.3.0
+- Make Postgres Sequence Counters More Robust
 #### 3.2.0
 - add [parsers](#parsers) setting that enables closures to be run on columns 
 #### 3.1.0

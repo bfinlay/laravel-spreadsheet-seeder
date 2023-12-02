@@ -8,26 +8,12 @@ use Illuminate\Support\Facades\Hash;
 
 class HashTest extends TestCase
 {
+    use AssertsMigrations;
+
     /** @test */
     public function it_runs_the_migrations()
     {
-        $this->assertEquals([
-            'id',
-            'customer_name',
-            'contact_last_name',
-            'contact_first_name',
-            'phone',
-            'address_line_1',
-            'address_line_2',
-            'city',
-            'state',
-            'postal_code',
-            'country',
-            'sales_rep_id',
-            'credit_limit',
-            'created_at',
-            'updated_at',
-        ], \Schema::getColumnListing('customers'));
+        $this->assertsUsersMigration();
     }
 
     /**

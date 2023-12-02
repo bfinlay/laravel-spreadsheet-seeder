@@ -450,6 +450,29 @@ class SpreadsheetSeederSettings
 
     /*
      * --------------------------------------------------------------------------
+     *  UUID
+     * --------------------------------------------------------------------------
+     *
+     *  This is an array of column names in the data source that the seeder will
+     *  generate a UUID for.
+     *
+     *  The UUID generated is a type 4 "Random" UUID using laravel Str::uuid() helper
+     *  https://laravel.com/docs/10.x/helpers#method-str-uuid
+     *
+     *  Note: this setting is currently global and applies to all files or
+     *  worksheets that are processed.  All columns with the specified name in all files
+     *  or worksheets will have hashing applied.  To apply differently to
+     *  different files, process files with separate Seeder instances.
+     *
+     *  Example: ['uuid']
+     *
+     *  Default: []
+     *
+     */
+    public $uuid = [];
+
+    /*
+     * --------------------------------------------------------------------------
      *  Validate
      * --------------------------------------------------------------------------
      *

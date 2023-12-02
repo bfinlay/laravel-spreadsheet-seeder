@@ -12,16 +12,12 @@ use Illuminate\Support\Facades\Schema;
 
 class ForeignKeyTruncateTest extends TestCase
 {
+    use AssertsMigrations;
+
     /** @test */
     public function it_runs_the_migrations()
     {
-        $this->assertEquals([
-            'id',
-            'created_at',
-            'updated_at',
-            'user_id',
-            'favorite_number'
-        ], Schema::getColumnListing('favorite_numbers'));
+        $this->assertsFavoriteNumbersMigration();
     }
 
     /**

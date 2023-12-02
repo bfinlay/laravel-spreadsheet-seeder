@@ -10,11 +10,8 @@ use bfinlay\SpreadsheetSeeder\Tests\Seeds\SequenceTest\Users3Seeder;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\SequenceTest\UsersSeq1Seeder;
 use bfinlay\SpreadsheetSeeder\Writers\Database\DatabaseWriter;
 use Illuminate\Database\Query\Grammars\PostgresGrammar;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 
 class SequenceTest extends TestCase
 {
@@ -54,7 +51,7 @@ class SequenceTest extends TestCase
     /** @test */
     public function it_runs_the_migrations()
     {
-        $tables = ['users', 'users_seq1', 'users2', 'users2_account', 'users3'];
+        $tables = ['users0', 'users_seq1', 'users2', 'users2_account', 'users3'];
         $primary = ['id', 'users_seq1_id', 'account_id', 'id', 'id'];
         $order = ['users3'];
         foreach($tables as $key => $table) {
@@ -70,9 +67,11 @@ class SequenceTest extends TestCase
             if (in_array($table, $order)) {
                 $columns[] = 'order';
             }
+            $schema = Schema::getColumnListing($table);
             $this->assertEquals(
                 $columns,
-                Schema::getColumnListing($table)
+                Schema::getColumnListing($table),
+                "table = $table"
             );
         }
     }

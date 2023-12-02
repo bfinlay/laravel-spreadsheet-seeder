@@ -5,29 +5,36 @@ namespace bfinlay\SpreadsheetSeeder\Tests;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\ClassicModelsSeeder;
+use bfinlay\SpreadsheetSeeder\Writers\Database\DestinationTable;
+use Illuminate\Support\Facades\DB;
 
 class SelectiveWorksheetTest extends TestCase
 {
+    use AssertsMigrations;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $tables = [
+            'customers',
+            'employees',
+            'offices',
+            'order_details',
+            'orders',
+            'payments',
+            'product_lines',
+            'products',
+        ];
+        foreach ($tables as $table)
+            new DestinationTable($table); // truncates table if it exists
+    }
+
+
     /** @test */
     public function it_runs_the_migrations()
     {
-        $this->assertEquals([
-            'id',
-            'customer_name',
-            'contact_last_name',
-            'contact_first_name',
-            'phone',
-            'address_line_1',
-            'address_line_2',
-            'city',
-            'state',
-            'postal_code',
-            'country',
-            'sales_rep_id',
-            'credit_limit',
-            'created_at',
-            'updated_at',
-        ], \Schema::getColumnListing('customers'));
+        $this->assertsCustomersMigration();
     }
 
     public function test_all_tables_seeded_when_settings_worksheets_is_empty_array()
@@ -135,7 +142,6 @@ class SelectiveWorksheetTest extends TestCase
         $settings = resolve(SpreadsheetSeederSettings::class);
         $settings->worksheets = ['nonexistant'];
 
-        $this->seed(ClassicModelsSeeder::class);
 
         $emptyTables = [
             'offices',
@@ -148,7 +154,11 @@ class SelectiveWorksheetTest extends TestCase
             'products',
         ];
 
-        foreach ($emptyTables as $table) $this->assertEquals(0, \DB::table($table)->count());
+        foreach ($emptyTables as $table) $this->assertEquals(0, DB::table($table)->count(), "pre-seed.  table = $table");
+
+        $this->seed(ClassicModelsSeeder::class);
+
+        foreach ($emptyTables as $table) $this->assertEquals(0, DB::table($table)->count(), "table = $table");
     }
 
     public function test_xl_seed_command_no_sheet_option()

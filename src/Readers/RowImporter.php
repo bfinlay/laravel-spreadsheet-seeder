@@ -7,6 +7,7 @@ namespace bfinlay\SpreadsheetSeeder\Readers;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RowImporter
 {
@@ -73,6 +74,7 @@ class RowImporter
         $value = $this->transformEmptyValue($value);
         $value = $this->encode($value);
         $value = $this->hash($columnName, $value);
+        $value = $this->uuid($columnName, $value);
 
         return $value;
     }
@@ -98,6 +100,10 @@ class RowImporter
 
     private function hash($columnName, $value) {
         return in_array($columnName, $this->settings->hashable) ? Hash::make($value) : $value;
+    }
+
+    private function uuid($columnName, $value) {
+        return in_array($columnName, $this->settings->uuid) ? Str::uuid() : $value;
     }
 
     private function runParsers($columnName, $value) {

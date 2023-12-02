@@ -8,23 +8,12 @@ use bfinlay\SpreadsheetSeeder\Tests\Seeds\LargeNumberOfRowsTest\FakeNamesXlsxSee
 
 class LargeNumberOfRowsTest extends TestCase
 {
+    use AssertsMigrations;
+
     /** @test */
     public function it_runs_the_migrations()
     {
-        $this->assertEquals([
-            'id',
-            'Gender',
-            'Title',
-            'GivenName',
-            'MiddleInitial',
-            'Surname',
-            'StreetAddress',
-            'City',
-            'State',
-            'ZipCode',
-            'created_at',
-            'updated_at'
-        ], \Schema::getColumnListing('fake_names'));
+        $this->assertsFakeNamesMigration();
     }
 
     public function should_run_large_rows_tests()
