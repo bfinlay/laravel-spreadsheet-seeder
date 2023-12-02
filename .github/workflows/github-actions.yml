@@ -115,6 +115,11 @@ jobs:
           composer create-project laravel/laravel:${{ matrix.laravel }} issue-22
           cd issue-22
           composer require bfinlay/laravel-excel-seeder
+      - name: debug pwd
+        working-directory: ../issue-22
+        run: |
+          pwd
+          ls
       - name: Copy App Package-Inclusion Migrations
         working-directory: ../issue-22
         run: |
