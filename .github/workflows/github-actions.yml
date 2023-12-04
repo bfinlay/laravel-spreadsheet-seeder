@@ -84,22 +84,22 @@ jobs:
           dependency-versions: "highest"
           composer-options: "--with laravel/framework:${{ matrix.laravel }} --with doctrine/dbal:${{ matrix.dbal }}"
 
-#      - name: Create Database Containers
-##        uses: nick-fields/retry@v2
-##        with:
-##          max_attempts: 3
-##          retry_on: error
-##          timeout_minutes: 3
-##          command: pwd;docker-compose up -d
-#      - name: List Database Containers
-#        run: docker-compose ps
-#      - name: Wait for MySQL
-#        run: |
-#          while ! mysqladmin ping --host=127.0.0.1 --port=33068 --silent; do
-#            sleep 1
-#          done
-#      - name: List Database Containers
-#        run: docker-compose ps
+      - name: Create Database Containers
+#        uses: nick-fields/retry@v2
+#        with:
+#          max_attempts: 3
+#          retry_on: error
+#          timeout_minutes: 3
+#          command: pwd;docker-compose up -d
+      - name: List Database Containers
+        run: docker-compose ps
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --port=33068 --silent; do
+            sleep 1
+          done
+      - name: List Database Containers
+        run: docker-compose ps
 #
 #      - name: Run SQLite PHPUnit Unit Tests
 #        run: vendor/phpunit/phpunit/phpunit tests --cache-result-file=.phpunit.result.cache
