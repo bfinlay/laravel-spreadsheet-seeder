@@ -16,7 +16,8 @@
 		"laravel/framework": ">=5.8",
 		"phpoffice/phpspreadsheet": "~1.7",
 		"doctrine/dbal": "^2.6|^3.0",
-		"composer/semver": "*"
+		"composer/semver": "*",
+		"carbonphp/carbon-doctrine-types": "^2.0"
 	},
 	"repositories-disabled": [
 		{
