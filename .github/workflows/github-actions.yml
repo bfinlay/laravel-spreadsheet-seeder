@@ -116,7 +116,7 @@ jobs:
       - name: 'App Package-Inclusion Test: Install Laravel Excel Seeder package'
         working-directory: ../issue-22
         run: |
-          composer require bfinlay/laravel-excel-seeder:dev-github-actions
+          composer require bfinlay/laravel-excel-seeder:dev-github-actions -w
       - name: debug pwd
         working-directory: ../issue-22
         run: |
