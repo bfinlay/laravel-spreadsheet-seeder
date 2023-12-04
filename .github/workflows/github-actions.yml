@@ -109,19 +109,21 @@ jobs:
 #        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache
 
       - run: pwd; ls; cd ..;pwd; ls
-      - name: Create App Package-Inclusion Test
+      - name: 'App Package-Inclusion Test: Create Laravel Project'
         run: |
           cd ..
           composer create-project laravel/laravel:${{ matrix.laravel }} issue-22
-          cd issue-22
-          composer require bfinlay/laravel-excel-seeder:^3.0
+      - name: 'App Package-Inclusion Test: Install Laravel Excel Seeder package'
+        working-directory: ../issue-22
+        run: |
+          composer require bfinlay/laravel-excel-seeder:dev-github-actions
       - name: debug pwd
         working-directory: ../issue-22
         run: |
           pwd
           ls
           ls -R ../laravel-excel-seeder/tests
-      - name: Copy App Package-Inclusion Migrations
+      - name: 'App Package-Inclusion Test: Copy Migrations'
         working-directory: ../issue-22
         run: |
           rm database/migrations/*
