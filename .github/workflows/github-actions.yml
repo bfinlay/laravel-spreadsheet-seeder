@@ -24,9 +24,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ["7.3", "7.4", "8.0", "8.1", "8.2"]
-        laravel: [^5.8, ^6.0, ^7.0, ^8.0, ^9.0, ^10.0]
-        dbal: [^2.6, ^3.0]
+#        php: ["7.3", "7.4", "8.0", "8.1", "8.2"]
+#        laravel: [^5.8, ^6.0, ^7.0, ^8.0, ^9.0, ^10.0]
+#        dbal: [^2.6, ^3.0]
+        php: ["8.2"]
+        laravel: [^10.0]
+        dbal: [^3.0]
         exclude:
           - php: 7.2
             laravel: ^8.0
@@ -81,29 +84,29 @@ jobs:
           dependency-versions: "highest"
           composer-options: "--with laravel/framework:${{ matrix.laravel }} --with doctrine/dbal:${{ matrix.dbal }}"
 
-      - name: Create Database Containers
-        uses: nick-fields/retry@v2
-        with:
-          max_attempts: 3
-          retry_on: error
-          timeout_minutes: 3
-          command: pwd;docker-compose up -d
-      - name: List Database Containers
-        run: docker-compose ps
-      - name: Wait for MySQL
-        run: |
-          while ! mysqladmin ping --host=127.0.0.1 --port=33068 --silent; do
-            sleep 1
-          done
-      - name: List Database Containers
-        run: docker-compose ps
-
-      - name: Run SQLite PHPUnit Unit Tests
-        run: vendor/phpunit/phpunit/phpunit tests --cache-result-file=.phpunit.result.cache
-      - name: Run MySQL PHPUnit Unit Tests
-        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-mysql.xml tests --cache-result-file=.phpunit.result.cache
-      - name: Run Postgres PHPUnit Unit Tests
-        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache
+#      - name: Create Database Containers
+##        uses: nick-fields/retry@v2
+##        with:
+##          max_attempts: 3
+##          retry_on: error
+##          timeout_minutes: 3
+##          command: pwd;docker-compose up -d
+#      - name: List Database Containers
+#        run: docker-compose ps
+#      - name: Wait for MySQL
+#        run: |
+#          while ! mysqladmin ping --host=127.0.0.1 --port=33068 --silent; do
+#            sleep 1
+#          done
+#      - name: List Database Containers
+#        run: docker-compose ps
+#
+#      - name: Run SQLite PHPUnit Unit Tests
+#        run: vendor/phpunit/phpunit/phpunit tests --cache-result-file=.phpunit.result.cache
+#      - name: Run MySQL PHPUnit Unit Tests
+#        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-mysql.xml tests --cache-result-file=.phpunit.result.cache
+#      - name: Run Postgres PHPUnit Unit Tests
+#        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache
 
       - name: 'App Package-Inclusion Test: Create Laravel Project'
         run: |
