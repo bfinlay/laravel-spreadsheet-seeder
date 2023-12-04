@@ -108,7 +108,6 @@ jobs:
 #      - name: Run Postgres PHPUnit Unit Tests
 #        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache
 
-      - run: pwd; ls; cd ..;pwd; ls
       - name: 'App Package-Inclusion Test: Create Laravel Project'
         run: |
           cd ..
@@ -117,13 +116,7 @@ jobs:
         working-directory: ../issue-22
         run: |
           composer require bfinlay/laravel-excel-seeder:dev-master -W
-      - name: debug pwd
-        working-directory: ../issue-22
-        run: |
-          pwd
-          ls
-          ls -R ../laravel-excel-seeder/tests
-      - name: 'App Package-Inclusion Test: Copy Migrations'
+      - name: 'App Package-Inclusion Test: Copy Migrations, Seeders, and .env'
         working-directory: ../issue-22
         run: |
           rm database/migrations/*
@@ -131,16 +124,7 @@ jobs:
           cp ../laravel-excel-seeder/examples/classicmodels.xlsx database/seeders
           cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/DatabaseSeeder.php database/seeders
           cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/.env .
-      - name: debug pwd
-        working-directory: ../issue-22
-        run: |
-          pwd
-          ls
-          cat .env
-          ls -R database
-          cat database/seeders/DatabaseSeeder.php
       - name: "App Package-Inclusion Test: Migrate and Seed"
         working-directory: ../issue-22
         run: |
           php artisan migrate:fresh --seed
-      - run: cd ..; pwd; ls; cd issue-22; pwd; ls
