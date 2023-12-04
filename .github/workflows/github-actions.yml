@@ -116,26 +116,21 @@ jobs:
         working-directory: ../issue-22
         run: |
           composer require bfinlay/laravel-excel-seeder:dev-master -W
-      - name: 'App Package-Inclusion Test: Copy Migrations, Seeders, and .env'
+      - name: 'App Package-Inclusion Test: Copy Migrations and Seeders'
         working-directory: ../issue-22
         run: |
           rm database/migrations/*
           cp ../laravel-excel-seeder/tests/migrations/* database/migrations
           cp ../laravel-excel-seeder/examples/classicmodels.xlsx database/seeders
           cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/DatabaseSeeder.php database/seeders
-          cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/.env .
       - name: "App Package-Inclusion Test: Migrate and Seed SQLite"
         working-directory: ../issue-22
         run: |
+          cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/.env.sqlite .env
           php artisan migrate:fresh --seed
       - name: "App Package-Inclusion Test: Migrate and Seed MySQL"
         working-directory: ../issue-22
         run: |
-          DB_CONNECTION="mysql"
-          DB_DATABASE="seeder-test"
-          DB_HOST="127.0.0.1"
-          DB_PORT="33068"
-          DB_USERNAME="root"
-          DB_PASSWORD=""
+          cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/.env.mysql .env
           php artisan migrate:fresh --seed
 
