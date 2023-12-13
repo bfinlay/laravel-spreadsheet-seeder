@@ -384,6 +384,23 @@ class SpreadsheetSeederSettings
 
     /*
      * --------------------------------------------------------------------------
+     *  Text Output Path
+     * --------------------------------------------------------------------------
+     *
+     *  Path for text output
+     *
+     *  After processing a workbook, the seeder outputs a text format of
+     *  the sheet to assist with diff and merge of the workbook.  The default format
+     *  is markdown 'md' which will render the text as tables in markdown viewers
+     *  like github.   This can be changed by setting this attribute.
+     *
+     *  Default: "";
+     *
+     */
+    public $textOutputPath = '';
+
+    /*
+     * --------------------------------------------------------------------------
      *  Timestamps
      * --------------------------------------------------------------------------
      *

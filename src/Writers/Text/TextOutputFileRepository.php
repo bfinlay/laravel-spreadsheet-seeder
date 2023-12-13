@@ -34,13 +34,19 @@ class TextOutputFileRepository
      */
     protected $extension;
 
+    /**
+     * @var SpreadsheetSeederSettings
+     */
+    protected $spreadsheetSeederSettings;
+
 
     /**
      * OldTextWriter constructor.
      * @param string $sourcePathname Path including filename of source input file, used to create path with same name as file
      */
-    public function __construct(string $sourcePathname, string $outputExtension)
+    public function __construct(string $sourcePathname, string $outputExtension, SpreadsheetSeederSettings $spreadsheetSeederSettings)
     {
+        $this->spreadsheetSeederSettings = $spreadsheetSeederSettings;
         $this->sourcePathname = $sourcePathname;
         $this->extension = ltrim($outputExtension, ".*");
         $this->createPath();
@@ -72,13 +78,21 @@ class TextOutputFileRepository
         return isset($this->sheet) && $this->sheet == $name;
     }
 
+    protected function isOutputPathSet()
+    {
+        return !empty($this->spreadsheetSeederSettings->textOutputPath);
+    }
+
     protected function pathName()
     {
         if (isset($this->_pathName)) return $this->_pathName;
 
         $this->_pathName = '';
         $path_parts = pathinfo($this->sourcePathname);
-        if (strlen($path_parts['dirname']) > 0) $this->_pathName = $path_parts['dirname'] . '/';
+        if ($this->isOutputPathSet())
+            $this->_pathName = $this->spreadsheetSeederSettings->textOutputPath;
+        elseif (strlen($path_parts['dirname']) > 0)
+            $this->_pathName = $path_parts['dirname'] . '/';
         $this->_pathName = $this->_pathName . $path_parts['filename'];
         return $this->_pathName;
     }

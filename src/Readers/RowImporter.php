@@ -103,7 +103,9 @@ class RowImporter
     }
 
     private function uuid($columnName, $value) {
-        return in_array($columnName, $this->settings->uuid) ? Str::uuid() : $value;
+        if (!in_array($columnName, $this->settings->uuid)) return $value;
+
+        return Str::isUuid($value) ? $value : Str::uuid();
     }
 
     private function runParsers($columnName, $value) {
