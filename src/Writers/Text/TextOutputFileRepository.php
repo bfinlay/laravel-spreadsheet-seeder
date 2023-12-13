@@ -5,6 +5,7 @@ namespace bfinlay\SpreadsheetSeeder\Writers\Text;
 
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use bfinlay\SpreadsheetSeeder\Writers\Text\Yaml\YamlFormatter;
+use Illuminate\Support\Facades\App;
 use Symfony\Component\Finder\SplFileInfo;
 
 class TextOutputFileRepository
@@ -44,9 +45,9 @@ class TextOutputFileRepository
      * OldTextWriter constructor.
      * @param string $sourcePathname Path including filename of source input file, used to create path with same name as file
      */
-    public function __construct(string $sourcePathname, string $outputExtension, SpreadsheetSeederSettings $spreadsheetSeederSettings)
+    public function __construct(string $sourcePathname, string $outputExtension)
     {
-        $this->spreadsheetSeederSettings = $spreadsheetSeederSettings;
+        $this->spreadsheetSeederSettings = App::make(SpreadsheetSeederSettings::class);
         $this->sourcePathname = $sourcePathname;
         $this->extension = ltrim($outputExtension, ".*");
         $this->createPath();
