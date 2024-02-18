@@ -8,6 +8,25 @@ use Illuminate\Support\Collection;
 class SpreadsheetSeederSettings
 {
     /*
+    * --------------------------------------------------------------------------
+    * Add Columns
+    * --------------------------------------------------------------------------
+    *
+    * This is an array of column names that will be column names in addition to
+    * those found in the worksheet.
+    *
+    * These additional columns will be processed the same ways as columns found
+    * in a worksheet.  Cell values will be considered the same way as "empty" cells
+    * in the worksheet.  These columns could be populated by parsers, defaults, or uuids.
+    *
+    * Example: ['uuid, 'column1', 'column2']
+    *
+    * Default: []
+    *
+    */
+    public $addColumns = [];
+
+    /*
      * --------------------------------------------------------------------------
      * Column Aliases
      * --------------------------------------------------------------------------
@@ -313,6 +332,42 @@ class SpreadsheetSeederSettings
      *
      */
     public $skipper = "%";
+
+    /**
+     * --------------------------------------------------------------------------
+     *  Skip Columns
+     * --------------------------------------------------------------------------
+     *
+     *  This is an array of column names that will be skipped in the worksheet.
+     *
+     *  This can be used to skip columns in the same way as the skipper character,
+     * but without modifying the worksheet.
+     *
+     *  Example: ['column1', 'column2']
+     *
+     *  Default: []
+     *
+     * @var array
+     */
+    public $skipColumns = [];
+
+    /**
+     * --------------------------------------------------------------------------
+     *  Skip Sheets
+     * --------------------------------------------------------------------------
+     *
+     *  This is an array of worksheet names that will be skipped in the workbook.
+     *
+     *  This can be used to skip worksheets in the same way as the skipper character,
+     * but without modifying the workbook.
+     *
+     *  Example: ['Sheet1', 'Sheet2']
+     *
+     *  Default: []
+     *
+     * @var array
+     */
+    public $skipSheets = [];
 
     /*
      * --------------------------------------------------------------------------

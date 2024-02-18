@@ -116,10 +116,10 @@ class SpreadsheetSeeder extends Seeder
 
     public function resetSettings()
     {
-//        App::forgetInstance(SpreadsheetSeederSettings::class);
-//        App::instance(SpreadsheetSeederSettings::class, $this->defaultSettings);
-//        $this->settings = App::make(SpreadsheetSeederSettings::class);
-//        $this->settings($this->settings);
+        App::forgetInstance(SpreadsheetSeederSettings::class);
+        App::instance(SpreadsheetSeederSettings::class, $this->defaultSettings);
+        $this->settings = App::make(SpreadsheetSeederSettings::class);
+        $this->settings($this->settings);
     }
 
     public function settings(SpreadsheetSeederSettings $set)

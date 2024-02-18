@@ -6,7 +6,7 @@ namespace bfinlay\SpreadsheetSeeder\Tests\Seeds\UuidTest;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeeder;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 
-class UsersCsvParsersSeeder extends SpreadsheetSeeder
+class UsersUuidSeeder extends SpreadsheetSeeder
 {
     public function settings(SpreadsheetSeederSettings $set)
     {
@@ -14,5 +14,6 @@ class UsersCsvParsersSeeder extends SpreadsheetSeeder
         $set->file = '/../../../../examples/users.csv';
         $set->textOutput = false;
         $set->uuid = ['uuid'];
+        $set->addColumns = ['uuid'];
     }
 }

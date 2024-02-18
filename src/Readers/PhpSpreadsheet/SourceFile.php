@@ -14,32 +14,32 @@ class SourceFile implements \Iterator
     /**
      * @var SplFileInfo
      */
-    private $file;
+    protected $file;
 
     /**
      * @var string
      */
-    private $fileType;
+    protected $fileType;
 
     /**
      * @var BaseReader
      */
-    private $reader;
+    protected $reader;
 
     /**
      * @var SpreadsheetSeederSettings
      */
-    private $settings;
+    protected $settings;
 
     /**
      * @var string[]
      */
-    private $sheetNames;
+    protected $sheetNames;
 
     /**
      * @var int
      */
-    private $sheetIndex = 0;
+    protected $sheetIndex = 0;
 
     public function __construct(SplFileInfo $file)
     {
@@ -115,14 +115,29 @@ class SourceFile implements \Iterator
         return $sourceSheet;
     }
 
-    private function shouldSkipSheet($sheetName) {
+    protected function shouldSkipSheet($sheetName) {
         return
-            $this->settings->skipper == substr($sheetName, 0, strlen($this->settings->skipper)) ||
-            (
-                is_array($this->settings->worksheets) &&
-                count($this->settings->worksheets) > 0 &&
-                ! in_array($sheetName, $this->settings->worksheets)
-            );
+            $this->hasSkipperPrefix($sheetName) ||
+            $this->isIncludedInSkipSheets($sheetName) ||
+            $this->isExcludedFromWorksheets($sheetName);
+    }
+
+    protected function hasSkipperPrefix($sheetName)
+    {
+        return $this->settings->skipper == substr($sheetName, 0, strlen($this->settings->skipper));
+    }
+
+    protected function isIncludedInSkipSheets($sheetName)
+    {
+        return is_array($this->settings->skipSheets) && in_array($sheetName, $this->settings->skipSheets);
+    }
+
+    protected function isExcludedFromWorksheets($sheetName)
+    {
+        return
+            is_array($this->settings->worksheets) &&
+            count($this->settings->worksheets) > 0 &&
+            ! in_array($sheetName, $this->settings->worksheets);
     }
 
     /**
