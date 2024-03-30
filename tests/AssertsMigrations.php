@@ -54,7 +54,7 @@ trait AssertsMigrations
             'credit_limit',
             'created_at',
             'updated_at',
-        ], \Schema::getColumnListing('customers'));
+        ], Schema::getColumnListing('customers'));
     }
 
     public function assertsFavoriteNumbersMigration()
@@ -83,6 +83,6 @@ trait AssertsMigrations
             'ZipCode',
             'created_at',
             'updated_at'
-        ], \Schema::getColumnListing('fake_names'));
+        ], Schema::getColumnListing('fake_names'));
     }
 }

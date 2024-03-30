@@ -19,6 +19,11 @@ abstract class TestCase extends OrchestraTestCase
         // and other test setup steps you need to perform
     }
 
+    protected function shouldSeed()
+    {
+
+    }
+
     /**
      * Define environment setup.
      *

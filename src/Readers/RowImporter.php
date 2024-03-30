@@ -14,27 +14,27 @@ class RowImporter
     /**
      * @var string[]
      */
-    private $columnNames;
+    protected $columnNames;
 
     /**
      * @var array
      */
-    private $rowArray;
+    protected $rowArray;
 
     /**
      * @var bool $nullRow
      */
-    private $nullRow = true;
+    protected $nullRow = true;
 
     /**
      * @var boolean
      */
-    private $isValid;
+    protected $isValid;
 
     /**
      * @var SpreadsheetSeederSettings
      */
-    private $settings;
+    protected $settings;
 
     /**
      * @param string[] $columnNames A sparse array mapping column index => column name
@@ -59,6 +59,7 @@ class RowImporter
 
         if ($this->isValid()) {
             $this->addTimestamps();
+            $this->addColumns();
         }
 
         return $this->rowArray;
@@ -68,7 +69,7 @@ class RowImporter
         return !$this->nullRow && $this->validate();
     }
 
-    private function transformValue($columnName, $value) {
+    protected function transformValue($columnName, $value) {
         $value = $this->runParsers($columnName, $value);
         $value = $this->defaultValue($columnName, $value);
         $value = $this->transformEmptyValue($value);
@@ -79,18 +80,18 @@ class RowImporter
         return $value;
     }
 
-    private function defaultValue($columnName, $value) {
+    protected function defaultValue($columnName, $value) {
         return isset($this->settings->defaults[$columnName]) ? $this->settings->defaults[$columnName] : $value;
     }
 
-    private function transformEmptyValue($value) {
+    protected function transformEmptyValue($value) {
         if( strtoupper($value) == 'NULL' ) return NULL;
         if( strtoupper($value) == 'FALSE' ) return FALSE;
         if( strtoupper($value) == 'TRUE' ) return TRUE;
         return $value;
     }
 
-    private function encode($value) {
+    protected function encode($value) {
         if( is_string($value) )
             $value = empty($this->settings->inputEncodings) ?
                 mb_convert_encoding($value, $this->settings->outputEncoding) :
@@ -98,15 +99,17 @@ class RowImporter
         return $value;
     }
 
-    private function hash($columnName, $value) {
+    protected function hash($columnName, $value) {
         return in_array($columnName, $this->settings->hashable) ? Hash::make($value) : $value;
     }
 
-    private function uuid($columnName, $value) {
-        return in_array($columnName, $this->settings->uuid) ? Str::uuid() : $value;
+    protected function uuid($columnName, $value) {
+        if (!in_array($columnName, $this->settings->uuid)) return $value;
+
+        return Str::isUuid($value) ? $value : Str::uuid();
     }
 
-    private function runParsers($columnName, $value) {
+    protected function runParsers($columnName, $value) {
         return array_key_exists($columnName, $this->settings->parsers) && is_callable($this->settings->parsers[$columnName]) ?
             $this->settings->parsers[$columnName]($value) :
             $value;
@@ -117,7 +120,7 @@ class RowImporter
      *
      * @return void
      */
-    private function addTimestamps()
+    protected function addTimestamps()
     {
         if( empty($this->settings->timestamps) ) return;
 
@@ -127,7 +130,14 @@ class RowImporter
         $this->rowArray[ 'updated_at' ] = $timestamp;
     }
 
-    private function validate() {
+    protected function addColumns()
+    {
+        foreach ($this->settings->addColumns as $column) {
+            if (!isset($this->rowArray[$column])) $this->rowArray[$column] = $this->transformValue($column, null);
+        }
+    }
+
+    protected function validate() {
         if( empty($this->settings->validate)) return true;
 
         $validator = Validator::make($this->rowArray, $this->settings->validate);
