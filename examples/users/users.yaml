@@ -1,0 +1,18 @@
+Table: users
+Header:
+  - name
+  - email
+  - email_verified_at
+  - password
+Rows:
+  1:
+    name: Foo
+    email: Foo@Bar.com
+    email_verified_at: 2019-01-23 21:38:54
+    password: password
+  2:
+    name: John
+    email: John@Doe.com
+    email_verified_at: 2019-01-23 21:38:54
+    password: password
+RowCount: 2

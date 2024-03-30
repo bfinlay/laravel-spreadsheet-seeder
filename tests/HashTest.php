@@ -2,68 +2,18 @@
 
 namespace bfinlay\SpreadsheetSeeder\Tests;
 
-use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\UsersCsvHashSeeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\HashTest\UsersCsvHashSeeder;
 
 use Illuminate\Support\Facades\Hash;
-use Orchestra\Testbench\TestCase;
 
 class HashTest extends TestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
-
-        // and other test setup steps you need to perform
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [SpreadsheetSeederServiceProvider::class];
-    }
+    use AssertsMigrations;
 
     /** @test */
     public function it_runs_the_migrations()
     {
-        $this->assertEquals([
-            'id',
-            'customer_name',
-            'contact_last_name',
-            'contact_first_name',
-            'phone',
-            'address_line_1',
-            'address_line_2',
-            'city',
-            'state',
-            'postal_code',
-            'country',
-            'sales_rep_id',
-            'credit_limit',
-            'created_at',
-            'updated_at',
-        ], \Schema::getColumnListing('customers'));
+        $this->assertsUsersMigration();
     }
 
     /**

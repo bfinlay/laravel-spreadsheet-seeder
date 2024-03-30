@@ -15,8 +15,8 @@ class Payments extends Migration
     {
         //
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('customer_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->string('check_number');
             $table->date('payment_date');

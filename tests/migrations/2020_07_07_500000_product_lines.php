@@ -15,7 +15,7 @@ class ProductLines extends Migration
     {
         //
         Schema::create('product_lines', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('product_line');
             $table->text('description');
             $table->timestamps();

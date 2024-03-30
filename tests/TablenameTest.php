@@ -4,68 +4,20 @@ namespace bfinlay\SpreadsheetSeeder\Tests;
 
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\ClassicModelsSeeder;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\OfficesSingleNamedSheetSeeder;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\OfficesSingleUnnamedSheetSeeder;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\OfficesSpecifyTablenameSeeder;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\UsersCsvSeeder;
-use Orchestra\Testbench\TestCase;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\TablenameTest\ClassicModelsMultipleMappedNamedSheetSeeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\TablenameTest\OfficesSingleMappedNamedSheetSeeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\TablenameTest\OfficesSingleNamedSheetSeeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\TablenameTest\OfficesSingleUnnamedSheetSeeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\TablenameTest\OfficesSpecifyTablenameSeeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\TablenameTest\UsersCsvSeeder;
 
 class TablenameTest extends TestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
-
-        // and other test setup steps you need to perform
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [SpreadsheetSeederServiceProvider::class];
-    }
-
+    use AssertsMigrations;
     /** @test */
     public function it_runs_the_migrations()
     {
-        $this->assertEquals([
-            'id',
-            'customer_name',
-            'contact_last_name',
-            'contact_first_name',
-            'phone',
-            'address_line_1',
-            'address_line_2',
-            'city',
-            'state',
-            'postal_code',
-            'country',
-            'sales_rep_id',
-            'credit_limit',
-            'created_at',
-            'updated_at',
-        ], \Schema::getColumnListing('customers'));
+        $this->assertsCustomersMigration();
     }
 
     /**
@@ -159,4 +111,35 @@ class TablenameTest extends TestCase
         $this->assertEquals('Paris', $offices->city);
         $this->assertEquals(7, \DB::table('offices')->count());
     }
+
+    /**
+     * Seed an XLSX file with a single sheet that is mapped using settings->worksheetTableMapping
+     */
+    public function test_table_name_is_single_mapped_named_sheet()
+    {
+        $this->seed(OfficesSingleMappedNamedSheetSeeder::class);
+
+        $offices = \DB::table('offices')->where('id', 4)->first();
+        $this->assertEquals('Paris', $offices->city);
+        $this->assertEquals(7, \DB::table('offices')->count());
+    }
+
+    /**
+     * Seed an XLSX file with a multiple sheets with two sheets mapped using settings->worksheetTableMapping
+     */
+    public function test_table_name_is_multiple_mapped_named_sheet()
+    {
+        $this->seed(ClassicModelsMultipleMappedNamedSheetSeeder::class);
+
+        $employee = \DB::table('employees')->where('id', 1216)->first();
+        $this->assertEquals('Patterson', $employee->last_name);
+        $this->assertEquals('Steve', $employee->first_name);
+        $this->assertEquals(23, \DB::table('employees')->count());
+
+        $order = \DB::table('orders')->where('id', 10407)->first();
+        $this->assertEquals(450, $order->customer_id);
+        $this->assertEquals('On Hold', $order->status);
+        $this->assertEquals(326, \DB::table('orders')->count());
+    }
+
 }

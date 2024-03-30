@@ -42,20 +42,38 @@ class FileIterator extends \AppendIterator
         }
     }
 
-    public function current()
+    public function valid()
     {
-        $sourceFile = new SourceFile(parent::current(), $this->settings);
-        return $sourceFile;
+        while (
+            parent::valid() &&
+            $this->shouldSkip()
+        )
+        {
+            $this->next();
+        }
+
+        return parent::valid();
     }
 
-    public function next() {
-        parent::next();
-        if ( ! $this->valid() ) return;
-        $sourceFile = new SourceFile(parent::current(), $this->settings);
-        if ($sourceFile->shouldSkip()) $this->next();
+    /**
+     * Returns true if the file should be skipped.   Currently this only checks for a leading "~" character in the
+     * filename, which indicates that the file is an Excel temporary file.
+     *
+     * @return bool
+     */
+    public function shouldSkip() {
+        if (substr(parent::current()->getFilename(), 0, 1) === "~" ) return true;
+
+        return false;
     }
 
-    public function count() {
+    public function count()
+    {
         return $this->count;
+    }
+
+    public function hasResults()
+    {
+        return $this->count() > 0;
     }
 }

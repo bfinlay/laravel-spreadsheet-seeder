@@ -15,7 +15,7 @@ class CreateFakeNamesTable extends Migration
     {
         //
         Schema::create('fake_names', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             // name,email,email_verified_at,password
             $table->string('Gender');
             $table->string('Title');

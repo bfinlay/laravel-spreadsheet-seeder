@@ -15,10 +15,10 @@ class Products extends Migration
     {
         //
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
+            $table->bigIncrements('id');
+            $table->string('code')->unique();
             $table->string('name');
-            $table->foreignId('product_line_id');
+            $table->unsignedBigInteger('product_line_id');
             $table->foreign('product_line_id')->references('id')->on('product_lines');
             $table->string('scale');
             $table->string('vendor');

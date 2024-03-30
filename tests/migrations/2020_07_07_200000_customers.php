@@ -15,7 +15,7 @@ class Customers extends Migration
     {
         //
         Schema::create('customers', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('customer_name');
             $table->string('contact_last_name');
             $table->string('contact_first_name');
@@ -26,7 +26,7 @@ class Customers extends Migration
             $table->string('state');
             $table->string('postal_code');
             $table->string('country');
-            $table->foreignId('sales_rep_id')->nullable();
+            $table->unsignedBigInteger('sales_rep_id')->nullable();
             $table->foreign('sales_rep_id')->references('id')->on('employees');
             $table->decimal('credit_limit',10,2);
             $table->timestamps();

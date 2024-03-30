@@ -9,16 +9,30 @@
 	],
 	"keywords": [ "laravel", "csv", "excel", "seed", "seeds", "seeder", "seeding", "open", "libre", "office", "openoffice", "libreoffice"],
 	"license": "MIT",
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
+	"prefer-stable": true,
 	"require": {
-		"php": ">=5.6.0",
-		"laravel/framework": ">=5.0.0",
+		"php": ">=7.1.3",
+		"laravel/framework": ">=5.8",
 		"phpoffice/phpspreadsheet": "~1.7",
-		"doctrine/dbal": "^2.9"
+		"doctrine/dbal": "^2.6|^3.0",
+		"composer/semver": "*"
 	},
+	"repositories-disabled": [
+		{
+			"type": "path",
+			"url": "../laravel-excel-seeder-test-data"
+		},
+		{
+			"type": "path",
+			"url": "~/development/laravel-expression-grammar"
+		}
+	],
 	"require-dev": {
 		"orchestra/testbench": "*",
-		"bfinlay/laravel-excel-seeder-test-data": "*"
+		"bfinlay/laravel-excel-seeder-test-data": "=2.3.1",
+		"symplify/easy-ci": "11.1.5",
+		"angel-source-labs/laravel-expression-grammar": "*"
 	},
 	"autoload": {
 		"psr-4": {

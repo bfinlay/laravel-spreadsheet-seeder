@@ -15,8 +15,8 @@ class OrderDetails extends Migration
     {
         //
         Schema::create('order_details', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('order_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
             $table->string('product_code');
             $table->foreign('product_code')->references('code')->on('products');

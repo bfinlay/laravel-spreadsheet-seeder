@@ -15,14 +15,14 @@ class Employees extends Migration
     {
         //
         Schema::create('employees', function (Blueprint $table) {
-           $table->id();
+           $table->bigIncrements('id');
            $table->string('last_name');
            $table->string('first_name');
            $table->string('extension');
            $table->string('email');
-           $table->foreignId('office_id');
+           $table->unsignedBigInteger('office_id');
            $table->foreign('office_id')->references('id')->on('offices');
-           $table->foreignId('superior_id')->nullable();
+           $table->unsignedBigInteger('superior_id')->nullable();
            $table->foreign('superior_id')->references('id')->on('employees');
            $table->string('job_title');
            $table->timestamps();

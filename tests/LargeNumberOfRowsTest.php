@@ -2,65 +2,26 @@
 
 namespace bfinlay\SpreadsheetSeeder\Tests;
 
-use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\FakeNames100kXlsxSeeder;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\FakeNamesCsvSeeder;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\FakeNamesXlsxSeeder;
-use Orchestra\Testbench\TestCase;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\LargeNumberOfRowsTest\FakeNames100kXlsxSeeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\LargeNumberOfRowsTest\FakeNamesCsvSeeder;
+use bfinlay\SpreadsheetSeeder\Tests\Seeds\LargeNumberOfRowsTest\FakeNamesXlsxSeeder;
 
 class LargeNumberOfRowsTest extends TestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
-
-        // and other test setup steps you need to perform
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [SpreadsheetSeederServiceProvider::class];
-    }
+    use AssertsMigrations;
 
     /** @test */
     public function it_runs_the_migrations()
     {
-        $this->assertEquals([
-            'id',
-            'Gender',
-            'Title',
-            'GivenName',
-            'MiddleInitial',
-            'Surname',
-            'StreetAddress',
-            'City',
-            'State',
-            'ZipCode',
-            'created_at',
-            'updated_at'
-        ], \Schema::getColumnListing('fake_names'));
+        $this->assertsFakeNamesMigration();
+    }
+
+    public function should_run_large_rows_tests()
+    {
+        $testName = (method_exists($this, "getName")) ? $this->getName() : $this->name();
+
+        if (env('LARGE_ROWS_TESTS', false) == false)
+            $this->markTestSkipped('Skipping ' . $testName . ' because LARGE_ROWS_TESTS is false.  Enable LARGE_ROWS_TESTS in phpunit.xml to run test');
     }
 
     /**
@@ -71,6 +32,8 @@ class LargeNumberOfRowsTest extends TestCase
      */
     public function test_15k_rows()
     {
+        $this->should_run_large_rows_tests();
+
         $this->seed(FakeNamesCsvSeeder::class);
 
         $fake = \DB::table('fake_names')->where('id', '=', 15000)->first();
@@ -86,6 +49,8 @@ class LargeNumberOfRowsTest extends TestCase
      */
     public function test_15k_xlsx_rows()
     {
+        $this->should_run_large_rows_tests();
+
         $this->seed(FakeNamesXlsxSeeder::class);
 
         $fake = \DB::table('fake_names')->where('id', '=', 15000)->first();
@@ -105,6 +70,8 @@ class LargeNumberOfRowsTest extends TestCase
      */
     public function disabled_test_100k_xlsx_rows()
     {
+        $this->should_run_large_rows_tests();
+
         $this->seed(FakeNames100kXlsxSeeder::class);
 
         $count = \DB::table('fake_names')->count();

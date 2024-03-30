@@ -1,0 +1,2946 @@
+Table: orders
+Header:
+  - id
+  - order_date
+  - required_date
+  - shipped_date
+  - status
+  - comments
+  - customer_id
+  - '%customer'
+Rows:
+  1:
+    id: 10100
+    order_date: 37627
+    required_date: 37634
+    shipped_date: 37631
+    status: Shipped
+    comments: 
+    customer_id: 363
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  2:
+    id: 10101
+    order_date: 37630
+    required_date: 37639
+    shipped_date: 37632
+    status: Shipped
+    comments: Check on availability.
+    customer_id: 128
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  3:
+    id: 10102
+    order_date: 37631
+    required_date: 37639
+    shipped_date: 37635
+    status: Shipped
+    comments: 
+    customer_id: 181
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  4:
+    id: 10103
+    order_date: 37650
+    required_date: 37659
+    shipped_date: 37654
+    status: Shipped
+    comments: 
+    customer_id: 121
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  5:
+    id: 10104
+    order_date: 37652
+    required_date: 37661
+    shipped_date: 37653
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  6:
+    id: 10105
+    order_date: 37663
+    required_date: 37673
+    shipped_date: 37664
+    status: Shipped
+    comments: 
+    customer_id: 145
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  7:
+    id: 10106
+    order_date: 37669
+    required_date: 37676
+    shipped_date: 37673
+    status: Shipped
+    comments: 
+    customer_id: 278
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  8:
+    id: 10107
+    order_date: 37676
+    required_date: 37683
+    shipped_date: 37678
+    status: Shipped
+    comments: Difficult to negotiate with customer. We need more marketing materials
+    customer_id: 131
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  9:
+    id: 10108
+    order_date: 37683
+    required_date: 37692
+    shipped_date: 37688
+    status: Shipped
+    comments: 
+    customer_id: 385
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  10:
+    id: 10109
+    order_date: 37690
+    required_date: 37699
+    shipped_date: 37691
+    status: Shipped
+    comments: Customer requested that FedEx Ground is used for this shipping
+    customer_id: 486
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  11:
+    id: 10110
+    order_date: 37698
+    required_date: 37704
+    shipped_date: 37700
+    status: Shipped
+    comments: 
+    customer_id: 187
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  12:
+    id: 10111
+    order_date: 37705
+    required_date: 37711
+    shipped_date: 37710
+    status: Shipped
+    comments: 
+    customer_id: 129
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  13:
+    id: 10112
+    order_date: 37704
+    required_date: 37714
+    shipped_date: 37709
+    status: Shipped
+    comments: 'Customer requested that ad materials (such as posters, pamphlets) be included in the shippment'
+    customer_id: 144
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  14:
+    id: 10113
+    order_date: 37706
+    required_date: 37713
+    shipped_date: 37707
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  15:
+    id: 10114
+    order_date: 37712
+    required_date: 37718
+    shipped_date: 37713
+    status: Shipped
+    comments: 
+    customer_id: 172
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  16:
+    id: 10115
+    order_date: 37715
+    required_date: 37723
+    shipped_date: 37718
+    status: Shipped
+    comments: 
+    customer_id: 424
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  17:
+    id: 10116
+    order_date: 37722
+    required_date: 37730
+    shipped_date: 37724
+    status: Shipped
+    comments: 
+    customer_id: 381
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  18:
+    id: 10117
+    order_date: 37727
+    required_date: 37735
+    shipped_date: 37728
+    status: Shipped
+    comments: 
+    customer_id: 148
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  19:
+    id: 10118
+    order_date: 37732
+    required_date: 37740
+    shipped_date: 37737
+    status: Shipped
+    comments: Customer has worked with some of our vendors in the past and is aware of their MSRP
+    customer_id: 216
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  20:
+    id: 10119
+    order_date: 37739
+    required_date: 37746
+    shipped_date: 37743
+    status: Shipped
+    comments: 
+    customer_id: 382
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  21:
+    id: 10120
+    order_date: 37740
+    required_date: 37749
+    shipped_date: 37742
+    status: Shipped
+    comments: 
+    customer_id: 114
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  22:
+    id: 10121
+    order_date: 37748
+    required_date: 37754
+    shipped_date: 37754
+    status: Shipped
+    comments: 
+    customer_id: 353
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  23:
+    id: 10122
+    order_date: 37749
+    required_date: 37757
+    shipped_date: 37754
+    status: Shipped
+    comments: 
+    customer_id: 350
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  24:
+    id: 10123
+    order_date: 37761
+    required_date: 37770
+    shipped_date: 37763
+    status: Shipped
+    comments: 
+    customer_id: 103
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  25:
+    id: 10124
+    order_date: 37762
+    required_date: 37770
+    shipped_date: 37766
+    status: Shipped
+    comments: Customer very concerned about the exact color of the models. There is high risk that he may dispute the order because there is a slight color mismatch
+    customer_id: 112
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  26:
+    id: 10125
+    order_date: 37762
+    required_date: 37768
+    shipped_date: 37765
+    status: Shipped
+    comments: 
+    customer_id: 114
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  27:
+    id: 10126
+    order_date: 37769
+    required_date: 37779
+    shipped_date: 37774
+    status: Shipped
+    comments: 
+    customer_id: 458
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  28:
+    id: 10127
+    order_date: 37775
+    required_date: 37781
+    shipped_date: 37778
+    status: Shipped
+    comments: Customer requested special shippment. The instructions were passed along to the warehouse
+    customer_id: 151
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  29:
+    id: 10128
+    order_date: 37778
+    required_date: 37784
+    shipped_date: 37783
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  30:
+    id: 10129
+    order_date: 37784
+    required_date: 37790
+    shipped_date: 37786
+    status: Shipped
+    comments: 
+    customer_id: 324
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  31:
+    id: 10130
+    order_date: 37788
+    required_date: 37796
+    shipped_date: 37793
+    status: Shipped
+    comments: 
+    customer_id: 198
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  32:
+    id: 10131
+    order_date: 37788
+    required_date: 37797
+    shipped_date: 37793
+    status: Shipped
+    comments: 
+    customer_id: 447
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  33:
+    id: 10132
+    order_date: 37797
+    required_date: 37803
+    shipped_date: 37800
+    status: Shipped
+    comments: 
+    customer_id: 323
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  34:
+    id: 10133
+    order_date: 37799
+    required_date: 37806
+    shipped_date: 37805
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  35:
+    id: 10134
+    order_date: 37803
+    required_date: 37812
+    shipped_date: 37807
+    status: Shipped
+    comments: 
+    customer_id: 250
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  36:
+    id: 10135
+    order_date: 37804
+    required_date: 37814
+    shipped_date: 37805
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  37:
+    id: 10136
+    order_date: 37806
+    required_date: 37816
+    shipped_date: 37808
+    status: Shipped
+    comments: Customer is interested in buying more Ferrari models
+    customer_id: 242
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  38:
+    id: 10137
+    order_date: 37812
+    required_date: 37822
+    shipped_date: 37816
+    status: Shipped
+    comments: 
+    customer_id: 353
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  39:
+    id: 10138
+    order_date: 37809
+    required_date: 37818
+    shipped_date: 37815
+    status: Shipped
+    comments: 
+    customer_id: 496
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  40:
+    id: 10139
+    order_date: 37818
+    required_date: 37825
+    shipped_date: 37823
+    status: Shipped
+    comments: 
+    customer_id: 282
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  41:
+    id: 10140
+    order_date: 37826
+    required_date: 37835
+    shipped_date: 37832
+    status: Shipped
+    comments: 
+    customer_id: 161
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  42:
+    id: 10141
+    order_date: 37834
+    required_date: 37842
+    shipped_date: 37837
+    status: Shipped
+    comments: 
+    customer_id: 334
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  43:
+    id: 10142
+    order_date: 37841
+    required_date: 37849
+    shipped_date: 37846
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  44:
+    id: 10143
+    order_date: 37843
+    required_date: 37851
+    shipped_date: 37845
+    status: Shipped
+    comments: 'Can we deliver the new Ford Mustang models by end-of-quarter?'
+    customer_id: 320
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  45:
+    id: 10144
+    order_date: 37846
+    required_date: 37854
+    shipped_date: 37847
+    status: Shipped
+    comments: 
+    customer_id: 381
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  46:
+    id: 10145
+    order_date: 37858
+    required_date: 37866
+    shipped_date: 37864
+    status: Shipped
+    comments: 
+    customer_id: 205
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  47:
+    id: 10146
+    order_date: 37867
+    required_date: 37877
+    shipped_date: 37870
+    status: Shipped
+    comments: 
+    customer_id: 447
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  48:
+    id: 10147
+    order_date: 37869
+    required_date: 37876
+    shipped_date: 37873
+    status: Shipped
+    comments: 
+    customer_id: 379
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  49:
+    id: 10148
+    order_date: 37875
+    required_date: 37885
+    shipped_date: 37879
+    status: Shipped
+    comments: They want to reevaluate their terms agreement with Finance.
+    customer_id: 276
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  50:
+    id: 10149
+    order_date: 37876
+    required_date: 37882
+    shipped_date: 37881
+    status: Shipped
+    comments: 
+    customer_id: 487
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  51:
+    id: 10150
+    order_date: 37883
+    required_date: 37891
+    shipped_date: 37885
+    status: Shipped
+    comments: They want to reevaluate their terms agreement with Finance.
+    customer_id: 148
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  52:
+    id: 10151
+    order_date: 37885
+    required_date: 37894
+    shipped_date: 37888
+    status: Shipped
+    comments: 
+    customer_id: 311
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  53:
+    id: 10152
+    order_date: 37889
+    required_date: 37897
+    shipped_date: 37895
+    status: Shipped
+    comments: 
+    customer_id: 333
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  54:
+    id: 10153
+    order_date: 37892
+    required_date: 37899
+    shipped_date: 37897
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  55:
+    id: 10154
+    order_date: 37896
+    required_date: 37906
+    shipped_date: 37902
+    status: Shipped
+    comments: 
+    customer_id: 219
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  56:
+    id: 10155
+    order_date: 37900
+    required_date: 37907
+    shipped_date: 37901
+    status: Shipped
+    comments: 
+    customer_id: 186
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  57:
+    id: 10156
+    order_date: 37902
+    required_date: 37911
+    shipped_date: 37905
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  58:
+    id: 10157
+    order_date: 37903
+    required_date: 37909
+    shipped_date: 37908
+    status: Shipped
+    comments: 
+    customer_id: 473
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  59:
+    id: 10158
+    order_date: 37904
+    required_date: 37912
+    shipped_date: 37909
+    status: Shipped
+    comments: 
+    customer_id: 121
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  60:
+    id: 10159
+    order_date: 37904
+    required_date: 37913
+    shipped_date: 37910
+    status: Shipped
+    comments: 
+    customer_id: 321
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  61:
+    id: 10160
+    order_date: 37905
+    required_date: 37911
+    shipped_date: 37911
+    status: Shipped
+    comments: 
+    customer_id: 347
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  62:
+    id: 10161
+    order_date: 37911
+    required_date: 37919
+    shipped_date: 37914
+    status: Shipped
+    comments: 
+    customer_id: 227
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  63:
+    id: 10162
+    order_date: 37912
+    required_date: 37920
+    shipped_date: 37913
+    status: Shipped
+    comments: 
+    customer_id: 321
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  64:
+    id: 10163
+    order_date: 37914
+    required_date: 37921
+    shipped_date: 37918
+    status: Shipped
+    comments: 
+    customer_id: 424
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  65:
+    id: 10164
+    order_date: 37915
+    required_date: 37924
+    shipped_date: 37917
+    status: Resolved
+    comments: 'This order was disputed, but resolved on 11/1/2003; Customer doesn''t like the colors and precision of the models.'
+    customer_id: 452
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  66:
+    id: 10165
+    order_date: 37916
+    required_date: 37925
+    shipped_date: 37981
+    status: Shipped
+    comments: This order was on hold because customers's credit limit had been exceeded. Order will ship when payment is received
+    customer_id: 148
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  67:
+    id: 10166
+    order_date: 37915
+    required_date: 37924
+    shipped_date: 37921
+    status: Shipped
+    comments: 
+    customer_id: 462
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  68:
+    id: 10167
+    order_date: 37917
+    required_date: 37924
+    shipped_date: 
+    status: Cancelled
+    comments: Customer called to cancel. The warehouse was notified in time and the order didn't ship. They have a new VP of Sales and are shifting their sales model. Our VP of Sales should contact them.
+    customer_id: 448
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  69:
+    id: 10168
+    order_date: 37922
+    required_date: 37928
+    shipped_date: 37926
+    status: Shipped
+    comments: 
+    customer_id: 161
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  70:
+    id: 10169
+    order_date: 37929
+    required_date: 37939
+    shipped_date: 37934
+    status: Shipped
+    comments: 
+    customer_id: 276
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  71:
+    id: 10170
+    order_date: 37929
+    required_date: 37937
+    shipped_date: 37932
+    status: Shipped
+    comments: 
+    customer_id: 452
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  72:
+    id: 10171
+    order_date: 37930
+    required_date: 37938
+    shipped_date: 37932
+    status: Shipped
+    comments: 
+    customer_id: 233
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  73:
+    id: 10172
+    order_date: 37930
+    required_date: 37939
+    shipped_date: 37936
+    status: Shipped
+    comments: 
+    customer_id: 175
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  74:
+    id: 10173
+    order_date: 37930
+    required_date: 37940
+    shipped_date: 37934
+    status: Shipped
+    comments: 'Cautious optimism. We have happy customers here, if we can keep them well stocked.  I need all the information I can get on the planned shippments of Porches'
+    customer_id: 278
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  75:
+    id: 10174
+    order_date: 37931
+    required_date: 37940
+    shipped_date: 37935
+    status: Shipped
+    comments: 
+    customer_id: 333
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  76:
+    id: 10175
+    order_date: 37931
+    required_date: 37939
+    shipped_date: 37934
+    status: Shipped
+    comments: 
+    customer_id: 324
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  77:
+    id: 10176
+    order_date: 37931
+    required_date: 37940
+    shipped_date: 37937
+    status: Shipped
+    comments: 
+    customer_id: 386
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  78:
+    id: 10177
+    order_date: 37932
+    required_date: 37942
+    shipped_date: 37937
+    status: Shipped
+    comments: 
+    customer_id: 344
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  79:
+    id: 10178
+    order_date: 37933
+    required_date: 37941
+    shipped_date: 37935
+    status: Shipped
+    comments: Custom shipping instructions sent to warehouse
+    customer_id: 242
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  80:
+    id: 10179
+    order_date: 37936
+    required_date: 37942
+    shipped_date: 37938
+    status: Cancelled
+    comments: Customer cancelled due to urgent budgeting issues. Must be cautious when dealing with them in the future. Since order shipped already we must discuss who would cover the shipping charges.
+    customer_id: 496
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  81:
+    id: 10180
+    order_date: 37936
+    required_date: 37944
+    shipped_date: 37939
+    status: Shipped
+    comments: 
+    customer_id: 171
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  82:
+    id: 10181
+    order_date: 37937
+    required_date: 37944
+    shipped_date: 37940
+    status: Shipped
+    comments: 
+    customer_id: 167
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  83:
+    id: 10182
+    order_date: 37937
+    required_date: 37946
+    shipped_date: 37943
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  84:
+    id: 10183
+    order_date: 37938
+    required_date: 37947
+    shipped_date: 37940
+    status: Shipped
+    comments: We need to keep in close contact with their Marketing VP. He is the decision maker for all their purchases.
+    customer_id: 339
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  85:
+    id: 10184
+    order_date: 37939
+    required_date: 37947
+    shipped_date: 37945
+    status: Shipped
+    comments: 
+    customer_id: 484
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  86:
+    id: 10185
+    order_date: 37939
+    required_date: 37946
+    shipped_date: 37945
+    status: Shipped
+    comments: 
+    customer_id: 320
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  87:
+    id: 10186
+    order_date: 37939
+    required_date: 37945
+    shipped_date: 37943
+    status: Shipped
+    comments: They want to reevaluate their terms agreement with the VP of Sales
+    customer_id: 489
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  88:
+    id: 10187
+    order_date: 37940
+    required_date: 37949
+    shipped_date: 37941
+    status: Shipped
+    comments: 
+    customer_id: 211
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  89:
+    id: 10188
+    order_date: 37943
+    required_date: 37951
+    shipped_date: 37949
+    status: Shipped
+    comments: 
+    customer_id: 167
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  90:
+    id: 10189
+    order_date: 37943
+    required_date: 37950
+    shipped_date: 37949
+    status: Shipped
+    comments: They want to reevaluate their terms agreement with Finance.
+    customer_id: 205
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  91:
+    id: 10190
+    order_date: 37944
+    required_date: 37954
+    shipped_date: 37945
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  92:
+    id: 10191
+    order_date: 37945
+    required_date: 37955
+    shipped_date: 37949
+    status: Shipped
+    comments: We must be cautions with this customer. Their VP of Sales resigned. Company may be heading down.
+    customer_id: 259
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  93:
+    id: 10192
+    order_date: 37945
+    required_date: 37954
+    shipped_date: 37950
+    status: Shipped
+    comments: 
+    customer_id: 363
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  94:
+    id: 10193
+    order_date: 37946
+    required_date: 37953
+    shipped_date: 37952
+    status: Shipped
+    comments: 
+    customer_id: 471
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  95:
+    id: 10194
+    order_date: 37950
+    required_date: 37957
+    shipped_date: 37951
+    status: Shipped
+    comments: 
+    customer_id: 146
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  96:
+    id: 10195
+    order_date: 37950
+    required_date: 37956
+    shipped_date: 37953
+    status: Shipped
+    comments: 
+    customer_id: 319
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  97:
+    id: 10196
+    order_date: 37951
+    required_date: 37958
+    shipped_date: 37956
+    status: Shipped
+    comments: 
+    customer_id: 455
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  98:
+    id: 10197
+    order_date: 37951
+    required_date: 37957
+    shipped_date: 37956
+    status: Shipped
+    comments: Customer inquired about remote controlled models and gold models.
+    customer_id: 216
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  99:
+    id: 10198
+    order_date: 37952
+    required_date: 37961
+    shipped_date: 37958
+    status: Shipped
+    comments: 
+    customer_id: 385
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  100:
+    id: 10199
+    order_date: 37956
+    required_date: 37965
+    shipped_date: 37961
+    status: Shipped
+    comments: 
+    customer_id: 475
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  101:
+    id: 10200
+    order_date: 37956
+    required_date: 37964
+    shipped_date: 37961
+    status: Shipped
+    comments: 
+    customer_id: 211
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  102:
+    id: 10201
+    order_date: 37956
+    required_date: 37966
+    shipped_date: 37957
+    status: Shipped
+    comments: 
+    customer_id: 129
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  103:
+    id: 10202
+    order_date: 37957
+    required_date: 37964
+    shipped_date: 37961
+    status: Shipped
+    comments: 
+    customer_id: 357
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  104:
+    id: 10203
+    order_date: 37957
+    required_date: 37966
+    shipped_date: 37962
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  105:
+    id: 10204
+    order_date: 37957
+    required_date: 37965
+    shipped_date: 37959
+    status: Shipped
+    comments: 
+    customer_id: 151
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  106:
+    id: 10205
+    order_date: 37958
+    required_date: 37964
+    shipped_date: 37962
+    status: Shipped
+    comments:  I need all the information I can get on our competitors.
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  107:
+    id: 10206
+    order_date: 37960
+    required_date: 37968
+    shipped_date: 37963
+    status: Shipped
+    comments: 'Can we renegotiate this one?'
+    customer_id: 202
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  108:
+    id: 10207
+    order_date: 37964
+    required_date: 37972
+    shipped_date: 37966
+    status: Shipped
+    comments: Check on availability.
+    customer_id: 495
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  109:
+    id: 10208
+    order_date: 37988
+    required_date: 37997
+    shipped_date: 37990
+    status: Shipped
+    comments: 
+    customer_id: 146
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  110:
+    id: 10209
+    order_date: 37995
+    required_date: 38001
+    shipped_date: 37998
+    status: Shipped
+    comments: 
+    customer_id: 347
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  111:
+    id: 10210
+    order_date: 37998
+    required_date: 38008
+    shipped_date: 38006
+    status: Shipped
+    comments: 
+    customer_id: 177
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  112:
+    id: 10211
+    order_date: 38001
+    required_date: 38011
+    shipped_date: 38004
+    status: Shipped
+    comments: 
+    customer_id: 406
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  113:
+    id: 10212
+    order_date: 38002
+    required_date: 38010
+    shipped_date: 38004
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  114:
+    id: 10213
+    order_date: 38008
+    required_date: 38014
+    shipped_date: 38013
+    status: Shipped
+    comments: Difficult to negotiate with customer. We need more marketing materials
+    customer_id: 489
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  115:
+    id: 10214
+    order_date: 38012
+    required_date: 38021
+    shipped_date: 38015
+    status: Shipped
+    comments: 
+    customer_id: 458
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  116:
+    id: 10215
+    order_date: 38015
+    required_date: 38025
+    shipped_date: 38018
+    status: Shipped
+    comments: Customer requested that FedEx Ground is used for this shipping
+    customer_id: 475
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  117:
+    id: 10216
+    order_date: 38019
+    required_date: 38027
+    shipped_date: 38021
+    status: Shipped
+    comments: 
+    customer_id: 256
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  118:
+    id: 10217
+    order_date: 38021
+    required_date: 38031
+    shipped_date: 38023
+    status: Shipped
+    comments: 
+    customer_id: 166
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  119:
+    id: 10218
+    order_date: 38026
+    required_date: 38033
+    shipped_date: 38028
+    status: Shipped
+    comments: 'Customer requested that ad materials (such as posters, pamphlets) be included in the shippment'
+    customer_id: 473
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  120:
+    id: 10219
+    order_date: 38027
+    required_date: 38034
+    shipped_date: 38029
+    status: Shipped
+    comments: 
+    customer_id: 487
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  121:
+    id: 10220
+    order_date: 38029
+    required_date: 38036
+    shipped_date: 38033
+    status: Shipped
+    comments: 
+    customer_id: 189
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  122:
+    id: 10221
+    order_date: 38035
+    required_date: 38043
+    shipped_date: 38036
+    status: Shipped
+    comments: 
+    customer_id: 314
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  123:
+    id: 10222
+    order_date: 38036
+    required_date: 38044
+    shipped_date: 38037
+    status: Shipped
+    comments: 
+    customer_id: 239
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  124:
+    id: 10223
+    order_date: 38037
+    required_date: 38046
+    shipped_date: 38041
+    status: Shipped
+    comments: 
+    customer_id: 114
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  125:
+    id: 10224
+    order_date: 38038
+    required_date: 38048
+    shipped_date: 38043
+    status: Shipped
+    comments: Customer has worked with some of our vendors in the past and is aware of their MSRP
+    customer_id: 171
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  126:
+    id: 10225
+    order_date: 38039
+    required_date: 38047
+    shipped_date: 38041
+    status: Shipped
+    comments: 
+    customer_id: 298
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  127:
+    id: 10226
+    order_date: 38043
+    required_date: 38052
+    shipped_date: 38048
+    status: Shipped
+    comments: 
+    customer_id: 239
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  128:
+    id: 10227
+    order_date: 38048
+    required_date: 38058
+    shipped_date: 38054
+    status: Shipped
+    comments: 
+    customer_id: 146
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  129:
+    id: 10228
+    order_date: 38056
+    required_date: 38064
+    shipped_date: 38059
+    status: Shipped
+    comments: 
+    customer_id: 173
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  130:
+    id: 10229
+    order_date: 38057
+    required_date: 38066
+    shipped_date: 38058
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  131:
+    id: 10230
+    order_date: 38061
+    required_date: 38070
+    shipped_date: 38066
+    status: Shipped
+    comments: Customer very concerned about the exact color of the models. There is high risk that he may dispute the order because there is a slight color mismatch
+    customer_id: 128
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  132:
+    id: 10231
+    order_date: 38065
+    required_date: 38072
+    shipped_date: 38071
+    status: Shipped
+    comments: 
+    customer_id: 344
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  133:
+    id: 10232
+    order_date: 38066
+    required_date: 38076
+    shipped_date: 38071
+    status: Shipped
+    comments: 
+    customer_id: 240
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  134:
+    id: 10233
+    order_date: 38075
+    required_date: 38081
+    shipped_date: 38079
+    status: Shipped
+    comments: Customer requested special shippment. The instructions were passed along to the warehouse
+    customer_id: 328
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  135:
+    id: 10234
+    order_date: 38076
+    required_date: 38082
+    shipped_date: 38079
+    status: Shipped
+    comments: 
+    customer_id: 412
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  136:
+    id: 10235
+    order_date: 38079
+    required_date: 38089
+    shipped_date: 38083
+    status: Shipped
+    comments: 
+    customer_id: 260
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  137:
+    id: 10236
+    order_date: 38080
+    required_date: 38088
+    shipped_date: 38085
+    status: Shipped
+    comments: 
+    customer_id: 486
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  138:
+    id: 10237
+    order_date: 38082
+    required_date: 38089
+    shipped_date: 38087
+    status: Shipped
+    comments: 
+    customer_id: 181
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  139:
+    id: 10238
+    order_date: 38086
+    required_date: 38093
+    shipped_date: 38087
+    status: Shipped
+    comments: 
+    customer_id: 145
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  140:
+    id: 10239
+    order_date: 38089
+    required_date: 38098
+    shipped_date: 38094
+    status: Shipped
+    comments: 
+    customer_id: 311
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  141:
+    id: 10240
+    order_date: 38090
+    required_date: 38097
+    shipped_date: 38097
+    status: Shipped
+    comments: 
+    customer_id: 177
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  142:
+    id: 10241
+    order_date: 38090
+    required_date: 38097
+    shipped_date: 38096
+    status: Shipped
+    comments: 
+    customer_id: 209
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  143:
+    id: 10242
+    order_date: 38097
+    required_date: 38105
+    shipped_date: 38102
+    status: Shipped
+    comments: Customer is interested in buying more Ferrari models
+    customer_id: 456
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  144:
+    id: 10243
+    order_date: 38103
+    required_date: 38110
+    shipped_date: 38105
+    status: Shipped
+    comments: 
+    customer_id: 495
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  145:
+    id: 10244
+    order_date: 38106
+    required_date: 38116
+    shipped_date: 38111
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  146:
+    id: 10245
+    order_date: 38111
+    required_date: 38119
+    shipped_date: 38116
+    status: Shipped
+    comments: 
+    customer_id: 455
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  147:
+    id: 10246
+    order_date: 38112
+    required_date: 38120
+    shipped_date: 38113
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  148:
+    id: 10247
+    order_date: 38112
+    required_date: 38118
+    shipped_date: 38115
+    status: Shipped
+    comments: 
+    customer_id: 334
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  149:
+    id: 10248
+    order_date: 38114
+    required_date: 38121
+    shipped_date: 
+    status: Cancelled
+    comments: Order was mistakenly placed. The warehouse noticed the lack of documentation.
+    customer_id: 131
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  150:
+    id: 10249
+    order_date: 38115
+    required_date: 38124
+    shipped_date: 38118
+    status: Shipped
+    comments: 'Can we deliver the new Ford Mustang models by end-of-quarter?'
+    customer_id: 173
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  151:
+    id: 10250
+    order_date: 38118
+    required_date: 38126
+    shipped_date: 38122
+    status: Shipped
+    comments: 
+    customer_id: 450
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  152:
+    id: 10251
+    order_date: 38125
+    required_date: 38131
+    shipped_date: 38131
+    status: Shipped
+    comments: 
+    customer_id: 328
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  153:
+    id: 10252
+    order_date: 38133
+    required_date: 38142
+    shipped_date: 38136
+    status: Shipped
+    comments: 
+    customer_id: 406
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  154:
+    id: 10253
+    order_date: 38139
+    required_date: 38147
+    shipped_date: 38140
+    status: Cancelled
+    comments: 'Customer disputed the order and we agreed to cancel it. We must be more cautions with this customer going forward, since they are very hard to please. We must cover the shipping fees.'
+    customer_id: 201
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  155:
+    id: 10254
+    order_date: 38141
+    required_date: 38151
+    shipped_date: 38142
+    status: Shipped
+    comments: Customer requested that DHL is used for this shipping
+    customer_id: 323
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  156:
+    id: 10255
+    order_date: 38142
+    required_date: 38150
+    shipped_date: 38147
+    status: Shipped
+    comments: 
+    customer_id: 209
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  157:
+    id: 10256
+    order_date: 38146
+    required_date: 38154
+    shipped_date: 38148
+    status: Shipped
+    comments: 
+    customer_id: 145
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  158:
+    id: 10257
+    order_date: 38152
+    required_date: 38162
+    shipped_date: 38153
+    status: Shipped
+    comments: 
+    customer_id: 450
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  159:
+    id: 10258
+    order_date: 38153
+    required_date: 38163
+    shipped_date: 38161
+    status: Shipped
+    comments: 
+    customer_id: 398
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  160:
+    id: 10259
+    order_date: 38153
+    required_date: 38160
+    shipped_date: 38155
+    status: Shipped
+    comments: 
+    customer_id: 166
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  161:
+    id: 10260
+    order_date: 38154
+    required_date: 38160
+    shipped_date: 
+    status: Cancelled
+    comments: Customer heard complaints from their customers and called to cancel this order. Will notify the Sales Manager.
+    customer_id: 357
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  162:
+    id: 10261
+    order_date: 38155
+    required_date: 38163
+    shipped_date: 38160
+    status: Shipped
+    comments: 
+    customer_id: 233
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  163:
+    id: 10262
+    order_date: 38162
+    required_date: 38169
+    shipped_date: 
+    status: Cancelled
+    comments: This customer found a better offer from one of our competitors. Will call back to renegotiate.
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  164:
+    id: 10263
+    order_date: 38166
+    required_date: 38172
+    shipped_date: 38170
+    status: Shipped
+    comments: 
+    customer_id: 175
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  165:
+    id: 10264
+    order_date: 38168
+    required_date: 38174
+    shipped_date: 38169
+    status: Shipped
+    comments: Customer will send a truck to our local warehouse on 7/1/2004
+    customer_id: 362
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  166:
+    id: 10265
+    order_date: 38170
+    required_date: 38177
+    shipped_date: 38175
+    status: Shipped
+    comments: 
+    customer_id: 471
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  167:
+    id: 10266
+    order_date: 38174
+    required_date: 38182
+    shipped_date: 38178
+    status: Shipped
+    comments: 
+    customer_id: 386
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  168:
+    id: 10267
+    order_date: 38175
+    required_date: 38185
+    shipped_date: 38177
+    status: Shipped
+    comments: 
+    customer_id: 151
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  169:
+    id: 10268
+    order_date: 38180
+    required_date: 38186
+    shipped_date: 38182
+    status: Shipped
+    comments: 
+    customer_id: 412
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  170:
+    id: 10269
+    order_date: 38184
+    required_date: 38190
+    shipped_date: 38186
+    status: Shipped
+    comments: 
+    customer_id: 382
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  171:
+    id: 10270
+    order_date: 38187
+    required_date: 38195
+    shipped_date: 38192
+    status: Shipped
+    comments: 'Can we renegotiate this one?'
+    customer_id: 282
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  172:
+    id: 10271
+    order_date: 38188
+    required_date: 38197
+    shipped_date: 38191
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  173:
+    id: 10272
+    order_date: 38188
+    required_date: 38194
+    shipped_date: 38190
+    status: Shipped
+    comments: 
+    customer_id: 157
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  174:
+    id: 10273
+    order_date: 38189
+    required_date: 38196
+    shipped_date: 38190
+    status: Shipped
+    comments: 
+    customer_id: 314
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  175:
+    id: 10274
+    order_date: 38189
+    required_date: 38197
+    shipped_date: 38190
+    status: Shipped
+    comments: 
+    customer_id: 379
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  176:
+    id: 10275
+    order_date: 38191
+    required_date: 38201
+    shipped_date: 38197
+    status: Shipped
+    comments: 
+    customer_id: 119
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  177:
+    id: 10276
+    order_date: 38201
+    required_date: 38210
+    shipped_date: 38207
+    status: Shipped
+    comments: 
+    customer_id: 204
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  178:
+    id: 10277
+    order_date: 38203
+    required_date: 38211
+    shipped_date: 38204
+    status: Shipped
+    comments: 
+    customer_id: 148
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  179:
+    id: 10278
+    order_date: 38205
+    required_date: 38215
+    shipped_date: 38208
+    status: Shipped
+    comments: 
+    customer_id: 112
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  180:
+    id: 10279
+    order_date: 38208
+    required_date: 38218
+    shipped_date: 38214
+    status: Shipped
+    comments: 'Cautious optimism. We have happy customers here, if we can keep them well stocked.  I need all the information I can get on the planned shippments of Porches'
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  181:
+    id: 10280
+    order_date: 38216
+    required_date: 38226
+    shipped_date: 38218
+    status: Shipped
+    comments: 
+    customer_id: 249
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  182:
+    id: 10281
+    order_date: 38218
+    required_date: 38227
+    shipped_date: 38222
+    status: Shipped
+    comments: 
+    customer_id: 157
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  183:
+    id: 10282
+    order_date: 38219
+    required_date: 38225
+    shipped_date: 38221
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  184:
+    id: 10283
+    order_date: 38219
+    required_date: 38229
+    shipped_date: 38222
+    status: Shipped
+    comments: 
+    customer_id: 260
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  185:
+    id: 10284
+    order_date: 38220
+    required_date: 38228
+    shipped_date: 38225
+    status: Shipped
+    comments: Custom shipping instructions sent to warehouse
+    customer_id: 299
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  186:
+    id: 10285
+    order_date: 38226
+    required_date: 38234
+    shipped_date: 38230
+    status: Shipped
+    comments: 
+    customer_id: 286
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  187:
+    id: 10286
+    order_date: 38227
+    required_date: 38236
+    shipped_date: 38231
+    status: Shipped
+    comments: 
+    customer_id: 172
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  188:
+    id: 10287
+    order_date: 38229
+    required_date: 38236
+    shipped_date: 38231
+    status: Shipped
+    comments: 
+    customer_id: 298
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  189:
+    id: 10288
+    order_date: 38231
+    required_date: 38241
+    shipped_date: 38235
+    status: Shipped
+    comments: 
+    customer_id: 166
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  190:
+    id: 10289
+    order_date: 38233
+    required_date: 38243
+    shipped_date: 38234
+    status: Shipped
+    comments: We need to keep in close contact with their Marketing VP. He is the decision maker for all their purchases.
+    customer_id: 167
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  191:
+    id: 10290
+    order_date: 38237
+    required_date: 38245
+    shipped_date: 38243
+    status: Shipped
+    comments: 
+    customer_id: 198
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  192:
+    id: 10291
+    order_date: 38238
+    required_date: 38247
+    shipped_date: 38244
+    status: Shipped
+    comments: 
+    customer_id: 448
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  193:
+    id: 10292
+    order_date: 38238
+    required_date: 38248
+    shipped_date: 38241
+    status: Shipped
+    comments: They want to reevaluate their terms agreement with Finance.
+    customer_id: 131
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  194:
+    id: 10293
+    order_date: 38239
+    required_date: 38248
+    shipped_date: 38244
+    status: Shipped
+    comments: 
+    customer_id: 249
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  195:
+    id: 10294
+    order_date: 38240
+    required_date: 38247
+    shipped_date: 38244
+    status: Shipped
+    comments: 
+    customer_id: 204
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  196:
+    id: 10295
+    order_date: 38240
+    required_date: 38247
+    shipped_date: 38244
+    status: Shipped
+    comments: They want to reevaluate their terms agreement with Finance.
+    customer_id: 362
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  197:
+    id: 10296
+    order_date: 38245
+    required_date: 38252
+    shipped_date: 38246
+    status: Shipped
+    comments: 
+    customer_id: 415
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  198:
+    id: 10297
+    order_date: 38246
+    required_date: 38252
+    shipped_date: 38251
+    status: Shipped
+    comments: We must be cautions with this customer. Their VP of Sales resigned. Company may be heading down.
+    customer_id: 189
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  199:
+    id: 10298
+    order_date: 38257
+    required_date: 38265
+    shipped_date: 38261
+    status: Shipped
+    comments: 
+    customer_id: 103
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  200:
+    id: 10299
+    order_date: 38260
+    required_date: 38270
+    shipped_date: 38261
+    status: Shipped
+    comments: 
+    customer_id: 186
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  201:
+    id: 10300
+    order_date: 37898
+    required_date: 37907
+    shipped_date: 37903
+    status: Shipped
+    comments: 
+    customer_id: 128
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  202:
+    id: 10301
+    order_date: 37899
+    required_date: 37909
+    shipped_date: 37902
+    status: Shipped
+    comments: 
+    customer_id: 299
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  203:
+    id: 10302
+    order_date: 37900
+    required_date: 37910
+    shipped_date: 37901
+    status: Shipped
+    comments: 
+    customer_id: 201
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  204:
+    id: 10303
+    order_date: 38266
+    required_date: 38274
+    shipped_date: 38269
+    status: Shipped
+    comments: Customer inquired about remote controlled models and gold models.
+    customer_id: 484
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  205:
+    id: 10304
+    order_date: 38271
+    required_date: 38280
+    shipped_date: 38277
+    status: Shipped
+    comments: 
+    customer_id: 256
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  206:
+    id: 10305
+    order_date: 38273
+    required_date: 38282
+    shipped_date: 38275
+    status: Shipped
+    comments: Check on availability.
+    customer_id: 286
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  207:
+    id: 10306
+    order_date: 38274
+    required_date: 38281
+    shipped_date: 38277
+    status: Shipped
+    comments: 
+    customer_id: 187
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  208:
+    id: 10307
+    order_date: 38274
+    required_date: 38283
+    shipped_date: 38280
+    status: Shipped
+    comments: 
+    customer_id: 339
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  209:
+    id: 10308
+    order_date: 38275
+    required_date: 38284
+    shipped_date: 38280
+    status: Shipped
+    comments: Customer requested that FedEx Ground is used for this shipping
+    customer_id: 319
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  210:
+    id: 10309
+    order_date: 38275
+    required_date: 38284
+    shipped_date: 38278
+    status: Shipped
+    comments: 
+    customer_id: 121
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  211:
+    id: 10310
+    order_date: 38276
+    required_date: 38284
+    shipped_date: 38278
+    status: Shipped
+    comments: 
+    customer_id: 259
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  212:
+    id: 10311
+    order_date: 38276
+    required_date: 38283
+    shipped_date: 38280
+    status: Shipped
+    comments: Difficult to negotiate with customer. We need more marketing materials
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  213:
+    id: 10312
+    order_date: 38281
+    required_date: 38287
+    shipped_date: 38283
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  214:
+    id: 10313
+    order_date: 38282
+    required_date: 38288
+    shipped_date: 38285
+    status: Shipped
+    comments: Customer requested that FedEx Ground is used for this shipping
+    customer_id: 202
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  215:
+    id: 10314
+    order_date: 38282
+    required_date: 38292
+    shipped_date: 38283
+    status: Shipped
+    comments: 
+    customer_id: 227
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  216:
+    id: 10315
+    order_date: 38289
+    required_date: 38299
+    shipped_date: 38290
+    status: Shipped
+    comments: 
+    customer_id: 119
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  217:
+    id: 10316
+    order_date: 38292
+    required_date: 38300
+    shipped_date: 38298
+    status: Shipped
+    comments: 'Customer requested that ad materials (such as posters, pamphlets) be included in the shippment'
+    customer_id: 240
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  218:
+    id: 10317
+    order_date: 38293
+    required_date: 38303
+    shipped_date: 38299
+    status: Shipped
+    comments: 
+    customer_id: 161
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  219:
+    id: 10318
+    order_date: 38293
+    required_date: 38300
+    shipped_date: 38298
+    status: Shipped
+    comments: 
+    customer_id: 157
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  220:
+    id: 10319
+    order_date: 38294
+    required_date: 38302
+    shipped_date: 38297
+    status: Shipped
+    comments: Customer requested that DHL is used for this shipping
+    customer_id: 456
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  221:
+    id: 10320
+    order_date: 38294
+    required_date: 38304
+    shipped_date: 38298
+    status: Shipped
+    comments: 
+    customer_id: 144
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  222:
+    id: 10321
+    order_date: 38295
+    required_date: 38303
+    shipped_date: 38298
+    status: Shipped
+    comments: 
+    customer_id: 462
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  223:
+    id: 10322
+    order_date: 38295
+    required_date: 38303
+    shipped_date: 38301
+    status: Shipped
+    comments: Customer has worked with some of our vendors in the past and is aware of their MSRP
+    customer_id: 363
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  224:
+    id: 10323
+    order_date: 38296
+    required_date: 38303
+    shipped_date: 38300
+    status: Shipped
+    comments: 
+    customer_id: 128
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  225:
+    id: 10324
+    order_date: 38296
+    required_date: 38302
+    shipped_date: 38299
+    status: Shipped
+    comments: 
+    customer_id: 181
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  226:
+    id: 10325
+    order_date: 38296
+    required_date: 38304
+    shipped_date: 38299
+    status: Shipped
+    comments: 
+    customer_id: 121
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  227:
+    id: 10326
+    order_date: 38300
+    required_date: 38307
+    shipped_date: 38301
+    status: Shipped
+    comments: 
+    customer_id: 144
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  228:
+    id: 10327
+    order_date: 38301
+    required_date: 38310
+    shipped_date: 38304
+    status: Resolved
+    comments: Order was disputed and resolved on 12/1/04. The Sales Manager was involved. Customer claims the scales of the models don't match what was discussed.
+    customer_id: 145
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  229:
+    id: 10328
+    order_date: 38303
+    required_date: 38312
+    shipped_date: 38309
+    status: Shipped
+    comments: Customer very concerned about the exact color of the models. There is high risk that he may dispute the order because there is a slight color mismatch
+    customer_id: 278
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  230:
+    id: 10329
+    order_date: 38306
+    required_date: 38315
+    shipped_date: 38307
+    status: Shipped
+    comments: 
+    customer_id: 131
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  231:
+    id: 10330
+    order_date: 38307
+    required_date: 38316
+    shipped_date: 38312
+    status: Shipped
+    comments: 
+    customer_id: 385
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  232:
+    id: 10331
+    order_date: 38308
+    required_date: 38314
+    shipped_date: 38314
+    status: Shipped
+    comments: Customer requested special shippment. The instructions were passed along to the warehouse
+    customer_id: 486
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  233:
+    id: 10332
+    order_date: 38308
+    required_date: 38316
+    shipped_date: 38309
+    status: Shipped
+    comments: 
+    customer_id: 187
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  234:
+    id: 10333
+    order_date: 38309
+    required_date: 38318
+    shipped_date: 38311
+    status: Shipped
+    comments: 
+    customer_id: 129
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  235:
+    id: 10334
+    order_date: 38310
+    required_date: 38319
+    shipped_date: 
+    status: On Hold
+    comments: The outstaniding balance for this customer exceeds their credit limit. Order will be shipped when a payment is received.
+    customer_id: 144
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  236:
+    id: 10335
+    order_date: 38310
+    required_date: 38320
+    shipped_date: 38314
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  237:
+    id: 10336
+    order_date: 38311
+    required_date: 38317
+    shipped_date: 38315
+    status: Shipped
+    comments: Customer requested that DHL is used for this shipping
+    customer_id: 172
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  238:
+    id: 10337
+    order_date: 38312
+    required_date: 38321
+    shipped_date: 38317
+    status: Shipped
+    comments: 
+    customer_id: 424
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  239:
+    id: 10338
+    order_date: 38313
+    required_date: 38323
+    shipped_date: 38318
+    status: Shipped
+    comments: 
+    customer_id: 381
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  240:
+    id: 10339
+    order_date: 38314
+    required_date: 38321
+    shipped_date: 38321
+    status: Shipped
+    comments: 
+    customer_id: 398
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  241:
+    id: 10340
+    order_date: 38315
+    required_date: 38322
+    shipped_date: 38316
+    status: Shipped
+    comments: Customer is interested in buying more Ferrari models
+    customer_id: 216
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  242:
+    id: 10341
+    order_date: 38315
+    required_date: 38322
+    shipped_date: 38320
+    status: Shipped
+    comments: 
+    customer_id: 382
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  243:
+    id: 10342
+    order_date: 38315
+    required_date: 38322
+    shipped_date: 38320
+    status: Shipped
+    comments: 
+    customer_id: 114
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  244:
+    id: 10343
+    order_date: 38315
+    required_date: 38322
+    shipped_date: 38317
+    status: Shipped
+    comments: 
+    customer_id: 353
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  245:
+    id: 10344
+    order_date: 38316
+    required_date: 38323
+    shipped_date: 38320
+    status: Shipped
+    comments: 
+    customer_id: 350
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  246:
+    id: 10345
+    order_date: 38316
+    required_date: 38322
+    shipped_date: 38317
+    status: Shipped
+    comments: 
+    customer_id: 103
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  247:
+    id: 10346
+    order_date: 38320
+    required_date: 38326
+    shipped_date: 38321
+    status: Shipped
+    comments: 
+    customer_id: 112
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  248:
+    id: 10347
+    order_date: 38320
+    required_date: 38328
+    shipped_date: 38321
+    status: Shipped
+    comments: 'Can we deliver the new Ford Mustang models by end-of-quarter?'
+    customer_id: 114
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  249:
+    id: 10348
+    order_date: 38292
+    required_date: 38299
+    shipped_date: 38296
+    status: Shipped
+    comments: 
+    customer_id: 458
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  250:
+    id: 10349
+    order_date: 38322
+    required_date: 38328
+    shipped_date: 38324
+    status: Shipped
+    comments: 
+    customer_id: 151
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  251:
+    id: 10350
+    order_date: 38323
+    required_date: 38329
+    shipped_date: 38326
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  252:
+    id: 10351
+    order_date: 38324
+    required_date: 38332
+    shipped_date: 38328
+    status: Shipped
+    comments: 
+    customer_id: 324
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  253:
+    id: 10352
+    order_date: 38324
+    required_date: 38333
+    shipped_date: 38330
+    status: Shipped
+    comments: 
+    customer_id: 198
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  254:
+    id: 10353
+    order_date: 38325
+    required_date: 38332
+    shipped_date: 38326
+    status: Shipped
+    comments: 
+    customer_id: 447
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  255:
+    id: 10354
+    order_date: 38325
+    required_date: 38331
+    shipped_date: 38326
+    status: Shipped
+    comments: 
+    customer_id: 323
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  256:
+    id: 10355
+    order_date: 38328
+    required_date: 38335
+    shipped_date: 38334
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  257:
+    id: 10356
+    order_date: 38330
+    required_date: 38336
+    shipped_date: 38333
+    status: Shipped
+    comments: 
+    customer_id: 250
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  258:
+    id: 10357
+    order_date: 38331
+    required_date: 38337
+    shipped_date: 38335
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  259:
+    id: 10358
+    order_date: 38331
+    required_date: 38337
+    shipped_date: 38337
+    status: Shipped
+    comments: Customer requested that DHL is used for this shipping
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  260:
+    id: 10359
+    order_date: 38336
+    required_date: 38344
+    shipped_date: 38339
+    status: Shipped
+    comments: 
+    customer_id: 353
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  261:
+    id: 10360
+    order_date: 38337
+    required_date: 38343
+    shipped_date: 38339
+    status: Shipped
+    comments: 
+    customer_id: 496
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  262:
+    id: 10361
+    order_date: 38338
+    required_date: 38345
+    shipped_date: 38341
+    status: Shipped
+    comments: 
+    customer_id: 282
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  263:
+    id: 10362
+    order_date: 38357
+    required_date: 38368
+    shipped_date: 38362
+    status: Shipped
+    comments: 
+    customer_id: 161
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  264:
+    id: 10363
+    order_date: 38358
+    required_date: 38364
+    shipped_date: 38362
+    status: Shipped
+    comments: 
+    customer_id: 334
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  265:
+    id: 10364
+    order_date: 38358
+    required_date: 38369
+    shipped_date: 38361
+    status: Shipped
+    comments: 
+    customer_id: 350
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  266:
+    id: 10365
+    order_date: 38359
+    required_date: 38370
+    shipped_date: 38363
+    status: Shipped
+    comments: 
+    customer_id: 320
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  267:
+    id: 10366
+    order_date: 38362
+    required_date: 38371
+    shipped_date: 38364
+    status: Shipped
+    comments: 
+    customer_id: 381
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  268:
+    id: 10367
+    order_date: 38364
+    required_date: 38373
+    shipped_date: 38368
+    status: Resolved
+    comments: This order was disputed and resolved on 2/1/2005. Customer claimed that container with shipment was damaged. FedEx's investigation proved this wrong.
+    customer_id: 205
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  269:
+    id: 10368
+    order_date: 38371
+    required_date: 38379
+    shipped_date: 38376
+    status: Shipped
+    comments: 'Can we renegotiate this one?'
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  270:
+    id: 10369
+    order_date: 38372
+    required_date: 38380
+    shipped_date: 38376
+    status: Shipped
+    comments: 
+    customer_id: 379
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  271:
+    id: 10370
+    order_date: 38372
+    required_date: 38384
+    shipped_date: 38377
+    status: Shipped
+    comments: 
+    customer_id: 276
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  272:
+    id: 10371
+    order_date: 38375
+    required_date: 38386
+    shipped_date: 38377
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  273:
+    id: 10372
+    order_date: 38378
+    required_date: 38388
+    shipped_date: 38380
+    status: Shipped
+    comments: 
+    customer_id: 398
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  274:
+    id: 10373
+    order_date: 38383
+    required_date: 38391
+    shipped_date: 38389
+    status: Shipped
+    comments: 
+    customer_id: 311
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  275:
+    id: 10374
+    order_date: 38385
+    required_date: 38392
+    shipped_date: 38386
+    status: Shipped
+    comments: 
+    customer_id: 333
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  276:
+    id: 10375
+    order_date: 38386
+    required_date: 38393
+    shipped_date: 38389
+    status: Shipped
+    comments: 
+    customer_id: 119
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  277:
+    id: 10376
+    order_date: 38391
+    required_date: 38401
+    shipped_date: 38396
+    status: Shipped
+    comments: 
+    customer_id: 219
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  278:
+    id: 10377
+    order_date: 38392
+    required_date: 38404
+    shipped_date: 38395
+    status: Shipped
+    comments: 'Cautious optimism. We have happy customers here, if we can keep them well stocked.  I need all the information I can get on the planned shippments of Porches'
+    customer_id: 186
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  279:
+    id: 10378
+    order_date: 38393
+    required_date: 38401
+    shipped_date: 38394
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  280:
+    id: 10379
+    order_date: 38393
+    required_date: 38401
+    shipped_date: 38394
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  281:
+    id: 10380
+    order_date: 38399
+    required_date: 38407
+    shipped_date: 38401
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  282:
+    id: 10381
+    order_date: 38400
+    required_date: 38408
+    shipped_date: 38401
+    status: Shipped
+    comments: 
+    customer_id: 321
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  283:
+    id: 10382
+    order_date: 38400
+    required_date: 38406
+    shipped_date: 38401
+    status: Shipped
+    comments: Custom shipping instructions sent to warehouse
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  284:
+    id: 10383
+    order_date: 38405
+    required_date: 38413
+    shipped_date: 38408
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  285:
+    id: 10384
+    order_date: 38406
+    required_date: 38417
+    shipped_date: 38410
+    status: Shipped
+    comments: 
+    customer_id: 321
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  286:
+    id: 10385
+    order_date: 38411
+    required_date: 38420
+    shipped_date: 38412
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  287:
+    id: 10386
+    order_date: 38412
+    required_date: 38420
+    shipped_date: 38417
+    status: Resolved
+    comments: Disputed then Resolved on 3/15/2005. Customer doesn't like the craftsmaship of the models.
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  288:
+    id: 10387
+    order_date: 38413
+    required_date: 38420
+    shipped_date: 38417
+    status: Shipped
+    comments: We need to keep in close contact with their Marketing VP. He is the decision maker for all their purchases.
+    customer_id: 148
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  289:
+    id: 10388
+    order_date: 38414
+    required_date: 38422
+    shipped_date: 38420
+    status: Shipped
+    comments: 
+    customer_id: 462
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  290:
+    id: 10389
+    order_date: 38414
+    required_date: 38420
+    shipped_date: 38419
+    status: Shipped
+    comments: 
+    customer_id: 448
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  291:
+    id: 10390
+    order_date: 38415
+    required_date: 38422
+    shipped_date: 38418
+    status: Shipped
+    comments: They want to reevaluate their terms agreement with Finance.
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  292:
+    id: 10391
+    order_date: 38420
+    required_date: 38431
+    shipped_date: 38426
+    status: Shipped
+    comments: 
+    customer_id: 276
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  293:
+    id: 10392
+    order_date: 38421
+    required_date: 38429
+    shipped_date: 38423
+    status: Shipped
+    comments: 
+    customer_id: 452
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  294:
+    id: 10393
+    order_date: 38422
+    required_date: 38433
+    shipped_date: 38425
+    status: Shipped
+    comments: They want to reevaluate their terms agreement with Finance.
+    customer_id: 323
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  295:
+    id: 10394
+    order_date: 38426
+    required_date: 38436
+    shipped_date: 38430
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  296:
+    id: 10395
+    order_date: 38428
+    required_date: 38435
+    shipped_date: 38434
+    status: Shipped
+    comments: We must be cautions with this customer. Their VP of Sales resigned. Company may be heading down.
+    customer_id: 250
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  297:
+    id: 10396
+    order_date: 38434
+    required_date: 38444
+    shipped_date: 38439
+    status: Shipped
+    comments: 
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  298:
+    id: 10397
+    order_date: 38439
+    required_date: 38451
+    shipped_date: 38443
+    status: Shipped
+    comments: 
+    customer_id: 242
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  299:
+    id: 10398
+    order_date: 38441
+    required_date: 38451
+    shipped_date: 38442
+    status: Shipped
+    comments: 
+    customer_id: 353
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  300:
+    id: 10399
+    order_date: 38443
+    required_date: 38454
+    shipped_date: 38445
+    status: Shipped
+    comments: 
+    customer_id: 496
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  301:
+    id: 10400
+    order_date: 38443
+    required_date: 38453
+    shipped_date: 38446
+    status: Shipped
+    comments: Customer requested that DHL is used for this shipping
+    customer_id: 450
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  302:
+    id: 10401
+    order_date: 38445
+    required_date: 38456
+    shipped_date: 
+    status: On Hold
+    comments: Customer credit limit exceeded. Will ship when a payment is received.
+    customer_id: 328
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  303:
+    id: 10402
+    order_date: 38449
+    required_date: 38456
+    shipped_date: 38454
+    status: Shipped
+    comments: 
+    customer_id: 406
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  304:
+    id: 10403
+    order_date: 38450
+    required_date: 38460
+    shipped_date: 38453
+    status: Shipped
+    comments: 
+    customer_id: 201
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  305:
+    id: 10404
+    order_date: 38450
+    required_date: 38456
+    shipped_date: 38453
+    status: Shipped
+    comments: 
+    customer_id: 323
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  306:
+    id: 10405
+    order_date: 38456
+    required_date: 38466
+    shipped_date: 38462
+    status: Shipped
+    comments: 
+    customer_id: 209
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  307:
+    id: 10406
+    order_date: 38457
+    required_date: 38467
+    shipped_date: 38463
+    status: Disputed
+    comments: Customer claims container with shipment was damaged during shipping and some items were missing. I am talking to FedEx about this.
+    customer_id: 145
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  308:
+    id: 10407
+    order_date: 38464
+    required_date: 38476
+    shipped_date: 
+    status: On Hold
+    comments: Customer credit limit exceeded. Will ship when a payment is received.
+    customer_id: 450
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  309:
+    id: 10408
+    order_date: 38464
+    required_date: 38471
+    shipped_date: 38469
+    status: Shipped
+    comments: 
+    customer_id: 398
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  310:
+    id: 10409
+    order_date: 38465
+    required_date: 38477
+    shipped_date: 38466
+    status: Shipped
+    comments: 
+    customer_id: 166
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  311:
+    id: 10410
+    order_date: 38471
+    required_date: 38482
+    shipped_date: 38472
+    status: Shipped
+    comments: 
+    customer_id: 357
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  312:
+    id: 10411
+    order_date: 38473
+    required_date: 38480
+    shipped_date: 38478
+    status: Shipped
+    comments: 
+    customer_id: 233
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  313:
+    id: 10412
+    order_date: 38475
+    required_date: 38485
+    shipped_date: 38477
+    status: Shipped
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  314:
+    id: 10413
+    order_date: 38477
+    required_date: 38486
+    shipped_date: 38481
+    status: Shipped
+    comments: Customer requested that DHL is used for this shipping
+    customer_id: 175
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  315:
+    id: 10414
+    order_date: 38478
+    required_date: 38485
+    shipped_date: 
+    status: On Hold
+    comments: Customer credit limit exceeded. Will ship when a payment is received.
+    customer_id: 362
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  316:
+    id: 10415
+    order_date: 38481
+    required_date: 38492
+    shipped_date: 38484
+    status: Disputed
+    comments: Customer claims the scales of the models don't match what was discussed. I keep all the paperwork though to prove otherwise
+    customer_id: 471
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  317:
+    id: 10416
+    order_date: 38482
+    required_date: 38488
+    shipped_date: 38486
+    status: Shipped
+    comments: 
+    customer_id: 386
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  318:
+    id: 10417
+    order_date: 38485
+    required_date: 38491
+    shipped_date: 38491
+    status: Disputed
+    comments: Customer doesn't like the colors and precision of the models.
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  319:
+    id: 10418
+    order_date: 38488
+    required_date: 38496
+    shipped_date: 38492
+    status: Shipped
+    comments: 
+    customer_id: 412
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  320:
+    id: 10419
+    order_date: 38489
+    required_date: 38500
+    shipped_date: 38491
+    status: Shipped
+    comments: 
+    customer_id: 382
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  321:
+    id: 10420
+    order_date: 38501
+    required_date: 38510
+    shipped_date: 
+    status: In Process
+    comments: 
+    customer_id: 282
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  322:
+    id: 10421
+    order_date: 38501
+    required_date: 38509
+    shipped_date: 
+    status: In Process
+    comments: Custom shipping instructions were sent to warehouse
+    customer_id: 124
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  323:
+    id: 10422
+    order_date: 38502
+    required_date: 38514
+    shipped_date: 
+    status: In Process
+    comments: 
+    customer_id: 157
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  324:
+    id: 10423
+    order_date: 38502
+    required_date: 38508
+    shipped_date: 
+    status: In Process
+    comments: 
+    customer_id: 314
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  325:
+    id: 10424
+    order_date: 38503
+    required_date: 38511
+    shipped_date: 
+    status: In Process
+    comments: 
+    customer_id: 141
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+  326:
+    id: 10425
+    order_date: 38503
+    required_date: 38510
+    shipped_date: 
+    status: In Process
+    comments: 
+    customer_id: 119
+    '%customer': '=INDEX(customers!B:B,MATCH(G:G,customers!A:A,0))'
+RowCount: 326

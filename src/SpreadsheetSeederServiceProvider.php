@@ -2,7 +2,14 @@
 
 namespace bfinlay\SpreadsheetSeeder;
 
+use bfinlay\SpreadsheetSeeder\Console\SeedCommand;
+use bfinlay\SpreadsheetSeeder\Support\StrMacros;
+use bfinlay\SpreadsheetSeeder\Support\Workaround\RefreshDatabase\RefreshDatabaseMySqlConnection;
+use Composer\Semver\Semver;
+use Illuminate\Database\Connection;
+use Illuminate\Database\MySqlConnection;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class SpreadsheetSeederServiceProvider extends ServiceProvider
 {
@@ -12,16 +19,23 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
 	 * @var bool
 	 */
     protected $defer = false;
-    
+
     /**
-     * Bootstrap services.
+     * All of the container bindings that should be registered.
      *
-     * @return void
+     * @var array
      */
-    public function boot()
-    {
-        //
-    }
+    public $bindings = [
+    ];
+
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array
+     */
+    public $singletons = [
+        SpreadsheetSeederSettings::class => SpreadsheetSeederSettings::class,
+    ];
 
     /**
      * Register services.
@@ -30,10 +44,25 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-        $this->app->singleton(SpreadsheetSeederSettings::class, function ($app) {
-            return new SpreadsheetSeederSettings();
+        $this->app->singleton(SeedCommand::class, function ($app) {
+            return new SeedCommand($app['db']);
         });
+
+        if (!method_exists(Str::class, "beforeLast")) StrMacros::registerBeforeLastMacro();
+        if (!method_exists(Str::class, "between")) StrMacros::registerBetweenMacro();
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->bindGrammarClasses();
+        $this->commands([
+            SeedCommand::class,
+        ]);
     }
 
     /**
@@ -44,5 +73,37 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
     public function provides()
     {
         return array();
+    }
+
+    protected function getMySqlConnectionClass()
+    {
+        $phpversion = explode("-", phpversion());
+        if (
+            app()->runningUnitTests() &&
+            Semver::satisfies(app()->version(), "^6.0|^7.0|^8.0") &&
+            Semver::satisfies($phpversion[0], "^8.0")
+        )
+            return RefreshDatabaseMySqlConnection::class;
+
+        return MySqlConnection::class;
+    }
+
+    protected function bindGrammarClasses()
+    {
+        $connections = [
+            'mysql' => [
+                'connection' => $this->getMySqlConnectionClass(),
+                'schemaGrammar' => MySqlGrammar::class,
+            ],
+        ];
+
+        foreach($connections as $driver => $class) {
+            Connection::resolverFor($driver, function($pdo, $database = '', $tablePrefix = '', array $config = []) use ($driver, $class) {
+                $connection = new $class['connection']($pdo, $database, $tablePrefix, $config);
+                $connection->setSchemaGrammar(new $class['schemaGrammar']);
+
+                return $connection;
+            });
+        }
     }
 }

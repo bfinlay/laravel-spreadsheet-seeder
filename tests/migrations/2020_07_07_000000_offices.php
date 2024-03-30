@@ -15,7 +15,7 @@ class Offices extends Migration
     {
         //
         Schema::create('offices', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('city');
             $table->string('phone');
             $table->string('address_line_1');

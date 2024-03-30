@@ -1,0 +1,136 @@
+name: PHPUnit tests
+
+on:
+  push:
+    branches:
+      - master
+      - github-actions
+      - test
+  pull_request:
+    branches:
+      - master
+      - test
+  workflow_dispatch:
+
+jobs:
+  github-title:
+    name: (php, laravel, DBAL)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Legend
+        run: echo "This prints the test legend at the top of the Github Actions jobs"
+  build-and-test:
+    name: Test (p,l,d)
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ["7.3", "7.4", "8.0", "8.1", "8.2"]
+        laravel: [^5.8, ^6.0, ^7.0, ^8.0, ^9.0, ^10.0]
+        dbal: [^2.6, ^3.0]
+#        php: ["8.2"]
+#        laravel: [^10.0]
+#        dbal: [^3.0]
+        exclude:
+          - php: 7.2
+            laravel: ^8.0
+          - php: 7.2
+            laravel: ^9.0
+          - php: 7.2
+            laravel: ^10.0
+          - php: 7.3
+            laravel: ^9.0
+          - php: 7.3
+            laravel: ^10.0
+          - php: 7.4
+            laravel: ^9.0
+          - php: 7.4
+            laravel: ^10.0
+          - php: 8.0
+            laravel: ^5.8
+          - php: 8.0
+            laravel: ^10.0
+          - php: 8.1
+            laravel: ^5.8
+          - php: 8.1
+            laravel: ^6.0
+          - php: 8.1
+            laravel: ^7.0
+          - php: 8.2
+            laravel: ^5.8
+          - php: 8.2
+            laravel: ^6.0
+          - php: 8.2
+            laravel: ^7.0
+          - laravel: ^5.8
+            dbal: ^3.0
+          - laravel: ^6.0
+            dbal: ^3.0
+          - laravel: ^7.0
+            dbal: ^3.0
+          - laravel: ^10.0
+            dbal: ^2.6
+
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - uses: "ramsey/composer-install@v2"
+        with:
+          dependency-versions: "highest"
+          composer-options: "--with laravel/framework:${{ matrix.laravel }} --with doctrine/dbal:${{ matrix.dbal }}"
+
+      - name: Create Database Containers
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 3
+          retry_on: error
+          timeout_minutes: 3
+          command: pwd;docker-compose up -d
+      - name: List Database Containers
+        run: docker-compose ps
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --port=33068 --silent; do
+            sleep 1
+          done
+      - name: List Database Containers
+        run: docker-compose ps
+
+      - name: Run SQLite PHPUnit Unit Tests
+        run: vendor/phpunit/phpunit/phpunit tests --cache-result-file=.phpunit.result.cache
+      - name: Run MySQL PHPUnit Unit Tests
+        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-mysql.xml tests --cache-result-file=.phpunit.result.cache
+      - name: Run Postgres PHPUnit Unit Tests
+        run: vendor/phpunit/phpunit/phpunit --configuration phpunit-postgres.xml tests --cache-result-file=.phpunit.result.cache
+
+      - name: 'App Package-Inclusion Test: Create Laravel Project'
+        run: |
+          cd ..
+          composer create-project laravel/laravel:${{ matrix.laravel }} issue-22
+      - name: 'App Package-Inclusion Test: Install Laravel Excel Seeder package'
+        working-directory: ../issue-22
+        run: |
+          composer require bfinlay/laravel-excel-seeder:dev-master -W
+      - name: 'App Package-Inclusion Test: Copy Migrations and Seeders'
+        working-directory: ../issue-22
+        run: |
+          rm database/migrations/*
+          cp ../laravel-excel-seeder/tests/migrations/* database/migrations
+          cp ../laravel-excel-seeder/examples/classicmodels.xlsx database/seeders
+          cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/DatabaseSeeder.php database/seeders
+      - name: "App Package-Inclusion Test: Migrate and Seed SQLite"
+        working-directory: ../issue-22
+        run: |
+          cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/.env.sqlite .env
+          php artisan migrate:fresh --seed
+      - name: "App Package-Inclusion Test: Migrate and Seed MySQL"
+        working-directory: ../issue-22
+        run: |
+          cp -f ../laravel-excel-seeder/tests/AppPackageInclusion/.env.mysql .env
+          php artisan migrate:fresh --seed
+
