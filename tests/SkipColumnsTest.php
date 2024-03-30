@@ -2,8 +2,6 @@
 
 namespace bfinlay\SpreadsheetSeeder\Tests;
 
-use PHPUnit\Framework\TestCase;
-
 class SkipColumnsTest extends TestCase
 {
     use AssertsMigrations;

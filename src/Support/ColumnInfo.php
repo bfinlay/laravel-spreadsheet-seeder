@@ -4,7 +4,7 @@ namespace bfinlay\SpreadsheetSeeder\Support;
 
 use Doctrine\DBAL\Schema\Column;
 
-class ColumnAdapter
+class ColumnInfo
 {
     protected $name;
     protected $type_name;
@@ -15,22 +15,63 @@ class ColumnAdapter
     protected $autoIncrement;
     protected $comment;
     protected $generation;
-    
+
     public function __construct($column)
     {
-        if ($column instanceof Column) $this->doctrineColumn = $column;
-        if (is_array($column)) $this->laravelColumn = $column;
+        if ($column instanceof Column) $this->fromDoctrine($column);
+        if (is_array($column)) $this->fromLaravel($column);
     }
 
-    public static function fromDoctrine(Column $column)
+    public function fromDoctrine(Column $column)
     {
+        $this->name = $column->getName();
+        $this->type_name = $this->type = $column->getType()->getName();
+        $this->nullable = ! $column->getNotnull();
+        $this->default = $column->getDefault();
+        $this->autoIncrement = $column->getAutoincrement();
+        $this->comment = $column->getComment();
+    }
 
+    public function fromLaravel($column)
+    {
+        $this->name = $column["name"];
+        $this->type_name = $column["type_name"] ?? null;
+        $this->type = $column["type"] ?? null;
+        $this->collation = $column["collation"] ?? null;
+        $this->nullable = $column["nullable"] ?? null;
+        $this->default = $column["default"] ?? null;
+        $this->autoIncrement = $column["auto_increment"] ?? null;
+        $this->comment = $column["comment"] ?? null;
+        $this->generation = $column["generation"] ?? null;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getNullable()
+    {
+        return $this->nullable;
     }
 
     public function getDefault()
     {
-        return
-            $this->doctrineColumn?->getDefault() ??
-            $this->laravelColumn["default"];
+        return $this->default;
+    }
+
+    public function getAutoIncrement()
+    {
+        return $this->autoIncrement;
+    }
+
+    public function getComment()
+    {
+        return $this->comment;
     }
 }
