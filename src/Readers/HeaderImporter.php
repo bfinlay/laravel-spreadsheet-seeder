@@ -10,19 +10,19 @@ class HeaderImporter
     /**
      * @var array
      */
-    private $headerRow;
+    protected $headerRow;
 
     /**
      * @var SpreadsheetSeederSettings
      */
-    private $settings;
+    protected $settings;
 
     /**
      * Array of raw column names unaliased and un-skipped from the sheet
      *
      * @var string[]
      */
-    private $rawColumns;
+    protected $rawColumns;
 
     /**
      * Map of post-processed column names to column numbers
@@ -55,16 +55,19 @@ class HeaderImporter
         return $this->toArray();
     }
 
-    private function makeHeader()
+    protected function makeHeader()
     {
         if (!empty($this->settings->mapping)) {
             $this->makeMappingHeader();
         } else {
             $this->makeSheetHeader();
         }
+        $this->makeAdditionalColumns();
+
     }
 
-    private function makeMappingHeader() {
+    protected function makeMappingHeader()
+    {
             $this->rawColumns = $this->settings->mapping;
             foreach($this->rawColumns as $key => $value) {
                 $this->columnNumbersByNameMap[$value] = $key;
@@ -72,7 +75,8 @@ class HeaderImporter
             }
     }
 
-    private function makeSheetHeader() {
+    protected function makeSheetHeader()
+    {
         foreach ($this->headerRow as $columnName) {
             $this->rawColumns[] = $columnName;
             if (!$this->skipColumn($columnName)) {
@@ -83,20 +87,35 @@ class HeaderImporter
         }
     }
 
-    private function columnAlias($columnName) {
+    protected function makeAdditionalColumns()
+    {
+        foreach ($this->settings->addColumns as $columnName) {
+            $this->rawColumns[] = $columnName;
+            $this->columnNumbersByNameMap[$columnName] = count($this->rawColumns) - 1;
+            $this->columnNamesByNumberMap[count($this->rawColumns) - 1] = $columnName;
+        }
+    }
+
+    protected function columnAlias($columnName)
+    {
         $columnName = isset($this->settings->aliases[$columnName]) ? $this->settings->aliases[$columnName] : $columnName;
         return $columnName;
     }
 
-    private function skipColumn($columnName) {
-        return $this->settings->skipper == substr($columnName, 0, strlen($this->settings->skipper));
+    protected function skipColumn($columnName)
+    {
+        return
+            in_array($columnName, $this->settings->skipColumns) ||
+            $this->settings->skipper == substr($columnName, 0, strlen($this->settings->skipper));
     }
 
-    public function toArray() {
+    public function toArray()
+    {
         return $this->columnNamesByNumberMap;
     }
     
-    public function rawColumns() {
+    public function rawColumns()
+    {
         return $this->rawColumns;
     }
 }

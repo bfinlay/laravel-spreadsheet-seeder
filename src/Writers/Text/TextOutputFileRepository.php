@@ -5,6 +5,7 @@ namespace bfinlay\SpreadsheetSeeder\Writers\Text;
 
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use bfinlay\SpreadsheetSeeder\Writers\Text\Yaml\YamlFormatter;
+use Illuminate\Support\Facades\App;
 use Symfony\Component\Finder\SplFileInfo;
 
 class TextOutputFileRepository
@@ -34,6 +35,11 @@ class TextOutputFileRepository
      */
     protected $extension;
 
+    /**
+     * @var SpreadsheetSeederSettings
+     */
+    protected $spreadsheetSeederSettings;
+
 
     /**
      * OldTextWriter constructor.
@@ -41,6 +47,7 @@ class TextOutputFileRepository
      */
     public function __construct(string $sourcePathname, string $outputExtension)
     {
+        $this->spreadsheetSeederSettings = App::make(SpreadsheetSeederSettings::class);
         $this->sourcePathname = $sourcePathname;
         $this->extension = ltrim($outputExtension, ".*");
         $this->createPath();
@@ -72,13 +79,21 @@ class TextOutputFileRepository
         return isset($this->sheet) && $this->sheet == $name;
     }
 
+    protected function isOutputPathSet()
+    {
+        return !empty($this->spreadsheetSeederSettings->textOutputPath);
+    }
+
     protected function pathName()
     {
         if (isset($this->_pathName)) return $this->_pathName;
 
         $this->_pathName = '';
         $path_parts = pathinfo($this->sourcePathname);
-        if (strlen($path_parts['dirname']) > 0) $this->_pathName = $path_parts['dirname'] . '/';
+        if ($this->isOutputPathSet())
+            $this->_pathName = $this->spreadsheetSeederSettings->textOutputPath;
+        elseif (strlen($path_parts['dirname']) > 0)
+            $this->_pathName = $path_parts['dirname'] . '/';
         $this->_pathName = $this->_pathName . $path_parts['filename'];
         return $this->_pathName;
     }
