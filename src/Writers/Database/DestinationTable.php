@@ -213,8 +213,8 @@ class DestinationTable
         $c = $this->columnInfo[$column];
 
         // if column is date or time type return
-        $doctrineDateValues = ['date', 'date_immutable', 'datetime', 'datetime_immutable', 'datetimez', 'datetimez_immutable', 'time', 'time_immutable', 'dateinterval'];
-        return in_array($c->getType(), $doctrineDateValues);
+        $dateColumnTypes = ['date', 'date_immutable', 'datetime', 'datetime_immutable', 'datetimez', 'datetimez_immutable', 'time', 'time_immutable', 'dateinterval', 'timestamp'];
+        return in_array($c->getType(), $dateColumnTypes);
     }
 
     public function defaultValue($column) {
