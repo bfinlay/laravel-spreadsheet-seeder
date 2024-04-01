@@ -48,8 +48,7 @@ class SpreadsheetSeederServiceProvider extends ServiceProvider
             return new SeedCommand($app['db']);
         });
 
-        if (!method_exists(Str::class, "beforeLast")) StrMacros::registerBeforeLastMacro();
-        if (!method_exists(Str::class, "between")) StrMacros::registerBetweenMacro();
+        StrMacros::registerSupportMacros();
     }
 
     /**

@@ -43,6 +43,8 @@ jobs:
             laravel: ^9.0
           - php: 7.3
             laravel: ^10.0
+          - php: 7.3
+            laravel: ^11.0
           - php: 7.4
             laravel: ^9.0
           - php: 7.4
@@ -82,6 +84,8 @@ jobs:
           - laravel: ^7.0
             dbal: ^3.0
           - laravel: ^10.0
+            dbal: ^2.6
+          - laravel: ^11.0
             dbal: ^2.6
 
 
