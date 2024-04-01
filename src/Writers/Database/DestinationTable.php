@@ -40,7 +40,7 @@ class DestinationTable
      *
      * See methods in vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/Column.php
      *
-     * @var ColumnInfo[]
+     * @var ColumnInfo[] $columnInfo
      */
     private $columnInfo;
 

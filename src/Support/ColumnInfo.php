@@ -52,7 +52,7 @@ class ColumnInfo
 
     public function getType()
     {
-        return $this->type;
+        return $this->type_name;
     }
 
     public function getNullable()
