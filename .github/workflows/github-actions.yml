@@ -24,7 +24,7 @@ jobs:
         env:
           branch: "master"
       - name: Set branch name (push)
-        if: ${{ vars.GITHUB_EVENT_NAME == "push"}
+        if: ${{ vars.GITHUB_EVENT_NAME == "push" }}
         run: echo "Workflow triggered by PUSH, setting branch to $branch"
         env:
           branch: ${{ vars.GITHUB_REF_NAME }}
