@@ -10,6 +10,8 @@ on:
     branches:
       - master
       - test
+  schedule:
+    - cron: '0 5 * * 5'
   workflow_dispatch:
 
 jobs:
@@ -19,6 +21,15 @@ jobs:
     steps:
       - name: Print Legend
         run: echo "This prints the test legend at the top of the Github Actions jobs"
+        env:
+          branch: "master"
+      - name: Set branch name (push)
+        if: ${{ vars.GITHUB_EVENT_NAME == "push"}
+        run: echo "Workflow triggered by PUSH, setting branch to $branch"
+        env:
+          branch: ${{ vars.GITHUB_REF_NAME }}
+      - name: Print branch name
+        run: echo "Branch is $branch"
   build-and-test:
     name: Test (p,l,d)
     strategy:
@@ -28,7 +39,7 @@ jobs:
 #        laravel: [^5.8, ^6.0, ^7.0, ^8.0, ^9.0, ^10.0, ^11.0]
 #        dbal: [^2.6, ^3.0]
         php: ["8.2"]
-        laravel: [^10.0, ^11.0]
+        laravel: [^11.0]
         dbal: [^3.0]
         exclude:
           - php: 7.2
@@ -105,7 +116,7 @@ jobs:
       - name: Create Database Containers
         uses: nick-fields/retry@v3
         with:
-          max_attempts: 1
+          max_attempts: 3
           retry_on: error
           timeout_minutes: 3
           command: pwd;docker-compose up -d
@@ -132,7 +143,7 @@ jobs:
       - name: 'App Package-Inclusion Test: Install Laravel Excel Seeder package'
         working-directory: ../issue-22
         run: |
-          composer require bfinlay/laravel-excel-seeder:dev-test -W
+          composer require bfinlay/laravel-excel-seeder:dev-${{ env.branch }} -W
       - name: 'App Package-Inclusion Test: Copy Migrations and Seeders'
         working-directory: ../issue-22
         run: |
