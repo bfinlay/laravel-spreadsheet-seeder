@@ -135,8 +135,8 @@ jobs:
         working-directory: ../issue-22
         run: |
           BRANCH=master
-          if [ ${{ GITHUB_EVENT_NAME }} == 'push' ]; then
-            BRANCH=${{ GITHUB_REF_NAME }}
+          if [ ${GITHUB_EVENT_NAME} == 'push' ]; then
+            BRANCH=${GITHUB_REF_NAME}
           fi
           composer require bfinlay/laravel-excel-seeder:dev-$BRANCH -W
       - name: 'App Package-Inclusion Test: Copy Migrations and Seeders'
