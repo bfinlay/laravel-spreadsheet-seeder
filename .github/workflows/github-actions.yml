@@ -21,15 +21,6 @@ jobs:
     steps:
       - name: Print Legend
         run: echo "This prints the test legend at the top of the Github Actions jobs"
-        env:
-          branch: "master"
-      - name: Set branch name (push)
-        if: ${{ vars.GITHUB_EVENT_NAME == 'push' }}
-        run: echo "Workflow triggered by PUSH (${GITHUB_EVENT_NAME}), setting branch to $branch"
-        env:
-          branch: ${{ vars.GITHUB_REF_NAME }}
-      - name: Print branch name
-        run: echo "Branch is $branch"
   build-and-test:
     name: Test (p,l,d)
     strategy:
@@ -143,7 +134,11 @@ jobs:
       - name: 'App Package-Inclusion Test: Install Laravel Excel Seeder package'
         working-directory: ../issue-22
         run: |
-          composer require bfinlay/laravel-excel-seeder:dev-${{ env.branch }} -W
+          BRANCH=master
+          if [ ${{ GITHUB_EVENT_NAME }} == 'push' ]; then
+            BRANCH=${{ GITHUB_REF_NAME }}
+          fi
+          composer require bfinlay/laravel-excel-seeder:dev-$BRANCH -W
       - name: 'App Package-Inclusion Test: Copy Migrations and Seeders'
         working-directory: ../issue-22
         run: |
