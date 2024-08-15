@@ -1,6 +1,6 @@
 <?php
 
-namespace bfinlay\SpreadsheetSeeder\Tests\Workaround\RefreshDatabase;
+namespace bfinlay\SpreadsheetSeeder\Support\Workaround\RefreshDatabase;
 
 use Illuminate\Database\MySqlConnection as BaseMySqlConnection;
 

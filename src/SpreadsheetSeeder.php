@@ -2,6 +2,7 @@
 
 namespace bfinlay\SpreadsheetSeeder;
 
+use bfinlay\SpreadsheetSeeder\Console\SeedCommand;
 use bfinlay\SpreadsheetSeeder\Events\Console;
 use bfinlay\SpreadsheetSeeder\Readers\Events\ChunkFinish;
 use bfinlay\SpreadsheetSeeder\Readers\Events\ChunkStart;
@@ -30,6 +31,31 @@ class SpreadsheetSeeder extends Seeder
      * @var SpreadsheetSeederSettings
      */
     protected $settings;
+
+    /**
+     * DefaultSettings
+     *
+     * @var SpreadsheetSeederSettings
+     */
+    protected $defaultSettings;
+
+    /**
+     * @var Finder | FileIterator | null
+     */
+    protected $activeFinder;
+
+    /**
+     * Current file
+     *
+     *
+     */
+    protected $fileName;
+
+    /**
+     * Current sheet
+     *
+     */
+    protected $sheetName;
 
     /**
      * @var ConsoleWriter
@@ -68,7 +94,7 @@ class SpreadsheetSeeder extends Seeder
                                 YamlWriter $yamlWriter,
                                 SpreadsheetReader $spreadsheetReader)
     {
-        $this->settings = $settings;
+        $this->settings = $this->defaultSettings = $settings;
         $this->consoleWriter = $consoleWriter;
         $this->databaseWriter = $databaseWriter;
         $this->markdownWriter = $markdownWriter;
@@ -79,11 +105,21 @@ class SpreadsheetSeeder extends Seeder
 
     public function boot()
     {
+        Event::listen(FileStart::class, [$this, 'handleFileStart']);
+        Event::listen(SheetStart::class, [$this, 'handleSheetStart']);
         $this->consoleWriter->boot($this->command);
         $this->databaseWriter->boot();
         $this->markdownWriter->boot();
         $this->yamlWriter->boot();
         $this->spreadsheetReader->boot();
+    }
+
+    public function resetSettings()
+    {
+        App::forgetInstance(SpreadsheetSeederSettings::class);
+        App::instance(SpreadsheetSeederSettings::class, $this->defaultSettings);
+        $this->settings = App::make(SpreadsheetSeederSettings::class);
+        $this->settings($this->settings);
     }
 
     public function settings(SpreadsheetSeederSettings $set)
@@ -133,9 +169,29 @@ class SpreadsheetSeeder extends Seeder
 
     public function finder()
     {
-        if ($this->settings->file instanceof Finder) return $this->settings->file;
+        if ($this->activeFinder) return $this->activeFinder;
 
-        return new FileIterator();
+        if ($this->settings->file instanceof Finder) return $this->activeFinder = $this->settings->file;
+
+        return $this->activeFinder = new FileIterator();
+    }
+
+    /**
+     * @param $fileStart FileStart
+     */
+    public function handleFileStart($fileStart)
+    {
+        $this->fileName = $fileStart->file->getFilename();
+        $this->resetSettings();
+    }
+
+    /**
+     * @param $sheetStart SheetStart
+     */
+    public function handleSheetStart($sheetStart)
+    {
+        $this->sheetName = $sheetStart->sheetName;
+        $this->resetSettings();
     }
 
     public function cleanup()

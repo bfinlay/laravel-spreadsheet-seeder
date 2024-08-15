@@ -5,6 +5,7 @@ namespace bfinlay\SpreadsheetSeeder\Readers\PhpSpreadsheet;
 
 
 use bfinlay\SpreadsheetSeeder\Readers\RowImporter;
+use bfinlay\SpreadsheetSeeder\Readers\Types\EmptyCell;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -84,7 +85,7 @@ class SourceRow
         /** @var Cell $cell */
         foreach($cellIterator as $cell) {
             if (isset($this->columnNames[$colIndex])) {
-                $row[$colIndex] = $cell->getCalculatedValue();
+                $row[$colIndex] = $cell->getCalculatedValue() ?? new EmptyCell();
             }
             $this->rawRowArray[$colIndex] = $cell->getValue();
 

@@ -4,6 +4,7 @@
 namespace bfinlay\SpreadsheetSeeder\Tests\Seeds;
 
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeeder;
+use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 
 class ClassicModelsSeeder extends SpreadsheetSeeder
 {

@@ -2,7 +2,6 @@
 
 namespace bfinlay\SpreadsheetSeeder\Tests;
 
-use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use bfinlay\SpreadsheetSeeder\Tests\Seeds\ClassicModelsSeeder;
 use bfinlay\SpreadsheetSeeder\Writers\Database\DestinationTable;
@@ -37,10 +36,35 @@ class SelectiveWorksheetTest extends TestCase
         $this->assertsCustomersMigration();
     }
 
+    /**
+     * @return SpreadsheetSeederSettings
+     */
+    protected function settings()
+    {
+        return resolve(SpreadsheetSeederSettings::class);
+    }
+
     public function test_all_tables_seeded_when_settings_worksheets_is_empty_array()
     {
-        $settings = resolve(SpreadsheetSeederSettings::class);
-        $settings->worksheets = [];
+        $this->settings()->worksheets = [];
+
+        $this->seed(ClassicModelsSeeder::class);
+
+        $this->assertTableHasExpectedData([
+            'customers',
+            'employees',
+            'offices',
+            'order_details',
+            'orders',
+            'payments',
+            'product_lines',
+            'products',
+        ]);
+    }
+
+    public function test_all_tables_seeded_when_settings_skipsheets_is_empty_array()
+    {
+        $this->settings()->skipSheets = [];
 
         $this->seed(ClassicModelsSeeder::class);
 
@@ -58,8 +82,25 @@ class SelectiveWorksheetTest extends TestCase
 
     public function test_all_tables_seeded_when_settings_worksheets_is_null()
     {
-        $settings = resolve(SpreadsheetSeederSettings::class);
-        $settings->worksheets = null;
+        $this->settings()->worksheets = null;
+
+        $this->seed(ClassicModelsSeeder::class);
+
+        $this->assertTableHasExpectedData([
+            'customers',
+            'employees',
+            'offices',
+            'order_details',
+            'orders',
+            'payments',
+            'product_lines',
+            'products',
+        ]);
+    }
+
+    public function test_all_tables_seeded_when_settings_skipsheets_is_null()
+    {
+        $this->settings()->skipSheets = null;
 
         $this->seed(ClassicModelsSeeder::class);
 
@@ -77,8 +118,25 @@ class SelectiveWorksheetTest extends TestCase
 
     public function test_all_tables_seeded_when_settings_worksheets_is_nonarray_string()
     {
-        $settings = resolve(SpreadsheetSeederSettings::class);
-        $settings->worksheets = "not_an_array";
+        $this->settings()->worksheets = "not_an_array";
+
+        $this->seed(ClassicModelsSeeder::class);
+
+        $this->assertTableHasExpectedData([
+            'customers',
+            'employees',
+            'offices',
+            'order_details',
+            'orders',
+            'payments',
+            'product_lines',
+            'products',
+        ]);
+    }
+
+    public function test_all_tables_seeded_when_settings_skipsheets_is_nonarray_string()
+    {
+        $this->settings()->skipSheets = "not_an_array";
 
         $this->seed(ClassicModelsSeeder::class);
 
@@ -96,8 +154,25 @@ class SelectiveWorksheetTest extends TestCase
 
     public function test_all_tables_seeded_when_settings_worksheets_is_nonarray_int()
     {
-        $settings = resolve(SpreadsheetSeederSettings::class);
-        $settings->worksheets = 42;
+        $this->settings()->worksheets = 42;
+
+        $this->seed(ClassicModelsSeeder::class);
+
+        $this->assertTableHasExpectedData([
+            'customers',
+            'employees',
+            'offices',
+            'order_details',
+            'orders',
+            'payments',
+            'product_lines',
+            'products',
+        ]);
+    }
+
+    public function test_all_tables_seeded_when_settings_skipsheets_is_nonarray_int()
+    {
+        $this->settings()->skipSheets = 42;
 
         $this->seed(ClassicModelsSeeder::class);
 
@@ -115,8 +190,37 @@ class SelectiveWorksheetTest extends TestCase
 
     public function test_only_specified_worksheets_have_data()
     {
-        $settings = resolve(SpreadsheetSeederSettings::class);
-        $settings->worksheets = ['offices', 'employees'];
+        $this->settings()->worksheets = ['offices', 'employees'];
+
+        $this->seed(ClassicModelsSeeder::class);
+
+        $this->assertTableHasExpectedData([
+            'offices',
+            'employees',
+        ]);
+
+        $emptyTables = [
+            'customers',
+            'order_details',
+            'orders',
+            'payments',
+            'product_lines',
+            'products',
+        ];
+
+        foreach ($emptyTables as $table) $this->assertEquals(0, \DB::table($table)->count());
+    }
+
+    public function test_only_specified_skipsheets_have_data()
+    {
+        $this->settings()->skipSheets = [
+            'customers',
+            'order_details',
+            'orders',
+            'payments',
+            'product_lines',
+            'products',
+        ];
 
         $this->seed(ClassicModelsSeeder::class);
 
@@ -139,8 +243,7 @@ class SelectiveWorksheetTest extends TestCase
 
     public function test_all_tables_empty_when_nonexistant_table_specified()
     {
-        $settings = resolve(SpreadsheetSeederSettings::class);
-        $settings->worksheets = ['nonexistant'];
+        $this->settings()->worksheets = ['nonexistant'];
 
 
         $emptyTables = [
@@ -296,15 +399,14 @@ class SelectiveWorksheetTest extends TestCase
             'products',
         ];
 
-        foreach (array_merge($testTables, $emptyTables) as $table) $this->assertEquals(0, \DB::table($table)->count());
+        foreach (array_merge($testTables, $emptyTables) as $table) $this->assertEquals(0, DB::table($table)->count());
 
-        $settings = resolve(SpreadsheetSeederSettings::class);
-        $settings->file = '/../../../../examples/classicmodels.xlsx';
+        $this->settings()->file = '/../../../../examples/classicmodels.xlsx';
         $this->artisan("xl:seed --class=# --sheet=offices --sheet=employees");
 
         $this->assertTableHasExpectedData($testTables);
 
-        foreach ($emptyTables as $table) $this->assertEquals(0, \DB::table($table)->count());
+        foreach ($emptyTables as $table) $this->assertEquals(0, DB::table($table)->count());
     }
 
     public function test_xl_seed_command_class_hash_argument()
@@ -323,15 +425,14 @@ class SelectiveWorksheetTest extends TestCase
             'products',
         ];
 
-        foreach (array_merge($testTables, $emptyTables) as $table) $this->assertEquals(0, \DB::table($table)->count());
+        foreach (array_merge($testTables, $emptyTables) as $table) $this->assertEquals(0, DB::table($table)->count());
 
-        $settings = resolve(SpreadsheetSeederSettings::class);
-        $settings->file = '/../../../../examples/classicmodels.xlsx';
+        $this->settings()->file = '/../../../../examples/classicmodels.xlsx';
         $this->artisan("xl:seed # offices employees");
 
         $this->assertTableHasExpectedData($testTables);
 
-        foreach ($emptyTables as $table) $this->assertEquals(0, \DB::table($table)->count());
+        foreach ($emptyTables as $table) $this->assertEquals(0, DB::table($table)->count());
     }
 
     public function test_xl_seed_command_class_spreadsheet_seeder_argument()
@@ -350,15 +451,14 @@ class SelectiveWorksheetTest extends TestCase
             'products',
         ];
 
-        foreach (array_merge($testTables, $emptyTables) as $table) $this->assertEquals(0, \DB::table($table)->count());
+        foreach (array_merge($testTables, $emptyTables) as $table) $this->assertEquals(0, DB::table($table)->count());
 
-        $settings = resolve(SpreadsheetSeederSettings::class);
-        $settings->file = '/../../../../examples/classicmodels.xlsx';
+        $this->settings()->file = '/../../../../examples/classicmodels.xlsx';
         $this->artisan("xl:seed SpreadsheetSeeder offices employees");
 
         $this->assertTableHasExpectedData($testTables);
 
-        foreach ($emptyTables as $table) $this->assertEquals(0, \DB::table($table)->count());
+        foreach ($emptyTables as $table) $this->assertEquals(0, DB::table($table)->count());
     }
 
     /**

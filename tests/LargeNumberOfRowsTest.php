@@ -68,7 +68,7 @@ class LargeNumberOfRowsTest extends TestCase
      * test passes
      * disabled by default because it takes 30 min to run.  remove "disabled_" to run.
      */
-    public function test_100k_xlsx_rows()
+    public function disabled_test_100k_xlsx_rows()
     {
         $this->should_run_large_rows_tests();
 

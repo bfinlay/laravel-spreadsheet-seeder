@@ -3,7 +3,10 @@
 
 namespace bfinlay\SpreadsheetSeeder\Writers\Database;
 
+use bfinlay\SpreadsheetSeeder\Readers\Types\EmptyCell;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
+use bfinlay\SpreadsheetSeeder\Support\ColumnInfo;
+use Composer\Semver\Semver;
 use Doctrine\DBAL\Schema\Column;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -38,9 +41,14 @@ class DestinationTable
      *
      * See methods in vendor/doctrine/dbal/lib/Doctrine/DBAL/Schema/Column.php
      *
-     * @var Column
+     * @var ColumnInfo[] $columnInfo
      */
-    private $doctrineColumns;
+    private $columnInfo;
+
+    /**
+     * @var array
+     */
+    private $primaryKey;
 
     public function __construct($name)
     {
@@ -48,6 +56,7 @@ class DestinationTable
         $this->settings = resolve(SpreadsheetSeederSettings::class);
 
         if ($this->exists() && $this->settings->truncate) $this->truncate();
+        $this->loadColumns();
     }
 
     public function getName() {
@@ -76,44 +85,57 @@ class DestinationTable
         if( $ignoreForeign ) Schema::enableForeignKeyConstraints();
     }
 
-    private function loadColumns() {
+    protected function loadColumns() {
         if (! isset($this->columns)) {
             $this->columns = DB::getSchemaBuilder()->getColumnListing( $this->name );
-            $doctrineColumns = DB::getSchemaBuilder()->getConnection()->getDoctrineSchemaManager()->listTableColumns($this->name);
+            $connection = DB::getSchemaBuilder()->getConnection();
 
+            $schemaBuilder = Schema::getFacadeRoot();
+            if (method_exists($schemaBuilder, "getColumns")) {
+                $columns = Schema::getColumns($this->name);
+            }
+            else {
+                $columns = DB::getSchemaBuilder()->getConnection()->getDoctrineSchemaManager()->listTableColumns($this->name);
+            }
             /*
              * Doctrine DBAL 2.11.x-dev does not return the column name as an index in the case of mixed case (or uppercase?) column names
              * In sqlite in-memory database, DBAL->listTableColumns() uses the lowercase version of the column name as a column index
              * In postgres, it uses the lowercase version of the mixed-case column name and places '"' around the name (for the mixed-case name only)
              * The solution here is to iterate through the columns to retrieve the column name and use that to build a new index.
              */
-            $this->doctrineColumns = [];
-            foreach ($doctrineColumns as $column) {
-                $this->doctrineColumns[$column->getName()] = $column;
+            $this->columnInfo = [];
+            foreach($columns as $column) {
+                $c = new ColumnInfo($column);
+                $this->columnInfo[$c->getName()] = $c;
             }
+
+            $indexes = DB::getSchemaBuilder()->getIndexes($this->name);
+            $indexes = collect($indexes);
+            $this->primaryKey = $indexes->first(function($value, $key) {
+                return $value['primary'] == true;
+            });
         }
     }
 
     public function getColumns() {
-        $this->loadColumns();
-
         return $this->columns;
     }
 
-    public function getColumnType($name) {
-        $this->loadColumns();
+    public function isPrimaryColumn($columnName)
+    {
+        return $this->primaryKey['columns'][0] == $columnName;
+    }
 
-        return $this->doctrineColumns[$name]->getType()->getName();
+    public function getColumnType($name) {
+        return $this->columnInfo[$name]->getType();
     }
 
     public function columnExists($columnName) {
-        $this->loadColumns();
-
         return in_array($columnName, $this->columns);
     }
 
-    private function transformNullCellValue($columnName, $value) {
-        if (is_null($value)) {
+    private function transformEmptyCellValue($columnName, $value) {
+        if ($value instanceof EmptyCell) {
             $value = $this->defaultValue($columnName);
         }
         return $value;
@@ -151,7 +173,9 @@ class DestinationTable
             $tableRow = [];
             foreach ($row as $column => $value) {
                 if ($this->columnExists($column)) {
-                    $tableRow[$column] = $this->transformNullCellValue($column, $value);
+                    // note: empty values are transformed into their defaults in order to do batch inserts.
+                    // laravel doesn't support DEFAULT keyword for insertion
+                    $tableRow[$column] = $this->transformEmptyCellValue($column, $value);
                     $tableRow[$column] = $this->transformDateCellValue($column, $tableRow[$column]);
                 }
             }
@@ -176,32 +200,40 @@ class DestinationTable
     }
 
     private function isDateColumn($column) {
-        $this->loadColumns();
-
-        $c = $this->doctrineColumns[$column];
+        $c = $this->columnInfo[$column];
 
         // if column is date or time type return
-        $doctrineDateValues = ['date', 'date_immutable', 'datetime', 'datetime_immutable', 'datetimez', 'datetimez_immutable', 'time', 'time_immutable', 'dateinterval'];
-        return in_array($c->getType()->getName(), $doctrineDateValues);
+        $dateColumnTypes = ['date', 'date_immutable', 'datetime', 'datetime_immutable', 'datetimez', 'datetimez_immutable', 'time', 'time_immutable', 'dateinterval', 'timestamp'];
+        return in_array($c->getType(), $dateColumnTypes);
+    }
+
+    public function isNumericColumn($column)
+    {
+        $c = $this->columnInfo[$column];
+
+        $numericTypes = ['smallint', 'integer', 'bigint', 'tinyint', 'decimal', 'float'];
+        if (in_array($c->getType(), $numericTypes)) return true;
+        return false;
+
     }
 
     public function defaultValue($column) {
-        $this->loadColumns();
-
-        $c = $this->doctrineColumns[$column];
+        $c = $this->columnInfo[$column];
 
         // return default value for column if set
-        if (! is_null($c->getDefault())) return $c->getDefault();
+        if (! is_null($c->getDefault())) {
+            if ($this->isNumericColumn($column)) return intval($c->getDefault());
+            return $c->getDefault();
+        }
 
         // if column is auto-incrementing return null and let database set the value
-        if ($c->getAutoincrement()) return null;
+        if ($c->getAutoIncrement()) return null;
 
         // if column accepts null values, return null
-        if (! $c->getNotnull()) return null;
+        if ($c->getNullable()) return null;
 
         // if column is numeric, return 0
-        $doctrineNumericValues = ['smallint', 'integer', 'bigint', 'decimal', 'float'];
-        if (in_array($c->getType()->getName(), $doctrineNumericValues)) return 0;
+        if ($this->isNumericColumn($column)) return 0;
 
         // if column is date or time type return
         if ($this->isDateColumn($column)) {
@@ -210,7 +242,7 @@ class DestinationTable
         }
 
         // if column is boolean return false
-        if ($c->getType()->getName() == "boolean") return false;
+        if ($c->getType() == "boolean") return false;
 
         // else return empty string
         return "";
