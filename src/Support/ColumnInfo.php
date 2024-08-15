@@ -45,7 +45,11 @@ class ColumnInfo
         $this->comment = $column["comment"] ?? null;
         $this->generation = $column["generation"] ?? null;
 
-        if (is_string($this->default)) $this->default = Str::unwrap($this->default, "'");
+        if (is_string($this->default)) {
+            $this->default = Str::between($this->default, "'", "'");
+//            $this->default = Str::replaceLast('::bpchar', '', $this->default);
+//            $this->default = Str::unwrap($this->default, "'");
+        }
     }
 
     public function getName()

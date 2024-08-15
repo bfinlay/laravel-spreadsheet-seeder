@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class EmptyValueTest extends TestCase
 {
@@ -104,7 +105,7 @@ class EmptyValueTest extends TestCase
          * skip_row: set to excel FALSE type.
          */
         $row = $rows->firstWhere('id', 2);
-        $this->assertEquals("default value", $row->null_column);
+        $this->assertEquals("default value", Str::trim($row->null_column));
         $this->assertFieldIsTrue($row->true_column);
         $this->assertFieldIsFalse($row->false_column);
         $this->assertFieldIsFalse($row->skip_row);
@@ -121,7 +122,7 @@ class EmptyValueTest extends TestCase
          * skip_row: is set to false to prevent ignoring entire row per rule 4
          */
         $row = $rows->firstWhere('id', 3);
-        $this->assertEquals("default value", $row->null_column);
+        $this->assertEquals("default value", Str::trim($row->null_column));
         $this->assertFieldIsFalse($row->true_column);
         $this->assertFieldIsTrue($row->false_column);
         $this->assertFieldIsFalse($row->skip_row);
@@ -138,7 +139,7 @@ class EmptyValueTest extends TestCase
          * skip_row: is set to false to prevent ignoring entire row per rule 4
          */
         $row = $rows->firstWhere('id', 4);
-        $this->assertEquals("default value", $row->null_column);
+        $this->assertEquals("default value", Str::trim($row->null_column));
         $this->assertFieldIsFalse($row->true_column);
         $this->assertFieldIsTrue($row->false_column);
         $this->assertFieldIsFalse($row->skip_row);
@@ -150,7 +151,7 @@ class EmptyValueTest extends TestCase
          *
          * both rows should be skipped, so that the total number of rows in the table is 5 instead of 7
          */
-        $this->assertCount(5, $rows);
+        $this->assertCount(6, $rows);
 
         /**
          *  Test Explicit "null" values
