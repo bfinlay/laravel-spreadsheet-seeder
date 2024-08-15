@@ -130,6 +130,18 @@ class SpreadsheetSeederSettings
 
     /*
      * --------------------------------------------------------------------------
+     *  Empty String is Empty Cell
+     * --------------------------------------------------------------------------
+     *
+     * If a cell contains an empty string `""` treat it as an empty cell
+     *
+     * Default: "true"
+     *
+     */
+    public $emptyStringIsEmptyCell = true;
+
+    /*
+     * --------------------------------------------------------------------------
      *  Data Source File Default Extension
      * --------------------------------------------------------------------------
      * 

@@ -11,13 +11,6 @@
 	"license": "MIT",
 	"minimum-stability": "stable",
 	"prefer-stable": true,
-	"require-original": {
-		"php": ">=7.1.3",
-		"laravel/framework": ">=5.8",
-		"phpoffice/phpspreadsheet": "~1.7",
-		"doctrine/dbal": "^2.6|^3.0",
-		"composer/semver": "*"
-	},
 	"require": {
 		"php": ">=7.1.3",
 		"laravel/framework": ">=5.8",
@@ -38,7 +31,7 @@
 	"require-dev": {
 		"orchestra/testbench": "*",
 		"orchestra/testbench-core": "^3.0|^4.0|^5.0|~6.48.0|~7.41.0|~8.22.0|^9.0",
-		"bfinlay/laravel-excel-seeder-test-data": "=2.3.1",
+		"bfinlay/laravel-excel-seeder-test-data": "=3.4.1",
 		"symplify/easy-ci": "11.1.5",
 		"angel-source-labs/laravel-expression-grammar": "*"
 	},

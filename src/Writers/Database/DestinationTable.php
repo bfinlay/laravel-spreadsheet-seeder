@@ -3,6 +3,7 @@
 
 namespace bfinlay\SpreadsheetSeeder\Writers\Database;
 
+use bfinlay\SpreadsheetSeeder\Readers\Types\EmptyCell;
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederSettings;
 use bfinlay\SpreadsheetSeeder\Support\ColumnInfo;
 use Composer\Semver\Semver;
@@ -44,12 +45,18 @@ class DestinationTable
      */
     private $columnInfo;
 
+    /**
+     * @var array
+     */
+    private $primaryKey;
+
     public function __construct($name)
     {
         $this->name = $name;
         $this->settings = resolve(SpreadsheetSeederSettings::class);
 
         if ($this->exists() && $this->settings->truncate) $this->truncate();
+        $this->loadColumns();
     }
 
     public function getName() {
@@ -102,50 +109,33 @@ class DestinationTable
                 $this->columnInfo[$c->getName()] = $c;
             }
 
-            // getIndexes can be used to identify the primary key for upserts
-            // $indexes[0]["primary"] = true
-            // $indexes[0]["unique"] = true
-            // $indexes[0]["columns"] = ["id"] // this is an array of all columns in the index
-//            $indexes = DB::getSchemaBuilder()->getIndexes($this->name);
-//            $indexListing = DB::getSchemaBuilder()->getIndexListing($this->name);
+            $indexes = DB::getSchemaBuilder()->getIndexes($this->name);
+            $indexes = collect($indexes);
+            $this->primaryKey = $indexes->first(function($value, $key) {
+                return $value['primary'] == true;
+            });
         }
     }
 
-//    protected function transformDoctrineColumn(Column $column)
-//    {
-//        return [
-//            "name" => $column->getName(),
-//            "type_name" => $column->getType()->getName(),
-//            "type" => $column->getType()->getName(),
-//            "collation" => null, // todo determine how to access collation in DBAL
-//            "nullable" => $column->getNotnull(),
-//            "default" => $column->getDefault(),
-//            "auto_increment" => $column->getAutoincrement(),
-//            "comment" => $column->getComment(),
-//            "generation" => null // todo determine how to access generation in DBAL
-//        ];
-//    }
-
     public function getColumns() {
-        $this->loadColumns();
-
         return $this->columns;
     }
 
-    public function getColumnType($name) {
-        $this->loadColumns();
+    public function isPrimaryColumn($columnName)
+    {
+        return $this->primaryKey['columns'][0] == $columnName;
+    }
 
+    public function getColumnType($name) {
         return $this->columnInfo[$name]->getType();
     }
 
     public function columnExists($columnName) {
-        $this->loadColumns();
-
         return in_array($columnName, $this->columns);
     }
 
-    private function transformNullCellValue($columnName, $value) {
-        if (is_null($value)) {
+    private function transformEmptyCellValue($columnName, $value) {
+        if ($value instanceof EmptyCell) {
             $value = $this->defaultValue($columnName);
         }
         return $value;
@@ -183,7 +173,9 @@ class DestinationTable
             $tableRow = [];
             foreach ($row as $column => $value) {
                 if ($this->columnExists($column)) {
-                    $tableRow[$column] = $this->transformNullCellValue($column, $value);
+                    // note: empty values are transformed into their defaults in order to do batch inserts.
+                    // laravel doesn't support DEFAULT keyword for insertion
+                    $tableRow[$column] = $this->transformEmptyCellValue($column, $value);
                     $tableRow[$column] = $this->transformDateCellValue($column, $tableRow[$column]);
                 }
             }
@@ -208,8 +200,6 @@ class DestinationTable
     }
 
     private function isDateColumn($column) {
-        $this->loadColumns();
-
         $c = $this->columnInfo[$column];
 
         // if column is date or time type return
@@ -217,13 +207,24 @@ class DestinationTable
         return in_array($c->getType(), $dateColumnTypes);
     }
 
-    public function defaultValue($column) {
-        $this->loadColumns();
+    public function isNumericColumn($column)
+    {
+        $c = $this->columnInfo[$column];
 
+        $numericTypes = ['smallint', 'integer', 'bigint', 'tinyint', 'decimal', 'float'];
+        if (in_array($c->getType(), $numericTypes)) return true;
+        return false;
+
+    }
+
+    public function defaultValue($column) {
         $c = $this->columnInfo[$column];
 
         // return default value for column if set
-        if (! is_null($c->getDefault())) return $c->getDefault();
+        if (! is_null($c->getDefault())) {
+            if ($this->isNumericColumn($column)) return intval($c->getDefault());
+            return $c->getDefault();
+        }
 
         // if column is auto-incrementing return null and let database set the value
         if ($c->getAutoIncrement()) return null;
@@ -232,8 +233,7 @@ class DestinationTable
         if ($c->getNullable()) return null;
 
         // if column is numeric, return 0
-        $numericTypes = ['smallint', 'integer', 'bigint', 'decimal', 'float'];
-        if (in_array($c->getType(), $numericTypes)) return 0;
+        if ($this->isNumericColumn($column)) return 0;
 
         // if column is date or time type return
         if ($this->isDateColumn($column)) {

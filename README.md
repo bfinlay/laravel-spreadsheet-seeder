@@ -236,7 +236,7 @@ See [Text Output](#text-output) for more information.
 * [Text Output Path](#text-output-path) - path for text output
 * [Timestamps](#timestamps) - when true, set the Laravel timestamp columns 'created_at' and 'updated_at' with current date/time (default: true)
 * [Truncate](#truncate-destination-table) - truncate the table before seeding (default: true)
-* [Truncate Ignore Foreign Key Constraints](#truncate-ignore-foreign) - truncate the table before seeding (default: true)
+* [Truncate Ignore Foreign Key Constraints](#truncate-destination-table-ignoring-foreign-key-constraints) - truncate the table before seeding (default: true)
 * [Unix Timestamps](#unix-timestamps) - interpret date/time values as unix timestamps instead of excel timestamps for specified columns (default: no columns)
 * [UUID](#uuid) - array of column names that the seeder will generate a UUID for.
 * [Validate](#validate) - map column names to laravel validation rules

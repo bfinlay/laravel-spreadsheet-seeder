@@ -3,6 +3,7 @@
 namespace bfinlay\SpreadsheetSeeder\Support;
 
 use Doctrine\DBAL\Schema\Column;
+use Illuminate\Support\Str;
 
 class ColumnInfo
 {
@@ -39,10 +40,12 @@ class ColumnInfo
         $this->type = $column["type"] ?? null;
         $this->collation = $column["collation"] ?? null;
         $this->nullable = $column["nullable"] ?? null;
-        $this->default = $column["default"] ?? null;
+        $this->default =  $column["default"] ?? null;
         $this->autoIncrement = $column["auto_increment"] ?? null;
         $this->comment = $column["comment"] ?? null;
         $this->generation = $column["generation"] ?? null;
+
+        if (is_string($this->default)) $this->default = Str::unwrap($this->default, "'");
     }
 
     public function getName()
