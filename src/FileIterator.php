@@ -36,7 +36,7 @@ class FileIterator extends \AppendIterator
                 $glob = dirname($glob) . "/*." . $this->settings->extension;
             }
 
-            $it = new \GlobIterator(base_path() . $glob, $flags);
+            $it = new \GlobIterator(base_path($glob), $flags);
             $this->append($it);
             $this->count += $it->count();
         }

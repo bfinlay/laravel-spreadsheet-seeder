@@ -3,9 +3,6 @@
 namespace bfinlay\SpreadsheetSeeder\Tests;
 
 use bfinlay\SpreadsheetSeeder\SpreadsheetSeederServiceProvider;
-use bfinlay\SpreadsheetSeeder\Tests\LargeNumberOfRowsTest;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\ClassicModelsSeeder;
-use bfinlay\SpreadsheetSeeder\Tests\Seeds\LimitTest\LimitSeeder;
 use bfinlay\SpreadsheetSeeder\Writers\Text\TextOutputFileRepository;
 use Orchestra\Testbench\TestCase;
 use PHPUnit\Runner\Version;

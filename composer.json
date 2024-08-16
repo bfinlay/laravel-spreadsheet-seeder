@@ -21,18 +21,12 @@
 	"repositories-disabled": [
 		{
 			"type": "path",
-			"url": "../laravel-excel-seeder-test-data"
-		},
-		{
-			"type": "path",
 			"url": "~/development/laravel-expression-grammar"
 		}
 	],
 	"require-dev": {
 		"orchestra/testbench": "*",
 		"orchestra/testbench-core": "^3.0|^4.0|^5.0|~6.48.0|~7.41.0|~8.22.0|^9.0",
-		"bfinlay/laravel-excel-seeder-test-data": "=3.4.1",
-		"symplify/easy-ci": "11.1.5",
 		"angel-source-labs/laravel-expression-grammar": "*"
 	},
 	"autoload": {

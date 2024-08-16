@@ -7,6 +7,29 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
+    public function relativeTestsPath($path = null)
+    {
+        return TestsPath::relative($path);
+    }
+
+    public function relativeTestsPathAndClassName()
+    {
+        $dir = $this->relativeTestsPath(class_basename($this));
+        return is_dir(base_path($dir)) ? $dir : $this->relativeTestsPath();
+    }
+
+    public function absoluteTestsPath($path = null)
+    {
+        return TestsPath::absolute($path);
+    }
+
+    public function absoluteTestsPathAndClassName()
+    {
+        $dir = $this->absoluteTestsPath(class_basename($this));
+        return is_dir($dir) ? $dir : $this->absoluteTestsPath();
+    }
+
+
     /**
      * Setup the test environment.
      */
