@@ -12,19 +12,21 @@ class StrMacros
         self::registerBetweenMacro();
         self::registerIsUuidMacro();
         self::registerUnwrapMacro();
+        self::registerTrimMacro();
     }
 
-    public static function registerBeforeLastMacro() {
+    public static function registerBeforeLastMacro()
+    {
         if (method_exists(Str::class, "beforeLast")) return;
 
         /**
          * Get the portion of a string before the last occurrence of a given value.
          *
-         * @param  string  $subject
-         * @param  string  $search
+         * @param string $subject
+         * @param string $search
          * @return string
          */
-        Str::macro('beforeLast', function($subject, $search) {
+        Str::macro('beforeLast', function ($subject, $search) {
             if ($search === '') {
                 return $subject;
             }
@@ -39,18 +41,19 @@ class StrMacros
         });
     }
 
-    public static function registerBetweenMacro() {
+    public static function registerBetweenMacro()
+    {
         if (method_exists(Str::class, "between")) return;
 
         /**
          * Get the portion of a string between two given values.
          *
-         * @param  string  $subject
-         * @param  string  $from
-         * @param  string  $to
+         * @param string $subject
+         * @param string $from
+         * @param string $to
          * @return string
          */
-        Str::macro('between', function($subject, $from, $to) {
+        Str::macro('between', function ($subject, $from, $to) {
             if ($from === '' || $to === '') {
                 return $subject;
             }
@@ -67,10 +70,10 @@ class StrMacros
         /**
          * Determine if a given value is a valid UUID.
          *
-         * @param  mixed  $value
+         * @param mixed $value
          * @return bool
          */
-        Str::macro('isUuid', function($value) {
+        Str::macro('isUuid', function ($value) {
             if (!is_string($value)) {
                 return false;
             }
@@ -86,12 +89,12 @@ class StrMacros
         /**
          * Unwrap the string with the given strings.
          *
-         * @param  string  $value
-         * @param  string  $before
-         * @param  string|null  $after
+         * @param string $value
+         * @param string $before
+         * @param string|null $after
          * @return string
          */
-        Str::macro('unwrap', function($value, $before, $after = null) {
+        Str::macro('unwrap', function ($value, $before, $after = null) {
             if (static::startsWith($value, $before)) {
                 $value = static::substr($value, static::length($before));
             }
@@ -101,6 +104,27 @@ class StrMacros
             }
 
             return $value;
+        });
+    }
+
+
+    public static function registerTrimMacro()
+    {
+        if (method_exists(Str::class, "trim")) return;
+
+        /**
+         * Remove all whitespace from both ends of a string.
+         *
+         * @param string $value
+         * @param string|null $charlist
+         * @return string
+         */
+        Str::macro('trim', function ($value, $charlist = null) {
+            if ($charlist === null) {
+                return preg_replace('~^[\s\x{FEFF}\x{200B}\x{200E}]+|[\s\x{FEFF}\x{200B}\x{200E}]+$~u', '', $value) ?? trim($value);
+            }
+
+            return trim($value, $charlist);
         });
     }
 }
