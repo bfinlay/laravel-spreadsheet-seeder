@@ -22,7 +22,7 @@ class CreateDateTimeTestTable extends Migration
             $table->dateTime('unix_format')->nullable();
             $table->dateTime('string_format_1',3)->nullable();
             $table->dateTime('string_format_2')->nullable();
-            $table->dateTime('default_value')->nullable()->default('2024-08-15 13:49:02.440000000');
+            $table->dateTime('default_value')->nullable()->default('2024-08-15 13:49:02');
             $table->text('test');
 
             $table->timestamps();

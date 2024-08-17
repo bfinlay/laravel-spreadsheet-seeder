@@ -227,8 +227,11 @@ class DestinationTable
     public function defaultValue($column) {
         $c = $this->columnInfo[$column];
 
+        // MariaDB returns 'NULL' instead of null like mysql, sqlite, and postgres
+        $isNull = is_null($c->getDefault()) || $c->getDefault() == 'NULL';
+
         // return default value for column if set
-        if (! is_null($c->getDefault())) {
+        if (! $isNull ) {
             if ($this->isNumericColumn($column)) return intval($c->getDefault());
             return $c->getDefault();
         }
