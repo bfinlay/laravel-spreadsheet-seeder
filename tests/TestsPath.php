@@ -16,6 +16,12 @@ class TestsPath
         return self::relative($path);
     }
 
+    public static function largeRowsForSettings($path = null)
+    {
+        $p = ($path ? '/' . $path : '');
+        return self::forSettings('../vendor/bfinlay/laravel-excel-seeder-test-data/LargeNumberOfRowsTest' . $p);
+    }
+
     public static function absolute($path = null)
     {
         return $path ? __DIR__ . '/' . $path : __DIR__;

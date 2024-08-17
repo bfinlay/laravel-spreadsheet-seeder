@@ -11,7 +11,7 @@ class FakeNames100kXlsxSeeder extends SpreadsheetSeeder
 {
     public function settings(SpreadsheetSeederSettings $set)
     {
-        $set->file = TestsPath::forSettings('LargeNumberOfRowsTest/fake_names_100k.xlsx');
+        $set->file = TestsPath::largeRowsForSettings('fake_names_100k.xlsx');
         $set->tablename = 'fake_names';
         $set->aliases = ['Number' => 'id'];
         $set->textOutput = false;
