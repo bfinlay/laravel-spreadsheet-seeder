@@ -109,11 +109,18 @@ class DestinationTable
                 $this->columnInfo[$c->getName()] = $c;
             }
 
-            $indexes = DB::getSchemaBuilder()->getIndexes($this->name);
-            $indexes = collect($indexes);
-            $this->primaryKey = $indexes->first(function($value, $key) {
-                return $value['primary'] == true;
-            });
+            /*
+             * The primaryKey is used by isPrimaryColumn() which is not currently used.   This may support future features like
+             * ignoring the primary key column in determining if a row in a spreadsheet is empty and should be skipped.
+             * getIndexes() is only available in Laravel 10.x and up.  TODO find alternative for older Laravel versions.
+             */
+            if (method_exists($schemaBuilder, "getIndexes")) {
+                $indexes = DB::getSchemaBuilder()->getIndexes($this->name);
+                $indexes = collect($indexes);
+                $this->primaryKey = $indexes->first(function($value, $key) {
+                    return $value['primary'] == true;
+                });
+            }
         }
     }
 

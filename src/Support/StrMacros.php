@@ -11,7 +11,6 @@ class StrMacros
         self::registerBeforeLastMacro();
         self::registerBetweenMacro();
         self::registerIsUuidMacro();
-        self::registerUnwrapMacro();
         self::registerTrimMacro();
     }
 
@@ -81,32 +80,6 @@ class StrMacros
             return preg_match('/^[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}$/D', $value) > 0;
         });
     }
-
-    public static function registerUnwrapMacro()
-    {
-        if (method_exists(Str::class, "unwrap")) return;
-
-        /**
-         * Unwrap the string with the given strings.
-         *
-         * @param string $value
-         * @param string $before
-         * @param string|null $after
-         * @return string
-         */
-        Str::macro('unwrap', function ($value, $before, $after = null) {
-            if (static::startsWith($value, $before)) {
-                $value = static::substr($value, static::length($before));
-            }
-
-            if (static::endsWith($value, $after ??= $before)) {
-                $value = static::substr($value, 0, -static::length($after));
-            }
-
-            return $value;
-        });
-    }
-
 
     public static function registerTrimMacro()
     {
