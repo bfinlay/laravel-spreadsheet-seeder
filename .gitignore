@@ -2,7 +2,8 @@ vendor
 composer.lock
 
 .idea
-.phpunit.result.cache
+.phpunit*
+.ignore
 .*.tmp
 ~$*.xlsx
 .DS_Store

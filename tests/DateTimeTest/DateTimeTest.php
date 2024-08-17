@@ -110,7 +110,7 @@ class DateTimeTest extends TestCase
     public function assertDateEqualsDefaultValue($date)
     {
         $this->assertEquals(
-            (new Carbon('2024-08-15 13:49:02.440000000'))->roundSeconds(),
+            (new Carbon('2024-08-15 13:49:02'))->roundSeconds(),
             (new Carbon($date))->roundSeconds()
         );
     }
