@@ -121,13 +121,13 @@ jobs:
       - name: List Database Containers
         run: docker compose ps
 
-      - name: Run SQLite PHPUnit Unit Tests
+      - name: Run SQLite PHPUnit Tests
         run: vendor/phpunit/phpunit/phpunit tests
-      - name: Run MySQL PHPUnit Unit Tests
+      - name: Run MySQL PHPUnit Tests
         run: vendor/phpunit/phpunit/phpunit --configuration phpunit-mysql.xml tests
-      - name: Run MariaDB PHPUnit Unit Tests
+      - name: Run MariaDB PHPUnit Tests
         run: vendor/phpunit/phpunit/phpunit --configuration phpunit-mariadb.xml tests
-      - name: Run Postgres PHPUnit Unit Tests
+      - name: Run Postgres PHPUnit Tests
         run: vendor/phpunit/phpunit/phpunit --configuration phpunit-postgres.xml tests
 
       - name: 'App Package-Inclusion Test: Create Laravel Project'

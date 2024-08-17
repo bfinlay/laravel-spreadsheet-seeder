@@ -228,7 +228,7 @@ class DestinationTable
         $c = $this->columnInfo[$column];
 
         // MariaDB returns 'NULL' instead of null like mysql, sqlite, and postgres
-        $isNull = is_null($c->getDefault()) || $c->getDefault() == 'NULL';
+        $isNull = is_null($c->getDefault()) || $c->getDefault() === 'NULL';
 
         // return default value for column if set
         if (! $isNull ) {
